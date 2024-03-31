@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Navigation } from '@/components/Header/navigation'
+import { Navigation } from '@/components/Header/Navigation'
 import { SearchBar } from '@/components/Header/SearchBar'
-import { UserMenu } from '@/components/Header/user-menu'
+import { UserMenu } from '@/components/Header/UserMenu'
 
 </script>
 

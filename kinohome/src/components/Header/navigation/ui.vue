@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-import { BurgerMenu } from '@/components/Header/BurgerMenu'; // убедитесь, что правильно импортируете компонент
+import { BurgerMenu } from '@/components/Header/BurgerMenu'; 
 
 const windowWidth = ref(window.innerWidth);
 const isMobile = computed(() => windowWidth.value < 1024); 
@@ -9,7 +9,7 @@ const updateWindowWidth = () => {
   windowWidth.value = window.innerWidth;
 };
 
-// Добавляем обработчики событий при монтировании компонента.
+
 onMounted(() => {
   window.addEventListener('resize', updateWindowWidth); 
   updateWindowWidth();

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
 import defaultAvatar from '@/assets/icons/user_icon.png';
 
 const user = reactive({
@@ -12,12 +11,14 @@ const user = reactive({
 
 const showPopup = ref(false);
 
-/*const goToLogin = () => {
-  window.location.href = '/login';
-};*/
-
 const togglePopup = () => {
   showPopup.value = !showPopup.value;
+};
+
+const onClickOutside = (event: MouseEvent) => {
+  if (showPopup.value && event.target instanceof Node && !document.querySelector('.popup')?.contains(event.target)) {
+   showPopup.value = false;
+  }
 };
 
 const logout = () => {
@@ -27,20 +28,26 @@ const logout = () => {
 };
 
 
+onMounted(() => {
+  document.addEventListener('mousedown', onClickOutside);
+});
 
+onBeforeUnmount(() => {
+  document.removeEventListener('mousedown', onClickOutside);
+});
 </script>
 
 <template>
     <div>
         <div v-if="!user.isAuthenticated">
-        <router-link to="/login">
-            <button
-            class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-700"
-            
-        >
-            Войти
-        </button>
-        </router-link>
+            <router-link to="/login">
+                <button
+                class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-700"
+                
+            >
+                Войти
+            </button>
+            </router-link>
         </div>
         <div v-else class="relative">
             <div class="px-1 cursor-pointer">
@@ -51,7 +58,7 @@ const logout = () => {
                 @click="togglePopup"
             />
             </div>
-            <div v-if="showPopup" class="popup absolute z-10 w-full bg-[#292929] mt-1 rounded shadow-2xl">
+            <div v-if="showPopup" v-show="showPopup" @click.self="showPopup = false" class="popup absolute z-10 w-full bg-[#292929] mt-1 rounded shadow-2xl">
                 <div class="flex flex-col px-1 py-1 border-b">
                     <div class="flex items-center justify-between py-1">
                         <img

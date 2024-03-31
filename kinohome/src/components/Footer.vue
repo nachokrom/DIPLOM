@@ -24,16 +24,16 @@
         <!-- Колонка №2: Разделы -->
         <div class="flex flex-col md:-mr-2">
           <p class="font-bold mb-2">Разделы</p>
-          <router-link to="/rules" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Правила сайта</router-link>
-          <router-link to="/rules" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Авторское право</router-link>
-          <router-link to="/rules" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">О нас</router-link>
-          <router-link to="/rules" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Вакансии</router-link>
+          <router-link to="/" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Правила сайта</router-link>
+          <router-link to="/" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Авторское право</router-link>
+          <router-link to="/" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">О нас</router-link>
+          <router-link to="/" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Вакансии</router-link>
         </div>
 
         <!-- Колонка №3: Информация -->
         <div class="flex flex-col md:-ml-2">
           <p class="font-bold mb-2">Информация</p>
-          <router-link to="/terms" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Пользовательское соглашение</router-link>
+          <router-link to="/" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Пользовательское соглашение</router-link>
         </div> 
 
         <!-- Колонка №4: Контакты и соцсети -->

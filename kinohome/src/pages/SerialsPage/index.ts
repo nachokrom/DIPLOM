@@ -1,1 +1,0 @@
-export { default as SerialsPage } from './ui.vue';
