@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'; 
 
 interface SearchResult {
   id: number;
@@ -13,14 +13,13 @@ const isFocused = ref(false);
 const searchResults = ref<SearchResult[]>([]);
 
 const fetchResults = async () => {
-  // Очистка предыдущих результатов
   searchResults.value = [];
 
   if (searchQuery.value) {
     try {
       // Здесь ваш код запроса на сервер или API для получения данных
 
-      // Имитация получения данных
+      
       searchResults.value = [
         { id: 1, title: 'Фильм 1', poster: 'https://placehold.it/10x15' },
         { id: 2, title: 'Фильм 2', poster: 'https://placehold.it/10x15' },
@@ -34,7 +33,7 @@ const fetchResults = async () => {
 
 // Здесь должна быть логика для перехода на страницу с результатами поиска
 const navigateToSearchPage = () => {
-  // Здесь должен быть ваш код для навигации, например:
+  // Здесь должен быть код для навигации, например:
   //router.push(/search?query=${searchQuery.value})
 };
 </script>
@@ -77,7 +76,7 @@ const navigateToSearchPage = () => {
 
 <style scoped>
 
-@media (max-width: 677px) {
+@media (max-width: 1024px) {
   .relative {
     display: none;
   }

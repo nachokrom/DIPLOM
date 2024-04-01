@@ -100,7 +100,7 @@ onBeforeUnmount(() => {
     padding: 1rem;
     width: 160px;
     right: 0;
-    top: 175%;
+    top: 140%;
     z-index: 10;
 }
 
