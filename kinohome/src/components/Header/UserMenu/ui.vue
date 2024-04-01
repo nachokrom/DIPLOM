@@ -100,12 +100,18 @@ onBeforeUnmount(() => {
     padding: 1rem;
     width: 160px;
     right: 0;
-    top: 140%;
+    top: 170%;
     z-index: 10;
 }
 
 .avatar-image {
     width: 32px;
     height: 32px;
+}
+
+@media (max-width: 1024px) {
+    .popup {
+        top: 140%;
+    }
 }
 </style>
