@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import Cast from "./Cast";
-import Images from "./Images";
-import MediaModel from "../models/MediaModel";
+import Cast from "@/Cast.vue";
+import Images from "@/Images.vue";
+import MediaModel from "@/models/MediaModel.vue";
 
 export default {
   components: {
