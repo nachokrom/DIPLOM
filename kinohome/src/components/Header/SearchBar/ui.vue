@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'; 
+import { ref } from 'vue';
+//import { ApiKeyMovie,  BaseUrlMovie} from '@/constants';
 
 interface SearchResult {
   id: number;
@@ -18,12 +19,13 @@ const fetchResults = async () => {
   if (searchQuery.value) {
     try {
       // Здесь ваш код запроса на сервер или API для получения данных
-
+      /*const response = await this.$http.get("");
+      this.searchResults = response.data.results;*/
       
-      searchResults.value = [
+      /*searchResults.value = [
         { id: 1, title: 'Фильм 1', poster: 'https://placehold.it/10x15' },
         { id: 2, title: 'Фильм 2', poster: 'https://placehold.it/10x15' },
-      ];
+      ];*/
 
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
