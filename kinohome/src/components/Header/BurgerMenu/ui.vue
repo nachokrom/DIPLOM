@@ -115,7 +115,7 @@ const navigateToSearchPage = () => {
             <router-link to="/" class="block px-5 py-2 rounded hover:bg-blue-700">Главная</router-link>
             <router-link to="/movies" class="block px-5 py-2 rounded hover:bg-blue-700">Фильмы</router-link>
             <router-link to="/serials" class="block px-5 py-2 rounded hover:bg-blue-700">Сериалы</router-link>
-            <router-link to="/news" class="block px-5 py-2 rounded hover:bg-blue-700">Новинки</router-link>
+            <router-link to="/cartoons" class="block px-5 py-2 rounded hover:bg-blue-700">Мультфильмы</router-link>
           </nav>
         </div>
       </div>

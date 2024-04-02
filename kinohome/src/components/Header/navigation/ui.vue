@@ -39,7 +39,7 @@ onBeforeUnmount(() => {
             <router-link to="/" class="nav_item r-5 hover:underline">Главная</router-link>
             <router-link to="/movies" class="nav_item mr-5 hover:underline">Фильмы</router-link>
             <router-link to="/serials" class="nav_item mr-5 hover:underline">Сериалы</router-link>
-            <router-link to="/news" class="nav_item mr-5 hover:underline">Новинки</router-link>
+            <router-link to="/cartoons" class="nav_item mr-5 hover:underline">Мультфильмы</router-link>
           </nav>
         </div>
 
