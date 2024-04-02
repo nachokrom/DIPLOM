@@ -26,7 +26,7 @@ import Footer from '@/components/Footer.vue';
                 <button class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">Зарегистрироваться</button>
                 </form>
                 <p class="text-gray-600 text-xs mt-2 text-center">
-                Нажимая «Зарегистрироваться», я соглашаюсь с 
+                Нажимая «Зарегистрироваться», вы соглашаетесь с 
                 <a href="/privacy-policy" class="text-gray-600 underline hover:text-[#1976d2]">Политикой конфиденциальности</a> 
                 и 
                 <a href="/user-agreement" class="text-gray-600 underline hover:text-[#1976d2]">Пользовательским соглашением</a>
