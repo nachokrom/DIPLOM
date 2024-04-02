@@ -3,7 +3,7 @@ import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
 import defaultAvatar from '@/assets/icons/user_icon.png';
 
 const user = reactive({
-  isAuthenticated: true,
+  isAuthenticated: false,
   name: 'Роман',
   avatar: defaultAvatar,
   role: 'Администратор'
