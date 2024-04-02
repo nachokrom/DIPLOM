@@ -7,7 +7,7 @@ import Footer from '@/components/Footer.vue';
 <template>
 
     <Header />
-    123
-    <Footer />
+    <p class="text-white">123</p>
+    <Footer class="absolute bottom-0"/>
 
 </template>
