@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage  from '@/pages/HomePage.vue'
 import MoviesPage  from '@/pages/MoviesPage.vue'
 import SerialsPage from '@/pages/SerialsPage.vue'
-import NewsPage  from '@/pages/NewsPage.vue'
+import MultPage  from '@/pages/MultPage.vue'
 import ProfilePage  from '@/pages/ProfilePage.vue'
 import FavoritePage  from '@/pages/FavoritePage.vue'
+import LoginPage from '@/pages/LoginPage.vue'
+import RegisterPage from '@/pages/RegisterPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,9 +27,9 @@ const router = createRouter({
       component: SerialsPage
     },
     {
-      path: '/news',
-      name: 'news',
-      component: NewsPage
+      path: '/cartoons',
+      name: 'cartoons',
+      component: MultPage
     },
     {
       path: '/profile',
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/favorite',
       name: 'favorite',
       component: FavoritePage
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginPage
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPage
     },
   ]
 })
