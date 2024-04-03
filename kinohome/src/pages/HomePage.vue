@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import  Header  from '@/components/Header/ui.vue';
+import Card from '@/components/Card.vue';
 import Footer from '@/components/Footer.vue';
 
 </script>
@@ -7,7 +8,9 @@ import Footer from '@/components/Footer.vue';
 <template>
 
     <Header />
-    <p class="text-white">123</p>
+    <main>
+        <Card />
+    </main>
     <Footer class="absolute bottom-0"/>
 
 </template>
