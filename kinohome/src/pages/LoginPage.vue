@@ -4,7 +4,6 @@ import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-
     <Header />
     <main class="main-back pt-32 pb-32">
         <div class="flex items-center justify-center">
@@ -43,6 +42,8 @@ import Footer from '@/components/Footer.vue';
 
 .main-back {
     background: url('../assets/img/bg.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 </style>

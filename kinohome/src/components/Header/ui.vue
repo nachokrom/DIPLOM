@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Navigation } from '@/components/Header/Navigation'
-import { SearchBar } from '@/components/Header/SearchBar'
-import { UserMenu } from '@/components/Header/UserMenu'
+import  Navigation  from '@/components/Header/Navigation/ui.vue'
+import  SearchBar  from '@/components/Header/SearchBar/ui.vue'
+import  UserMenu  from '@/components/Header/UserMenu/ui.vue'
 
 </script>
 
