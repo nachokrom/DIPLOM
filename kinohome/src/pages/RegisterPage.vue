@@ -1,17 +1,20 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router'
 
 import  Header  from '@/components/Header/ui.vue';
 import Footer from '@/components/Footer.vue';
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const email  = ref();
 const password = ref();
 
 const signup = async () => {
     await authStore.signup({email: email.value, password: password.value}, 'signup')
+    router.push('/')
 }
 
 </script>
@@ -36,7 +39,7 @@ const signup = async () => {
                 <!--<div>
                     <input class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded" type="reset password" placeholder="Повторите пароль">
                 </div>-->
-                <button @click="signup" class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">
+                <button @click.prevent="signup" class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">
                     Зарегистрироваться
                 </button>
                 </form>

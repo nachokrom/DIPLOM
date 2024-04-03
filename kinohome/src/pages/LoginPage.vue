@@ -29,7 +29,7 @@ import Footer from '@/components/Footer.vue';
                 </p>-->
                 <p class="text-white text-xs mt-2 text-center">
                 Нет аккаунта? 
-                <a href="/register" class="text-gray-600 hover:text-[#1976d2]">Зарегистрируйтесь</a>.
+                <a href="/signup" class="text-gray-600 hover:text-[#1976d2]">Зарегистрируйтесь</a>.
                 </p>
             </div>
         </div>
