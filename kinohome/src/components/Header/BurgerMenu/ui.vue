@@ -1,24 +1,20 @@
-<script setup lang="ts">
+<!-- eslint-disable no-unused-vars -->
+<script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-interface SearchResult {
-  id: number;
-  title: string;
-  poster: string;
-}
 
 const mobileMenuOpen = ref(false);
 
 const searchQuery = ref('');
 const isFocused = ref(false);
 
-const searchResults = ref<SearchResult[]>([]);
+const searchResults = ref([]);
 
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-const onClickOutside = (event: MouseEvent) => {
+const onClickOutside = (MouseEvent) => {
   if (mobileMenuOpen.value && event.target instanceof Node && !document.querySelector('.burger_block')?.contains(event.target)) {
     mobileMenuOpen.value = false;
   }

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../stores/auth';
+import { useAuthStore } from '@/stores/auth';
 
 import  Header  from '@/components/Header/ui.vue';
 import Footer from '@/components/Footer.vue';
@@ -11,8 +11,9 @@ const email  = ref();
 const password = ref();
 
 const signup = async () => {
-    await authStore.signup({email: email.value, password: password.value})
+    await authStore.signup({email: email.value, password: password.value}, 'signup')
 }
+
 </script>
 
 <template>
@@ -30,7 +31,7 @@ const signup = async () => {
                     <input v-model="email" class="w-full px-4 py-2 bg-gray-600 text-white rounded" type="email" placeholder="Email">
                 </div>
                 <div>
-                    <input v-model="password" class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded" type="new password" placeholder="Пароль">
+                    <input v-model="password" class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded" type="password" placeholder="Пароль">
                 </div>
                 <!--<div>
                     <input class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded" type="reset password" placeholder="Повторите пароль">

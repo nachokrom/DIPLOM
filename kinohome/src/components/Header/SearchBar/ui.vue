@@ -1,17 +1,12 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
 //import { ApiKeyMovie,  BaseUrlMovie} from '@/constants';
 
-interface SearchResult {
-  id: number;
-  title: string;
-  poster: string;
-}
 
 const searchQuery = ref('');
 const isFocused = ref(false);
 
-const searchResults = ref<SearchResult[]>([]);
+const searchResults = ref([]);
 
 const fetchResults = async () => {
   searchResults.value = [];

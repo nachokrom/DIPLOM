@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
 import defaultAvatar from '@/assets/icons/user_icon.png';
 
@@ -15,7 +15,8 @@ const togglePopup = () => {
   showPopup.value = !showPopup.value;
 };
 
-const onClickOutside = (event: MouseEvent) => {
+// eslint-disable-next-line no-unused-vars
+const onClickOutside = (MouseEvent) => {
   if (showPopup.value && event.target instanceof Node && !document.querySelector('.popup')?.contains(event.target)) {
    showPopup.value = false;
   }
