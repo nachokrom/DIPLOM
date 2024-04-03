@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
   <footer class="border-t border-[#8f8f8f1a] pt-10 pb-3 text-white inset-x-0">
     <div class="container mx-auto" style="max-width: 1400px; padding-left: 88px; padding-right: 0px; margin: 0 auto;">
