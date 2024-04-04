@@ -17,7 +17,7 @@ const displayName = ref();
 
 const signup = async () => {
     await authStore.auth({displayName: displayName.value, email: email.value, password: password.value}, 'signup')
-    router.push('/')
+    router.push('/profile')
 }
 
 </script>
