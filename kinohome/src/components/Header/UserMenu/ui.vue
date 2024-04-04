@@ -41,7 +41,7 @@ onBeforeUnmount(() => {
 <template>
     <div>
         <div v-if="!user.isAuthenticated">
-            <router-link to="/login">
+            <router-link to="/signin">
                 <button
                 class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-700"
                 

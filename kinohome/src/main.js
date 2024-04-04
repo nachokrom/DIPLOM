@@ -15,7 +15,7 @@ const app = createApp(App)
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDrbSifeDM31LKs9N0cZ1DpwIxKrGOkJfA",
+    apiKey: import.meta.env.VITE_API_KEY_FIREBASE,
     authDomain: "kinohome-af875.firebaseapp.com",
     projectId: "kinohome-af875",
     storageBucket: "kinohome-af875.appspot.com",

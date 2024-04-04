@@ -42,8 +42,8 @@ const router = createRouter({
       component: FavoritePage
     },
     {
-      path: '/login',
-      name: 'login',
+      path: '/signin',
+      name: 'signin',
       component: LoginPage
     },
     {

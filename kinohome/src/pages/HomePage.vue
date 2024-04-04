@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import  Header  from '@/components/Header/ui.vue';
 import Card from '@/components/Card.vue';
 import Footer from '@/components/Footer.vue';
