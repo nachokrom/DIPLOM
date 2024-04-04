@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const userInfo = ref({
       token: '',
+      displayName: '',
       email: '',
       userId: '',
       refreshToken: '',
@@ -28,6 +29,7 @@ export const useAuthStore = defineStore('auth', () => {
       console.log(response.data)
       userInfo.value = {
         token: response.data.idToken,
+        displayName: response.data.displayName,
         email: response.data.email,
         userId: response.data.localId,
         refreshToken: response.data.refreshToken,
