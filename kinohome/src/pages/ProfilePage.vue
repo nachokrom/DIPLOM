@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.vue';
 <template>
   <Header />
   <main>
-    <h1 class="text-white">Личный кабинет пользователя</h1>
+    <h1 class="text-white">Личный кабинет пользователя Рома</h1>
   </main>
   <Footer />
 </template>
