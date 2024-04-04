@@ -1,20 +1,22 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router'
+//import { useRouter } from 'vue-router'
 
 import  Header  from '@/components/Header/ui.vue';
+import Message from 'primevue/message';
+import Loader from '@/components/Loader.vue'
 import Footer from '@/components/Footer.vue';
 
 const authStore = useAuthStore();
-const router = useRouter();
+//const router = useRouter();
 
 const email  = ref();
 const password = ref();
 
 const signup = async () => {
-    await authStore.signup({email: email.value, password: password.value}, 'signup')
-    router.push('/')
+    await authStore.signup({email: email.value, password: password.value})
+    
 }
 
 </script>
@@ -26,6 +28,7 @@ const signup = async () => {
         <div class="flex items-center justify-center">
             <div class="w-96 shadow-2xl rounded-xl p-10 bg-[#222222]">
                 <h1 class="text-white text-2xl mb-8 text-center">Регистрация</h1>
+                <Message class="message_error" v-if="authStore.error" severity="warn"> {{ authStore.error }} </Message>
                 <form class="text-center space-y-7">
                 <!--<div>
                     <input class="w-full px-4 py-2 bg-gray-600 text-white rounded" type="text" placeholder="Логин">
@@ -39,7 +42,8 @@ const signup = async () => {
                 <!--<div>
                     <input class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded" type="reset password" placeholder="Повторите пароль">
                 </div>-->
-                <button @click.prevent="signup" class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">
+                <Loader v-if="authStore.loader"/>
+                <button v-else @click.prevent="signup" class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">
                     Зарегистрироваться
                 </button>
                 </form>
@@ -62,4 +66,7 @@ const signup = async () => {
     background: url('../assets/img/bg.webp');
 }
 
+.message_error {
+    margin-bottom: 10px;
+}
 </style>

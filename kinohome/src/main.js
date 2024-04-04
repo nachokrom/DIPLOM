@@ -1,13 +1,18 @@
 import './assets/main.css'
+import 'primevue/resources/themes/lara-light-indigo/theme.css'
+import 'primevue/resources/primevue.min.css'
+import 'primeicons/primeicons.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import PrimeVue from 'primevue/config';
 
 import App from './App.vue'
 import router from './router'
 import { initializeApp } from "firebase/app";
 
 const app = createApp(App)
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDrbSifeDM31LKs9N0cZ1DpwIxKrGOkJfA",
@@ -22,5 +27,6 @@ initializeApp(firebaseConfig);
 
 app.use(createPinia())
 app.use(router)
+app.use(PrimeVue);
 
 app.mount('#app')
