@@ -10,6 +10,7 @@ import PrimeVue from 'primevue/config';
 import App from './App.vue'
 import router from './router'
 import { initializeApp } from "firebase/app";
+import '@/services/api'
 
 const app = createApp(App)
 

@@ -1,8 +1,10 @@
-import axios from "axios";
+import axios from "axios"
+import { useAuthStore } from "@/stores/auth"
 
-export default axios.create({
-  baseURL: "https://api.kinopoisk.dev/v1.4/",
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_API_KEY_MOVIE}`,
-  },
-});
+axios.interceptors.request.use((config) => {
+  const authStore = useAuthStore()
+  let params = new URLSearchParams()
+  params.append('auth', authStore.userInfo.token)
+  config.params = params
+  return config
+})

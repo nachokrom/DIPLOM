@@ -60,4 +60,8 @@ const signin = async () => {
     background-size: cover;
 }
 
+.message_error {
+    margin-bottom: 10px;
+}
+
 </style>
