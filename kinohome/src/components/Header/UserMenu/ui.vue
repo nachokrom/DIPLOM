@@ -1,38 +1,36 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
 
 const authStore = useAuthStore()
 const token = computed(() => authStore.userInfo.token)
-
-
-const showPopup = ref(false);
+const router = useRouter()
+const showPopup = ref(false)
 
 const togglePopup = () => {
-  showPopup.value = !showPopup.value;
+  showPopup.value = !showPopup.value
 };
 
 // eslint-disable-next-line no-unused-vars
 const onClickOutside = (MouseEvent) => {
   if (showPopup.value && event.target instanceof Node && !document.querySelector('.popup')?.contains(event.target)) {
-   showPopup.value = false;
+   showPopup.value = false
   }
 };
-
-/*const logout = () => {
-  user.isAuthenticated = false;
-  showPopup.value = false;
-  // Дополнительная логика для выхода
-};*/
-
-
 onMounted(() => {
-  document.addEventListener('mousedown', onClickOutside);
+  document.addEventListener('mousedown', onClickOutside)
+});
+onBeforeUnmount(() => {
+  document.removeEventListener('mousedown', onClickOutside)
 });
 
-onBeforeUnmount(() => {
-  document.removeEventListener('mousedown', onClickOutside);
-});
+const logout = () => {
+    authStore.logout()
+    localStorage.removeItem('userTokens')
+    router.push('/signin')
+}
 </script>
 
 <template>
@@ -81,7 +79,7 @@ onBeforeUnmount(() => {
                     <router-link to="/favorite" class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">
                         Избранное
                     </router-link>
-                    <a class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">Выйти</a>
+                    <a v-if="token" @click.prevent="logout" class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">Выйти</a>
                 </div>
             </div>
         </div>

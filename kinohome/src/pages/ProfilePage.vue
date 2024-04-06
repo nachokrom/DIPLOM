@@ -1,13 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-//import { useAuthStore } from '@/stores/auth';
-import  axios  from 'axios';
+import axiosApiInstance from '@/services/api'
 
 import  Header  from '@/components/Header/ui.vue';
 import Loader from '@/components/Loader.vue';
 import Footer from '@/components/Footer.vue';
-
-//const authStore = useAuthStore();
 
 const news = ref();
 const showLoader = ref(false);
@@ -15,7 +12,7 @@ const showLoader = ref(false);
 const getAllNews = async () => {
   showLoader.value = true; 
   try {
-    const response = await axios.get(`https://kinohome-af875-default-rtdb.europe-west1.firebasedatabase.app/news.json`);
+    const response = await axiosApiInstance.get(`https://kinohome-af875-default-rtdb.europe-west1.firebasedatabase.app/news.json`);
     news.value = response.data; 
     showLoader.value = false; 
   } catch (err) {

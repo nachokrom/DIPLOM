@@ -15,8 +15,12 @@ const email  = ref();
 const password = ref();
 
 const signin = async () => {
-    await authStore.auth({email: email.value, password: password.value}, 'signin')
-    router.push('/profile')
+    try {
+        await authStore.auth({email: email.value, password: password.value}, 'signin')
+        router.push('/profile')
+    } catch (e) {
+        console.error(e.message);
+    }
 }
 </script>
 
