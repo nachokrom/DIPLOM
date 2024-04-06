@@ -13,8 +13,7 @@ const togglePopup = () => {
   showPopup.value = !showPopup.value
 };
 
-// eslint-disable-next-line no-unused-vars
-const onClickOutside = (MouseEvent) => {
+const onClickOutside = () => {
   if (showPopup.value && event.target instanceof Node && !document.querySelector('.popup')?.contains(event.target)) {
    showPopup.value = false
   }
@@ -46,7 +45,7 @@ const logout = () => {
             </router-link>
         </div>
         <div v-else class="relative">
-            <div class="px-1 cursor-pointer">
+            <div class="px-1 cursor-pointer hover:bg-white">
                 <img
                 class="avatar-image rounded-full"
                 src="./../../../assets/icons/user_icon.png"

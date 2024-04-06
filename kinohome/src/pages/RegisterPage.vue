@@ -13,10 +13,10 @@ const router = useRouter();
 
 const email  = ref();
 const password = ref();
-const displayName = ref();
+//const displayName = ref();
 
 const signup = async () => {
-    await authStore.auth({displayName: displayName.value, email: email.value, password: password.value}, 'signup')
+    await authStore.auth({/*displayName: displayName.value,*/ email: email.value, password: password.value}, 'signup')
     router.push('/profile')
 }
 
@@ -29,11 +29,11 @@ const signup = async () => {
         <div class="flex items-center justify-center">
             <div class="w-96 shadow-2xl rounded-xl p-10 bg-[#222222]">
                 <h1 class="text-white text-2xl mb-8 text-center">Регистрация</h1>
-                <Message class="message_error" v-if="authStore.error" severity="warn"> {{ authStore.error }} </Message>
+                <Message v-if="authStore.error" severity="warn">{{ authStore.error }}</Message>
                 <form class="text-center space-y-7">
-                <div>
+                <!--<div>
                     <input v-model="displayName" class="w-full px-4 py-2 bg-gray-600 text-white rounded" type="text" placeholder="Логин">
-                </div>
+                </div>-->
                 <div>
                     <input v-model="email" class="w-full px-4 py-2 bg-gray-600 text-white rounded" type="email" placeholder="Email">
                 </div>
@@ -41,7 +41,7 @@ const signup = async () => {
                     <input v-model="password" class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded" type="password" placeholder="Пароль">
                 </div>
                 <Loader v-if="authStore.loader"/>
-                <button v-else @click.prevent="signup" class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">
+                <button v-else @click="signup" class="w-full py-2 px-4 text-white bg-blue-500 cursor-pointer rounded hover:bg-blue-600">
                     Зарегистрироваться
                 </button>
                 </form>
