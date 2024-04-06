@@ -1,13 +1,10 @@
 <script setup>
-import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
-import defaultAvatar from '@/assets/icons/user_icon.png';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 
-const user = reactive({
-  isAuthenticated: false,
-  name: 'Роман',
-  avatar: defaultAvatar,
-  role: 'Администратор'
-});
+const authStore = useAuthStore()
+const token = computed(() => authStore.userInfo.token)
+
 
 const showPopup = ref(false);
 
@@ -22,11 +19,11 @@ const onClickOutside = (MouseEvent) => {
   }
 };
 
-const logout = () => {
+/*const logout = () => {
   user.isAuthenticated = false;
   showPopup.value = false;
   // Дополнительная логика для выхода
-};
+};*/
 
 
 onMounted(() => {
@@ -40,7 +37,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <div v-if="!user.isAuthenticated">
+        <div v-if="!token">
             <router-link to="/signin">
                 <button
                 class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-700"
@@ -54,7 +51,7 @@ onBeforeUnmount(() => {
             <div class="px-1 cursor-pointer">
                 <img
                 class="avatar-image rounded-full"
-                :src="user.avatar"
+                src="./../../../assets/icons/user_icon.png"
                 alt="Avatar"
                 @click="togglePopup"
             />
@@ -64,27 +61,27 @@ onBeforeUnmount(() => {
                     <div class="flex items-center justify-between py-1">
                         <img
                             class="avatar-image rounded-full"
-                            :src="user.avatar"
+                            src="./../../../assets/icons/user_icon.png"
                             alt="Avatar"
                         />
                         <div class="user-name px-1">
-                            <p>{{ user.name }}</p>
+                            <p>Тестовое имя</p>
                         </div>
                     </div>
                     <div class="flex items-center text-gray-400">
-                        <p>{{ user.role }}</p> 
+                        <p>Пользователь</p> 
                     </div>         
                 </div>
 
 
                 <div class="flex flex-col py-3 w-full">
-                    <router-link to="/profile" class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">
-                        <a>Профиль</a>
+                    <router-link v-if="token" to="/profile" class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">
+                        Профиль
                     </router-link>
                     <router-link to="/favorite" class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">
-                        <a>Избранное</a>
+                        Избранное
                     </router-link>
-                    <a @click="logout" class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">Выйти</a>
+                    <a class="popup-item cursor-pointer py-2 rounded hover:bg-blue-700 hover:text-white px-2">Выйти</a>
                 </div>
             </div>
         </div>

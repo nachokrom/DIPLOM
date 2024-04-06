@@ -26,7 +26,6 @@ export const useAuthStore = defineStore('auth', () => {
         ...payload,
         returnSecureToken: true
       });
-      console.log(response.data)
       userInfo.value = {
         token: response.data.idToken,
         displayName: response.data.displayName,
@@ -35,9 +34,12 @@ export const useAuthStore = defineStore('auth', () => {
         refreshToken: response.data.refreshToken,
         expiresIn: response.data.expiresIn
       }
-
-      loader.value = false;
-        
+      localStorage.setItem('userTokens', JSON.stringify({
+        token: userInfo.value.token, 
+        refreshToken: userInfo.value.refreshToken,
+        expiresIn: response.data.expiresIn
+      }))
+      loader.value = false;      
     } catch(err) {
       switch (err.response.data.error.message) {
         case 'EMAIL_EXISTS':
