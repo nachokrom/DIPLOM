@@ -19,7 +19,7 @@ function hoverCard(value) {
             <img 
                 class="transition-transform duration-300 w-full h-full object-cover" 
                 :class="{ 'scale-110': hover }" 
-                src="https://rtz.showmedialord.online/uploads/posts/2023-02/chernoe-zerkalo.webp" alt="Название фильма"
+                src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a3ae9e25-5b10-42f3-96ae-5d707fc6a1bc/300x450" alt="Название фильма"
             >
         </a>
 
