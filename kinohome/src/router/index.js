@@ -68,19 +68,20 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+
+router.beforeEach((to) => {
   const authStore = useAuthStore();
 
   if (to.meta.auth && !authStore.userInfo.token) {
-    next('/signin')
+    return '/signin';
   }
+  
   else if ((to.name === 'signin' || to.name === 'signup') && authStore.userInfo.token) {
-    next('/profile')
+    return '/profile';
   }
-  else {
-    next();
-  }
-})
+  
+  return true;
+});
 
 export default router
 
