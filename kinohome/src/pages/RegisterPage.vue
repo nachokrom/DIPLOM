@@ -13,10 +13,10 @@ const router = useRouter();
 
 const email  = ref();
 const password = ref();
-//const displayName = ref();
+const displayName = ref();
 
 const signup = async () => {
-    await authStore.auth({/*displayName: displayName.value,*/ email: email.value, password: password.value}, 'signup')
+    await authStore.auth({displayName: displayName.value, email: email.value, password: password.value}, 'signup')
     router.push('/profile')
 }
 
@@ -31,9 +31,9 @@ const signup = async () => {
                 <h1 class="text-white text-2xl mb-8 text-center">Регистрация</h1>
                 <Message v-if="authStore.error" severity="warn">{{ authStore.error }}</Message>
                 <form class="text-center space-y-7">
-                <!--<div>
+                <div>
                     <input v-model="displayName" class="w-full px-4 py-2 bg-gray-600 text-white rounded" type="text" placeholder="Логин">
-                </div>-->
+                </div>
                 <div>
                     <input v-model="email" class="w-full px-4 py-2 bg-gray-600 text-white rounded" type="email" placeholder="Email">
                 </div>

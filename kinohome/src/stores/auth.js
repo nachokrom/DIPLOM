@@ -2,12 +2,14 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axiosApiInstance from '@/services/api'
 
+
 const apiKey = import.meta.env.VITE_API_KEY_FIREBASE;
 
 export const useAuthStore = defineStore('auth', () => {
   const userInfo = ref({
     token: '',
     email: '',
+    displayName: '',
     userId: '',
     refreshToken: ''
   })
@@ -26,12 +28,15 @@ export const useAuthStore = defineStore('auth', () => {
       userInfo.value = {
         token: response.data.idToken,
         email: response.data.email,
-        userId: response.data.localId,
+        displayName: response.data.displayName,
+        userId: response.data,
         refreshToken: response.data.refreshToken,
       }
       localStorage.setItem('userTokens', JSON.stringify({
+        displayName: response.data.displayName,
         token: userInfo.value.token,
-        refreshToken: userInfo.value.refreshToken}))
+        refreshToken: userInfo.value.refreshToken
+      }))
     } catch(err) {
       switch (err.response.data.error.message) {
         case 'EMAIL_EXISTS':
