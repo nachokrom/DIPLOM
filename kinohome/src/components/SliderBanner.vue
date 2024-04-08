@@ -166,4 +166,97 @@ const slides = ref([
     font-size: 1rem; 
   }
 }
+
+/* Мобильные устройства (в портретной ориентации) */
+@media only screen and (max-width: 480px) {
+  
+  .mySwiper {
+    height: 350px;
+  }
+
+  .slide-image {
+    width: 700px;
+    height: 350px;
+  }
+  
+  .mySwiper .swiper-slide {
+    width: 700px;
+  }
+
+  /* Пример добавления стрелок как символов */
+  .mySwiper .swiper-button-prev::after,
+  .mySwiper .swiper-button-next::after {
+    font-size: 12px;
+  }
+
+}
+
+/* Планшеты (в портретной ориентации) */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  
+  .mySwiper {
+    height: 400px;
+  }
+
+  .slide-image {
+    width: 900px;
+    height: 400px;
+  }
+  
+  .mySwiper .swiper-slide {
+    width: 900px;
+  }
+
+  .mySwiper .swiper-button-prev::after,
+  .mySwiper .swiper-button-next::after {
+    font-size: 18px;
+  }
+
+}
+
+/* Маленькие ноутбуки/настольные компьютеры */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  
+  .mySwiper {
+    height: 500px;
+  }
+
+  .slide-image {
+    width: 1100px;
+    height: 500px;
+  }
+  
+  .mySwiper .swiper-slide {
+    width: 1100px;
+  }
+
+  .mySwiper .swiper-button-prev::after,
+  .mySwiper .swiper-button-next::after {
+    font-size: 20px;
+  }
+
+}
+
+/* Крупные настольные компьютеры */
+@media only screen and (min-width: 1025px) {
+  
+  .mySwiper {
+    height: 700px;
+  }
+
+  .slide-image {
+    width: 1400px;
+    height: 700px;
+  }
+  
+  .mySwiper .swiper-slide {
+    width: 1400px;
+  }
+
+  .mySwiper .swiper-button-prev::after,
+  .mySwiper .swiper-button-next::after {
+    font-size: 25px;
+  }
+
+}
 </style>
