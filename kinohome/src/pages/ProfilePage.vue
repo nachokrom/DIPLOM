@@ -34,14 +34,14 @@ onMounted(() => {
     <div>
       <h2 class="text-white">News</h2>
       <Loader v-if="showLoader"/>
-      <div class="flex flex-column gap-3" v-else>
+      <!--<div class="flex flex-column gap-3" v-else>
         
         <div class="card_news bg-white w-3/5 h-52 border-spacing-4" v-for="(newItem, i) in news" :key="i" >
           <h1 class="text-black text-2xl bottom-2"> {{ newItem.name }} </h1>
           <p class="text-black text-xs"> {{ newItem.type }} </p>
         </div>
         
-      </div>
+      </div>-->
     </div>
   </main>
   <Footer />

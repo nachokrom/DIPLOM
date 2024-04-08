@@ -6,7 +6,7 @@ import  UserMenu  from '@/components/Header/UserMenu/ui.vue'
 </script>
 
 <template>
-<header class="text-white bg-[#222222]">
+<header class="text-white">
     <div class="container mx-auto max-w-7xl px-2">
       <div class="flex justify-between items-center py-4">
       

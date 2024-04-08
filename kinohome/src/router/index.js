@@ -8,6 +8,8 @@ import ProfilePage  from '@/pages/ProfilePage.vue'
 import FavoritePage  from '@/pages/FavoritePage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
+import DetailsMoviesPage from '@/pages/DetailsMoviesPage.vue'
+import ActorDetail from '@/pages/ActorDetail.vue'
 
 
 const router = createRouter({
@@ -24,6 +26,11 @@ const router = createRouter({
       component: MoviesPage
     },
     {
+      path: '/movie/:id',
+      name: 'movie',
+      component: DetailsMoviesPage
+    },
+    {
       path: '/serials',
       name: 'serials',
       component: SerialsPage
@@ -32,6 +39,11 @@ const router = createRouter({
       path: '/cartoons',
       name: 'cartoons',
       component: MultPage
+    },
+    {
+      path: '/actor/:id',
+      name: 'actor',
+      component: ActorDetail
     },
     {
       path: '/profile',

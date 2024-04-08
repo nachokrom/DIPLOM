@@ -35,6 +35,7 @@
   
 body {
     background-color: var(--main-dark-background);
+    color: white;
 }
 
 ul, ol {
@@ -44,14 +45,4 @@ ul, ol {
 a {
     text-decoration: none;
     color: unset;
-}
-
-.container_main {
-
-    max-width: 1400px;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-left: auto;
-    margin-right: auto;
-
 }

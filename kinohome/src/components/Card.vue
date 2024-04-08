@@ -10,18 +10,18 @@ function hoverCard(value) {
 
 <template>
     <div 
-        class="movie_card max-w-40 h-64 relative cursor-pointer overflow-hidden" 
+        class="movie_card" 
         @mouseenter="hoverCard(true)"
         @mouseleave="hoverCard(false)"
     >
         <!-- Постер -->
-        <a href="/">
+        <router-link to="`/movie/${movie.id}`">
             <img 
                 class="transition-transform duration-300 w-full h-full object-cover" 
                 :class="{ 'scale-110': hover }" 
                 src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a3ae9e25-5b10-42f3-96ae-5d707fc6a1bc/300x450" alt="Название фильма"
             >
-        </a>
+        </router-link>
 
         <!-- Возрастное ограничение -->
         <div class="age_limit absolute top-0 left-0 bg-orange-800 text-white flex items-center justify-center">
@@ -48,6 +48,11 @@ function hoverCard(value) {
   
 <style scoped>
 .movie_card  {
+    width: 235px;
+    height: 350px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
     border-radius: 8px;
     margin: 15px;
 }

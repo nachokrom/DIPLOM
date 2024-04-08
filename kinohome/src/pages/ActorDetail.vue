@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.vue';
 <template>
   <Header />
   <main>
-    
+    Детальная страница с актером
   </main>
   <Footer />
 </template>
