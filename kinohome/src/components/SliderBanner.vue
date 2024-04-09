@@ -24,7 +24,7 @@ const slides = ref([
     spaceBetween="30"
     :loop="true"   
     :loopedSlides="slides.length"
-    class="mySwiper" 
+    class="mySwiper relative overflow-hidden" 
     :autoplay="{
       delay: 10000,
       disableOnInteraction: false
@@ -35,31 +35,34 @@ const slides = ref([
     }"
   >
     <SwiperSlide v-for="(slide, index) in slides" :key="index">
-      <img :src="slide" :alt="`Poster ${index + 1}`" class="slide-image  inset-0 w-full h-full object-cover rounded-lg shadow-md">
-      
+      <router-link to="`/movie/${movie.id}`" class="router-link-inactive"> 
+      <img 
+        :src="slide" 
+        :alt="`Poster ${index + 1}`" 
+        class="slide-image object-cover rounded-lg shadow-md w-full h-auto"
+      >    
+      </router-link>
       <div>
         
-        <!-- Блок с информацией о фильме -->
-        <div class="absolute left-10 bottom-10">
-          <h2 class="text-white text-shadow text-4xl font-bold mb-3 outlined-text">Название фильма</h2>
-          <div class="flex items-center justify-start text-white text-shadow text-lg mb-3">
-            <p class="text-green-500 text-shadow font-semibold text-2xl mb-0 mr-4">8.5</p>
-            <span class="mr-4 outlined-text font-bold">2022</span>
-            <span class="mr-4 outlined-text font-bold">Фантастика</span>
-            <span class="mr-4 outlined-text font-bold">16+</span>
-            <span class="outlined-text font-bold">168 мин</span>
+        <div class="absolute xl:left-20 lg:left-10 md:left-6 bottom-10">
+          <h2 class="text-white text-shadow xl:text-4xl lg:text-2xl md:text-base xs:text-base font-bold xl:mb-3 lg:mb-2 md:mb-1 outlined-text">Название фильма</h2>
+          <div class="flex items-center justify-start text-white text-shadow xl:text-xl lg:text-base md:text-xs xl:mb-3 lg:mb-2 md:mb-2">
+            <p class="text-green-500 text-shadow font-semibold mb-0 xl:mr-4 lg:mr-3 md:mr-2">8.5</p>
+            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">2022</span>
+            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">Фантастика</span>
+            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">16+</span>
+            <span class="outlined-text font-semibold">168 мин</span>
           </div>
-          <p class="text-white text-shadow outlined-text text-xl">Описание фильма...</p>
+          <p class="xl:w-96 lg:w-72 md:w-56 text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-xs">Бен Фостер, Дженна Ортега и Томми Ли Джонс в драме о конфликте двух братьев и бостонских гангстеров</p>
         </div>
 
-        <div class="absolute right-20 bottom-10">
-          <router-link to="`/movie/${movie.id}`"><button class="btn_slider bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 transition duration-300 ease-in-out">Смотреть онлайн</button></router-link>
-          <button class="btn_bookmark bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"><img width="35" height="35" src="https://img.icons8.com/glyph-neue/64/FFFFFF/like--v1.png" alt="like--v1" class="book_mark inline-block"/><!--<img src="./../assets/icons/heart.png" alt="Icon" class="book_mark inline-block">--></button>
+        <div class="absolute xl:right-20 lg:right-10 md:right-4 xl:bottom-10 lg:bottom-8 md:bottom-7">
+          <router-link to="`/movie/${movie.id}`"><button class="btn_slider bg-blue-500 hover:bg-blue-700 text-white xl:text-xl lg:text-sm md:text-xs font-bold xl:py-2 xl:px-4 lg:py-1 lg:px-1 md:px-0 md:py-0 rounded mb-2 transition duration-300 ease-in-out">Смотреть онлайн</button></router-link>
+          <button class="btn_bookmark bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"><img width="35" height="35" src="https://img.icons8.com/glyph-neue/64/FFFFFF/like--v1.png" alt="like--v1" class="book_mark inline-block"/></button>
         </div>
   
       </div>
-      
-
+    
     </SwiperSlide>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
@@ -69,14 +72,15 @@ const slides = ref([
 <style scoped>
 .mySwiper {
   width: 100%;
-  height: 700px;
+  height: 650px;
   margin-top: 5px;  
   overflow: hidden; 
 }
 
 .slide-image {
-  width: 1400px;
-  height: 700px;
+  width: 100%;
+  max-width: 1400px;
+  height: 650px;
   object-fit: cover;
   border-radius: 40px;
   border: 1px solid #3b82f6;
@@ -110,7 +114,6 @@ const slides = ref([
   background-color: rgb(128, 128, 128);
 }
 
-/* Пример добавления стрелок как символов */
 .mySwiper .swiper-button-prev::after {
   background: url('./../assets/img/prev.png');
   font-size: 25px;
@@ -133,130 +136,177 @@ const slides = ref([
 
 .book_mark {
   width: 40px;
-  height: 32px;
+  height: 40px;
+  padding-bottom: 8px;
 }
 
 .btn_slider {
   height: 48px;
   margin-right: 10px;
+  z-index: 10;
 }
 
 .btn_bookmark {
   width: 60px;
   height: 48px;
+  z-index: 10;
 }
 
 .outlined-text {
-  color: white; /* Цвет текста */
+  color: white; 
   text-shadow:
     -1px -1px 0 #979797,  
      1px -1px 0 #979797,
     -1px  1px 0 #979797,
-     1px  1px 0 #979797; /* Тень, создающая эффект обводки */
+     1px  1px 0 #979797; 
 }
 
-@media (max-width: 640px) {
-  .text-4xl {
-    font-size: 1.5rem; 
-  }
-  .text-lg {
-    font-size: 1.125rem; 
-  }
-  .text-base {
-    font-size: 1rem; 
-  }
-}
-
-/* Мобильные устройства (в портретной ориентации) */
-@media only screen and (max-width: 480px) {
-  
+/* Medium screens, from 1000px to 1400px */
+@media (min-width: 1000px) and (max-width: 1400px) {
   .mySwiper {
+    width: 100%;
+    height: 600px;
+    margin-top: 5px;  
+    overflow: hidden; 
+  }
+
+  .slide-image {
+    width: 100%;
+    max-width: 1000px;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 40px;
+    border: 1px solid #3b82f6;
+  }
+
+  .mySwiper .swiper-slide {
+    width: 1000px;
+  }
+
+  .mySwiper .swiper-button-prev {
+    left: calc(50% - 480px);
+  }
+
+  .mySwiper .swiper-button-next {
+    right: calc(50% - 480px);
+  }
+}
+
+/* Small screens, less than 1000px */
+@media (max-width: 1000px) {
+  .mySwiper {
+    width: 100%;
+    height: 450px;
+    margin-top: 5px;  
+    overflow: hidden; 
+  }
+
+  .slide-image {
+    width: 100%;
+    max-width: 650px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 40px;
+    border: 1px solid #3b82f6;
+  }
+
+  .mySwiper .swiper-slide {
+    width: 650px;
+  }
+
+  .mySwiper .swiper-button-prev {
+    left: calc(50% - 300px);
+  }
+
+  .mySwiper .swiper-button-next {
+    right: calc(50% - 300px);
+  }
+
+  .mySwiper .swiper-button-prev, .mySwiper .swiper-button-next {
+    width: 40px;
+    height: 60px;
+  }
+}
+
+/* Extra small screens, less than 600px */
+@media (max-width: 650px) {
+  .mySwiper {
+    width: 100%;
     height: 350px;
+    margin-top: 5px;  
+    overflow: hidden; 
   }
 
   .slide-image {
-    width: 700px;
+    width: 100%;
+    max-width: 450px;
     height: 350px;
+    object-fit: cover;
+    border-radius: 40px;
+    border: 1px solid #3b82f6;
+  }
+
+  .mySwiper .swiper-slide {
+    width: 450px;
   }
   
-  .mySwiper .swiper-slide {
-    width: 700px;
+  .swiper-button-prev, .swiper-button-next {
+    visibility: hidden;
   }
 
-  /* Пример добавления стрелок как символов */
-  .mySwiper .swiper-button-prev::after,
-  .mySwiper .swiper-button-next::after {
-    font-size: 12px;
+  .btn_slider {
+    width: 115px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .book_mark {
+    width: 28px;
+    height: 24px;
+    padding-bottom: 2px;
   }
 
+  .btn_bookmark {
+    width: 45px;
+    height: 40px;
+  }
+  
 }
 
-/* Планшеты (в портретной ориентации) */
-@media only screen and (min-width: 481px) and (max-width: 768px) {
-  
+/* Extra small screens, less than 600px */
+@media (max-width: 450px) {
   .mySwiper {
-    height: 400px;
+    width: 100%;
+    height: 250px;
+    margin-top: 5px;  
+    overflow: hidden; 
   }
 
   .slide-image {
-    width: 900px;
-    height: 400px;
+    width: 100%;
+    max-width: 320px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 40px;
+    border: 1px solid #3b82f6;
+  }
+
+  .mySwiper .swiper-slide {
+    width: 320px;
   }
   
-  .mySwiper .swiper-slide {
-    width: 900px;
+  .swiper-button-prev, .swiper-button-next {
+    visibility: hidden; 
   }
 
-  .mySwiper .swiper-button-prev::after,
-  .mySwiper .swiper-button-next::after {
-    font-size: 18px;
+  .btn_slider {
+    visibility: hidden;
   }
 
+  .btn_bookmark {
+    visibility: hidden;
+  }
+  
 }
 
-/* Маленькие ноутбуки/настольные компьютеры */
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  
-  .mySwiper {
-    height: 500px;
-  }
-
-  .slide-image {
-    width: 1100px;
-    height: 500px;
-  }
-  
-  .mySwiper .swiper-slide {
-    width: 1100px;
-  }
-
-  .mySwiper .swiper-button-prev::after,
-  .mySwiper .swiper-button-next::after {
-    font-size: 20px;
-  }
-
-}
-
-/* Крупные настольные компьютеры */
-@media only screen and (min-width: 1025px) {
-  
-  .mySwiper {
-    height: 700px;
-  }
-
-  .slide-image {
-    width: 1400px;
-    height: 700px;
-  }
-  
-  .mySwiper .swiper-slide {
-    width: 1400px;
-  }
-
-  .mySwiper .swiper-button-prev::after,
-  .mySwiper .swiper-button-next::after {
-    font-size: 25px;
-  }
-
-}
 </style>

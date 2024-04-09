@@ -9,10 +9,12 @@ import Footer from '@/components/Footer.vue';
 <template>
 
     <Header />
-    <SliderBanner />
-    <div class="container px-2 max-w-7xl mx-auto">
-        <Card />
-    </div>
+    <main>
+        <SliderBanner /> 
+        <div class="container px-2 max-w-7xl mx-auto">
+            <Card />
+        </div>
+    </main>  
     <Footer />
 
 </template>

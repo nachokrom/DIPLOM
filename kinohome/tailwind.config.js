@@ -8,7 +8,12 @@ export default {
     extend: {
       spacing: {
         '100': '350px',
-      }
+      },
+    },
+    screens: {
+      'md': '320px',
+      'lg': '651px',
+      'xl': '1001px'
     },
   },
   plugins: [],
