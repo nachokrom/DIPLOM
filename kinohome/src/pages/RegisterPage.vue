@@ -2,8 +2,6 @@
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router'
-
-import  Header  from '@/components/Header/ui.vue';
 import Message from 'primevue/message';
 import Loader from '@/components/Loader.vue'
 import Footer from '@/components/Footer.vue';
@@ -24,7 +22,6 @@ const signup = async () => {
 
 <template>
 
-    <Header />
     <main class="main-back pt-32 pb-32">
         <div class="flex items-center justify-center">
             <div class="w-96 shadow-2xl rounded-xl p-10 bg-[#222222]">
