@@ -53,13 +53,13 @@ const slides = ref([
             <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">16+</span>
             <span class="outlined-text font-semibold">168 мин</span>
           </div>
-          <p class="xl:w-96 lg:w-72 md:w-56 text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-xs">Бен Фостер, Дженна Ортега и Томми Ли Джонс в драме о конфликте двух братьев и бостонских гангстеров</p>
+          <p class="text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-xs">Бен Фостер, Дженна Ортега и Томми Ли Джонс в драме о конфликте двух братьев и бостонских гангстеров</p>
         </div>
 
-        <div class="absolute xl:right-20 lg:right-10 md:right-4 xl:bottom-10 lg:bottom-8 md:bottom-7">
+        <!--<div class="absolute xl:right-20 lg:right-10 md:right-4 xl:bottom-10 lg:bottom-8 md:bottom-7">
           <router-link to="`/movie/${movie.id}`"><button class="btn_slider bg-blue-500 hover:bg-blue-700 text-white xl:text-xl lg:text-sm md:text-xs font-bold xl:py-2 xl:px-4 lg:py-1 lg:px-1 md:px-0 md:py-0 rounded mb-2 transition duration-300 ease-in-out">Смотреть онлайн</button></router-link>
           <button class="btn_bookmark bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"><img width="35" height="35" src="https://img.icons8.com/glyph-neue/64/FFFFFF/like--v1.png" alt="like--v1" class="book_mark inline-block"/></button>
-        </div>
+        </div>-->
   
       </div>
     
