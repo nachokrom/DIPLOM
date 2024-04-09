@@ -26,7 +26,7 @@
         </div>
 
         <!-- Колонка №3: Информация -->
-        <div class="flex flex-col md:-ml-2">
+        <div class="flex flex-col md:-ml-2 px-2">
           <p class="font-bold mb-2">Информация</p>
           <router-link to="/" class="text-[#ffffffa3] hover:text-[#1976d2] text-xs my-2 max-w-max">Пользовательское соглашение</router-link>
         </div> 
