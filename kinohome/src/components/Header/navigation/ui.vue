@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import  BurgerMenu  from '@/components/Header/BurgerMenu/ui.vue'; 
 
 const windowWidth = ref(window.innerWidth);
-const isMobile = computed(() => windowWidth.value < 1024); 
+const isMobile = computed(() => windowWidth.value < 1035); 
 
 const updateWindowWidth = () => {
   windowWidth.value = window.innerWidth;
