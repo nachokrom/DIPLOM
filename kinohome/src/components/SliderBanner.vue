@@ -1,19 +1,17 @@
 <script setup>
-import { ref } from 'vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
+import { ref } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 const slides = ref([
   new URL('./../assets/img/dr-strange.jpg', import.meta.url).href,
   new URL('./../assets/img/eternals.jpg', import.meta.url).href,
   new URL('./../assets/img/justice-league.jpg', import.meta.url).href,
-  new URL('./../assets/img/thor-ragnarok.jpg', import.meta.url).href,
-]);
-
+  new URL('./../assets/img/thor-ragnarok.jpg', import.meta.url).href
+])
 </script>
 
 <template>
@@ -22,47 +20,48 @@ const slides = ref([
     slidesPerView="auto"
     :centeredSlides="true"
     spaceBetween="30"
-    :loop="true"   
+    :loop="true"
     :loopedSlides="slides.length"
-    class="mySwiper relative overflow-hidden" 
+    class="mySwiper relative overflow-hidden"
     :autoplay="{
       delay: 10000,
       disableOnInteraction: false
     }"
     :navigation="{
       nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      prevEl: '.swiper-button-prev'
     }"
   >
     <SwiperSlide v-for="(slide, index) in slides" :key="index">
-      <router-link to="`/movie/${movie.id}`" class="router-link-inactive"> 
-      <img 
-        :src="slide" 
-        :alt="`Poster ${index + 1}`" 
-        class="slide-image object-cover rounded-lg shadow-md w-full h-auto"
-      >    
+      <router-link to="`/movie/${movie.id}`" class="router-link-inactive">
+        <img
+          :src="slide"
+          :alt="`Poster ${index + 1}`"
+          class="slide-image object-cover rounded-lg shadow-md w-full h-auto"
+        />
       </router-link>
       <div>
-        
         <div class="absolute xl:left-20 lg:left-10 md:left-6 bottom-10">
-          <h2 class="text-white text-shadow xl:text-4xl lg:text-2xl md:text-base xs:text-base font-bold xl:mb-3 lg:mb-2 md:mb-1 outlined-text">Название фильма</h2>
-          <div class="flex items-center justify-start text-white text-shadow xl:text-xl lg:text-base md:text-xs xl:mb-3 lg:mb-2 md:mb-2">
+          <h2
+            class="text-white text-shadow xl:text-4xl lg:text-2xl md:text-base xs:text-base font-bold xl:mb-3 lg:mb-2 md:mb-1 outlined-text"
+          >
+            Название фильма
+          </h2>
+          <div
+            class="flex items-center justify-start text-white text-shadow xl:text-xl lg:text-base md:text-xs xl:mb-3 lg:mb-2 md:mb-2"
+          >
             <p class="text-green-500 text-shadow font-semibold mb-0 xl:mr-4 lg:mr-3 md:mr-2">8.5</p>
             <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">2022</span>
             <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">Фантастика</span>
             <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">16+</span>
             <span class="outlined-text font-semibold">168 мин</span>
           </div>
-          <p class="text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-xs">Бен Фостер, Дженна Ортега и Томми Ли Джонс в драме о конфликте двух братьев и бостонских гангстеров</p>
+          <p class="text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-xs">
+            Бен Фостер, Дженна Ортега и Томми Ли Джонс в драме о конфликте двух братьев и бостонских
+            гангстеров
+          </p>
         </div>
-
-        <!--<div class="absolute xl:right-20 lg:right-10 md:right-4 xl:bottom-10 lg:bottom-8 md:bottom-7">
-          <router-link to="`/movie/${movie.id}`"><button class="btn_slider bg-blue-500 hover:bg-blue-700 text-white xl:text-xl lg:text-sm md:text-xs font-bold xl:py-2 xl:px-4 lg:py-1 lg:px-1 md:px-0 md:py-0 rounded mb-2 transition duration-300 ease-in-out">Смотреть онлайн</button></router-link>
-          <button class="btn_bookmark bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"><img width="35" height="35" src="https://img.icons8.com/glyph-neue/64/FFFFFF/like--v1.png" alt="like--v1" class="book_mark inline-block"/></button>
-        </div>-->
-  
       </div>
-    
     </SwiperSlide>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
@@ -73,8 +72,8 @@ const slides = ref([
 .mySwiper {
   width: 100%;
   height: 650px;
-  margin-top: 5px;  
-  overflow: hidden; 
+  margin-top: 5px;
+  overflow: hidden;
 }
 
 .slide-image {
@@ -90,7 +89,8 @@ const slides = ref([
   width: 1400px;
 }
 
-.mySwiper .swiper-button-prev, .mySwiper .swiper-button-next {
+.mySwiper .swiper-button-prev,
+.mySwiper .swiper-button-next {
   width: 50px;
   height: 70px;
   background-color: rgba(128, 128, 128, 0.5);
@@ -110,21 +110,21 @@ const slides = ref([
   right: calc(50% - 685px);
 }
 
-.mySwiper .swiper-button-prev:hover, .mySwiper .swiper-button-next:hover {
+.mySwiper .swiper-button-prev:hover,
+.mySwiper .swiper-button-next:hover {
   background-color: rgb(128, 128, 128);
 }
 
-.mySwiper .swiper-button-prev::after {
-  background: url('./../assets/img/prev.png');
+.swiper-button-prev::after {
+  background: url('./../assets/icons/prev.png');
   font-size: 25px;
   display: block;
   color: white;
-
 }
 
-.mySwiper .swiper-button-next::after {
-  background: url('./../assets/img/next.png');
-  font-size: 25px; 
+.swiper-button-next::after {
+  background: url('./../assets/icons/next.png');
+  font-size: 25px;
   display: block;
   color: white;
 }
@@ -153,12 +153,12 @@ const slides = ref([
 }
 
 .outlined-text {
-  color: white; 
+  color: white;
   text-shadow:
-    -1px -1px 0 #979797,  
-     1px -1px 0 #979797,
-    -1px  1px 0 #979797,
-     1px  1px 0 #979797; 
+    -1px -1px 0 #979797,
+    1px -1px 0 #979797,
+    -1px 1px 0 #979797,
+    1px 1px 0 #979797;
 }
 
 /* Medium screens, from 1000px to 1400px */
@@ -166,8 +166,8 @@ const slides = ref([
   .mySwiper {
     width: 100%;
     height: 600px;
-    margin-top: 5px;  
-    overflow: hidden; 
+    margin-top: 5px;
+    overflow: hidden;
   }
 
   .slide-image {
@@ -197,8 +197,8 @@ const slides = ref([
   .mySwiper {
     width: 100%;
     height: 450px;
-    margin-top: 5px;  
-    overflow: hidden; 
+    margin-top: 5px;
+    overflow: hidden;
   }
 
   .slide-image {
@@ -222,7 +222,8 @@ const slides = ref([
     right: calc(50% - 300px);
   }
 
-  .mySwiper .swiper-button-prev, .mySwiper .swiper-button-next {
+  .mySwiper .swiper-button-prev,
+  .mySwiper .swiper-button-next {
     width: 40px;
     height: 60px;
   }
@@ -233,8 +234,8 @@ const slides = ref([
   .mySwiper {
     width: 100%;
     height: 350px;
-    margin-top: 5px;  
-    overflow: hidden; 
+    margin-top: 5px;
+    overflow: hidden;
   }
 
   .slide-image {
@@ -249,8 +250,9 @@ const slides = ref([
   .mySwiper .swiper-slide {
     width: 450px;
   }
-  
-  .swiper-button-prev, .swiper-button-next {
+
+  .swiper-button-prev,
+  .swiper-button-next {
     visibility: hidden;
   }
 
@@ -259,7 +261,7 @@ const slides = ref([
     height: 40px;
     margin-right: 10px;
   }
-  
+
   .book_mark {
     width: 28px;
     height: 24px;
@@ -270,7 +272,6 @@ const slides = ref([
     width: 45px;
     height: 40px;
   }
-  
 }
 
 /* Extra small screens, less than 600px */
@@ -278,8 +279,8 @@ const slides = ref([
   .mySwiper {
     width: 100%;
     height: 250px;
-    margin-top: 5px;  
-    overflow: hidden; 
+    margin-top: 5px;
+    overflow: hidden;
   }
 
   .slide-image {
@@ -294,9 +295,10 @@ const slides = ref([
   .mySwiper .swiper-slide {
     width: 320px;
   }
-  
-  .swiper-button-prev, .swiper-button-next {
-    visibility: hidden; 
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    visibility: hidden;
   }
 
   .btn_slider {
@@ -306,7 +308,5 @@ const slides = ref([
   .btn_bookmark {
     visibility: hidden;
   }
-  
 }
-
 </style>
