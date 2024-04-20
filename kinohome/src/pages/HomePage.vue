@@ -58,6 +58,186 @@ import Footer from '@/components/Footer.vue'
         </SwiperSlide>
       </SliderCard>
     </div>
+
+    <div class="xl:mb-14 lg:mb-10 md:mb-10">
+      <h1 class="head_section font-bold text-white text-4xl">Новинки</h1>
+      <SliderCard>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+      </SliderCard>
+    </div>
+
+    <div class="xl:mb-14 lg:mb-10 md:mb-10">
+      <h1 class="head_section font-bold text-white text-4xl">Смотрим все семьей</h1>
+      <SliderCard>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+      </SliderCard>
+    </div>
+
+    <div class="xl:mb-14 lg:mb-10 md:mb-10">
+      <h1 class="head_section font-bold text-white text-4xl">Фантастика</h1>
+      <SliderCard>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+      </SliderCard>
+    </div>
+
+    <div class="xl:mb-14 lg:mb-10 md:mb-10">
+      <h1 class="head_section font-bold text-white text-4xl">Аниме</h1>
+      <SliderCard>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+      </SliderCard>
+    </div>
   </div>
   <Footer />
 </template>
