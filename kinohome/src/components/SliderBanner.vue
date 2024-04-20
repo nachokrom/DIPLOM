@@ -71,29 +71,29 @@ const slides = ref([
 <style scoped>
 .mySwiper {
   width: 100%;
-  height: 650px;
+  height: 640px;
   margin-top: 5px;
   overflow: hidden;
 }
 
 .slide-image {
   width: 100%;
-  max-width: 1400px;
-  height: 650px;
+  max-width: 1250px;
+  height: 640px;
   object-fit: cover;
   border-radius: 40px;
-  border: 1px solid #3b82f6;
+  border: 1px solid #5a5959;
 }
 
 .mySwiper .swiper-slide {
-  width: 1400px;
+  width: 1250px;
 }
 
 .mySwiper .swiper-button-prev,
 .mySwiper .swiper-button-next {
   width: 50px;
   height: 70px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: rgba(128, 128, 128, 0.226);
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -103,11 +103,11 @@ const slides = ref([
 }
 
 .mySwiper .swiper-button-prev {
-  left: calc(50% - 685px);
+  left: calc(50% - 600px);
 }
 
 .mySwiper .swiper-button-next {
-  right: calc(50% - 685px);
+  right: calc(50% - 600px);
 }
 
 .mySwiper .swiper-button-prev:hover,
@@ -116,17 +116,29 @@ const slides = ref([
 }
 
 .swiper-button-prev::after {
-  background: url('./../assets/icons/prev.png');
+  content: '';
+  background: url('./../assets/icons/arrow-left.svg') no-repeat center;
   font-size: 25px;
   display: block;
-  color: white;
+  width: 26px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .swiper-button-next::after {
-  background: url('./../assets/icons/next.png');
+  content: '';
+  background: url('./../assets/icons/arrow-right.svg') no-repeat center;
   font-size: 25px;
   display: block;
-  color: white;
+  width: 26px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .mySwiper .swiper-slide:not(.swiper-slide-active) .swiper-button-prev,
@@ -274,7 +286,6 @@ const slides = ref([
   }
 }
 
-/* Extra small screens, less than 600px */
 @media (max-width: 450px) {
   .mySwiper {
     width: 100%;

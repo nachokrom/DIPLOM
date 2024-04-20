@@ -41,14 +41,14 @@ onMounted(() => {
 <template>
   <Swiper
     :modules="[Navigation]"
-    :slidesPerView="6"
-    :spaceBetween="50"
-    class="swiper_card relative"
+    class="swiper_card"
     :onSwiper="onSwiper"
     :breakpoints="{
-      '320': { slidesPerView: 1, spaceBetween: 20 },
-      '651': { slidesPerView: 2, spaceBetween: 40 },
-      '1001': { slidesPerView: 6, spaceBetween: 50 }
+      '320': { slidesPerView: 3.5, spaceBetween: 10 },
+      '451': { slidesPerView: 5, spaceBetween: 10 },
+      '651': { slidesPerView: 5.5, spaceBetween: 10 },
+      '1000': { slidesPerView: 6, spaceBetween: 20 },
+      '1400': { slidesPerView: 6, spaceBetween: 20 }
     }"
     :navigation="{
       nextEl: '.card-button-next',
@@ -57,28 +57,56 @@ onMounted(() => {
   >
     <slot></slot>
 
-    <div v-show="!isBeginning" ref="prevCardButtonRef" class="card-button-prev"></div>
-    <div v-show="!isEnd" ref="nextCardButtonRef" class="card-button-next"></div>
+    <div v-show="!isBeginning" :ref="prevCardButtonRef" class="card-button-prev"></div>
+    <div v-show="!isEnd" :ref="nextCardButtonRef" class="card-button-next"></div>
   </Swiper>
 </template>
 
 <style scoped>
 .swiper_card {
+  max-width: 1264px;
   width: 100%;
-  overflow: hidden;
+  margin: auto;
+  padding: 0 8px;
 }
 
-.swiper_card .card-button-prev,
-.swiper_card .card-button-next {
+.card-button-prev,
+.card-button-next {
   width: 50px;
   height: 70px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: rgba(128, 128, 128, 0.247);
   position: absolute;
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%);
   color: white;
-  z-index: 20;
+  z-index: 10;
   border-radius: 8px;
+}
+
+.card-button-prev::after {
+  content: '';
+  background: url('./../assets/icons/arrow-left.svg') no-repeat center;
+  font-size: 25px;
+  display: block;
+  width: 26px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-button-next::after {
+  content: '';
+  background: url('./../assets/icons/arrow-right.svg') no-repeat center;
+  font-size: 25px;
+  display: block;
+  width: 26px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .swiper_card .card-button-prev {
@@ -91,20 +119,56 @@ onMounted(() => {
 
 .swiper_card .card-button-prev:hover,
 .swiper_card .card-button-next:hover {
-  background-color: rgb(128, 128, 128);
+  background-color: rgba(128, 128, 128, 0.644);
+  cursor: pointer;
 }
 
-.swiper_card .card-button-prev::after {
-  background: url('./../assets/icons/prevCard.png');
-  font-size: 25px;
-  display: block;
-  color: white;
+@media (min-width: 1000px) and (max-width: 1400px) {
+  .swiper_card {
+    max-width: 1000px;
+  }
+  .swiper_card .card-button-prev {
+    left: calc(50% - 480px);
+  }
+  .swiper_card .card-button-next {
+    right: calc(50% - 480px);
+  }
+  .card-button-prev,
+  .card-button-next {
+    width: 40px;
+    height: 60px;
+  }
 }
 
-.swiper_card .card-button-next::after {
-  background: url('./../assets/icons/nextCard.png');
-  font-size: 25px;
-  display: block;
-  color: white;
+@media (max-width: 1000px) {
+  .swiper_card {
+    max-width: 1000px;
+  }
+  .card-button-prev,
+  .card-button-next {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 650px) {
+  .swiper_card {
+    max-width: 650px;
+  }
+
+  .card-button-prev,
+  .card-button-next {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 450px) {
+  .swiper_card {
+    max-width: 450px;
+  }
+
+  .card-button-prev,
+  .card-button-next {
+    visibility: hidden;
+  }
 }
 </style>

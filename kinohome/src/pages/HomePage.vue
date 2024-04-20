@@ -10,56 +10,100 @@ import Footer from '@/components/Footer.vue'
 
 <template>
   <Header />
-  <main>
+  <div>
     <SliderBanner />
-    <div class="container px-2 max-w-7xl mx-auto mt-24">
-      <div class="news_movie mb-20">
-        <h1 class="font-bold text-white text-4xl mb-5">Новинки</h1>
-        <SliderCard>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-        </SliderCard>
-      </div>
+  </div>
+  <div class="xl:mt-14 lg:mt-9 md:mt-6">
+    <div class="xl:mb-14 lg:mb-10 md:mb-10">
+      <h1 class="head_section font-bold text-white text-4xl">Рекомендуем</h1>
+      <SliderCard>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Card />
+        </SwiperSlide>
+      </SliderCard>
     </div>
-  </main>
+  </div>
   <Footer />
 </template>
 
-<style scoped></style>
+<style scoped>
+.swiper-slide {
+  width: 200px;
+}
+
+.head_section {
+  max-width: 1264px;
+  width: 100%;
+  margin: auto;
+  padding: 0 8px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 1000px) and (max-width: 1400px) {
+  .head_section {
+    font-size: 28px;
+    max-width: 1000px;
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .head_section {
+    font-size: 24px;
+    max-width: 1000px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .head_section {
+    font-size: 20px;
+    max-width: 650px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .head_section {
+    font-size: 16px;
+    max-width: 450px;
+    margin-bottom: 5px;
+  }
+}
+</style>
