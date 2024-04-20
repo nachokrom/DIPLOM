@@ -188,7 +188,6 @@ const slides = ref([
     height: 600px;
     object-fit: cover;
     border-radius: 40px;
-    border: 1px solid #3b82f6;
   }
 
   .mySwiper .swiper-slide {
@@ -219,7 +218,6 @@ const slides = ref([
     height: 450px;
     object-fit: cover;
     border-radius: 40px;
-    border: 1px solid #3b82f6;
   }
 
   .mySwiper .swiper-slide {
@@ -256,7 +254,6 @@ const slides = ref([
     height: 350px;
     object-fit: cover;
     border-radius: 40px;
-    border: 1px solid #3b82f6;
   }
 
   .mySwiper .swiper-slide {
@@ -300,7 +297,6 @@ const slides = ref([
     height: 250px;
     object-fit: cover;
     border-radius: 40px;
-    border: 1px solid #3b82f6;
   }
 
   .mySwiper .swiper-slide {
