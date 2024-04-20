@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import Message from 'primevue/message'
+import Header from '@/components/Header/ui.vue'
 import Loader from '@/components/Loader.vue'
 import Footer from '@/components/Footer.vue'
 

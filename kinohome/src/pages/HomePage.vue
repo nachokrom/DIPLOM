@@ -2,7 +2,7 @@
 import { SwiperSlide } from 'swiper/vue'
 
 import Header from '@/components/Header/ui.vue'
-import Card from '@/components/Card.vue'
+import CardSlider from '@/components/CardSlider.vue'
 import SliderBanner from '@/components/SliderBanner.vue'
 import SliderCard from '@/components/SliderCard.vue'
 import Footer from '@/components/Footer.vue'
@@ -18,43 +18,43 @@ import Footer from '@/components/Footer.vue'
       <h1 class="head_section font-bold text-white text-4xl">Рекомендуем</h1>
       <SliderCard>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
       </SliderCard>
     </div>
@@ -63,43 +63,43 @@ import Footer from '@/components/Footer.vue'
       <h1 class="head_section font-bold text-white text-4xl">Новинки</h1>
       <SliderCard>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
       </SliderCard>
     </div>
@@ -108,43 +108,43 @@ import Footer from '@/components/Footer.vue'
       <h1 class="head_section font-bold text-white text-4xl">Смотрим все семьей</h1>
       <SliderCard>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
       </SliderCard>
     </div>
@@ -153,43 +153,43 @@ import Footer from '@/components/Footer.vue'
       <h1 class="head_section font-bold text-white text-4xl">Фантастика</h1>
       <SliderCard>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
       </SliderCard>
     </div>
@@ -198,43 +198,43 @@ import Footer from '@/components/Footer.vue'
       <h1 class="head_section font-bold text-white text-4xl">Аниме</h1>
       <SliderCard>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
         <SwiperSlide>
-          <Card />
+          <CardSlider />
         </SwiperSlide>
       </SliderCard>
     </div>

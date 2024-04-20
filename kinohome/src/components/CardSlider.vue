@@ -44,7 +44,7 @@ const hoverCard = (value) => {
   height: auto;
   position: relative;
   cursor: pointer;
-  border-radius: 20%;
+  border-radius: 8px;
 }
 
 .overlay_effect {
@@ -76,14 +76,82 @@ const hoverCard = (value) => {
 }
 
 @media (min-width: 1000px) and (max-width: 1400px) {
+  .movie_card {
+    width: 160px;
+    max-height: 300px;
+  }
+  .poster_name {
+    font-size: 14px;
+  }
+  .poster_category {
+    font-size: 11px;
+  }
+  .mark {
+    width: 25px;
+    height: 15px;
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 1000px) {
+  .movie_card {
+    width: 100%;
+    max-width: 170px;
+    height: 100%;
+    max-height: 300px;
+  }
+  .poster_name {
+    font-size: 12px;
+  }
+  .poster_category {
+    font-size: 10px;
+  }
+  .mark {
+    width: 20px;
+    height: 10px;
+    font-size: 10px;
+    padding: 10px;
+  }
 }
 
 @media (max-width: 650px) {
+  .movie_card {
+    width: 100%;
+    max-width: 110px;
+    height: 100%;
+    max-height: 300px;
+  }
+  .poster_name {
+    font-size: 9px;
+  }
+  .poster_category {
+    font-size: 8px;
+  }
+  .mark {
+    width: 15px;
+    height: 5px;
+    font-size: 8px;
+    padding: 8px;
+  }
 }
 
 @media (max-width: 450px) {
+  .movie_card {
+    width: 100%;
+    max-width: 120px;
+    height: 100%;
+    max-height: 300px;
+  }
+  .poster_name {
+    font-size: 9px;
+  }
+  .poster_category {
+    font-size: 8px;
+  }
+  .mark {
+    width: 15px;
+    height: 5px;
+    font-size: 8px;
+  }
 }
 </style>

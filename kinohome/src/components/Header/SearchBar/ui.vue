@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-//import { ApiKeyMovie,  BaseUrlMovie} from '@/constants';
 
 const searchQuery = ref('')
 const isFocused = ref(false)
@@ -12,9 +11,6 @@ const fetchResults = async () => {
 
   if (searchQuery.value) {
     try {
-      // Здесь ваш код запроса на сервер или API для получения данных
-      /*const response = await this.$http.get("");
-      this.searchResults = response.data.results;*/
       searchResults.value = [
         { id: 1, title: 'Фильм 1', poster: 'https://placehold.it/10x15' },
         { id: 2, title: 'Фильм 2', poster: 'https://placehold.it/10x15' }
@@ -25,11 +21,7 @@ const fetchResults = async () => {
   }
 }
 
-// Здесь должна быть логика для перехода на страницу с результатами поиска
-const navigateToSearchPage = () => {
-  // Здесь должен быть код для навигации, например:
-  //router.push(/search?query=${searchQuery.value})
-}
+const navigateToSearchPage = () => {}
 </script>
 
 <template>
