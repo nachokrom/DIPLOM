@@ -1,16 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import HomePage  from '@/pages/HomePage.vue'
-import MoviesPage  from '@/pages/MoviesPage.vue'
+import HomePage from '@/pages/HomePage.vue'
+import MoviesPage from '@/pages/MoviesPage.vue'
 import SerialsPage from '@/pages/SerialsPage.vue'
-import MultPage  from '@/pages/MultPage.vue'
-import ProfilePage  from '@/pages/ProfilePage.vue'
-import FavoritePage  from '@/pages/FavoritePage.vue'
+import MultPage from '@/pages/MultPage.vue'
+import ProfilePage from '@/pages/ProfilePage.vue'
+import FavoritePage from '@/pages/FavoritePage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
 import DetailsMoviesPage from '@/pages/DetailsMoviesPage.vue'
 import ActorDetail from '@/pages/ActorDetail.vue'
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,8 +40,8 @@ const router = createRouter({
       component: MultPage
     },
     {
-      path: '/actor/:id',
-      name: 'actor',
+      path: '/name/:id',
+      name: 'name',
       component: ActorDetail
     },
     {
@@ -76,24 +75,20 @@ const router = createRouter({
       meta: {
         auth: false
       }
-    },
+    }
   ]
 })
 
-
 router.beforeEach((to) => {
-  const authStore = useAuthStore();
+  const authStore = useAuthStore()
 
   if (to.meta.auth && !authStore.userInfo.token) {
-    return '/signin';
+    return '/signin'
+  } else if ((to.name === 'signin' || to.name === 'signup') && authStore.userInfo.token) {
+    return '/profile'
   }
-  
-  else if ((to.name === 'signin' || to.name === 'signup') && authStore.userInfo.token) {
-    return '/profile';
-  }
-  
-  return true;
-});
+
+  return true
+})
 
 export default router
-
