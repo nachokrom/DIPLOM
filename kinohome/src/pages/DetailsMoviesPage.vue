@@ -1,6 +1,9 @@
 <script setup>
 import Header from '@/components/Header/ui.vue'
 import Footer from '@/components/Footer.vue'
+import Button from '@/components/Button.vue'
+import ButtonInfo from '@/components/ButtonInfo.vue'
+import ButtonIcon from '@/components/ButtonIcon.vue'
 </script>
 
 <template>
@@ -55,7 +58,22 @@ import Footer from '@/components/Footer.vue'
             </div>
           </div>
 
-          <div class="banner_btn"></div>
+          <div class="banner_btn">
+            <Button text="Смотреть онлайн" />
+            <ButtonInfo text="Трейлер" />
+            <ButtonInfo iconName="icon1" />
+            <ButtonInfo iconName="icon2" />
+            <ButtonInfo iconName="icon3" />
+          </div>
+          <div class="banner_btn-sm">
+            <Button text="Смотреть онлайн" />
+            <div class="button_sm flex items-center justify-center">
+              <ButtonIcon icon="icon4" buttonLabel="Трейлер" />
+              <ButtonIcon icon="icon1" buttonLabel="Запомнить" />
+              <ButtonIcon icon="icon2" buttonLabel="Оценить" />
+              <ButtonIcon icon="icon3" buttonLabel="Поделится" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -107,6 +125,25 @@ import Footer from '@/components/Footer.vue'
   height: 100%;
   bottom: -1px;
   right: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    transparent 52.63%,
+    rgba(0, 0, 0, 0.03) 55.25%,
+    rgba(0, 0, 0, 0.08) 57.88%,
+    rgba(0, 0, 0, 0.14) 60.51%,
+    rgba(0, 0, 0, 0.23) 63.13%,
+    rgba(0, 0, 0, 0.33) 65.76%,
+    rgba(0, 0, 0, 0.44) 68.39%,
+    rgba(0, 0, 0, 0.55) 71.01%,
+    rgba(0, 0, 0, 0.66) 73.64%,
+    rgba(0, 0, 0, 0.77) 76.27%,
+    rgba(0, 0, 0, 0.85) 78.89%,
+    rgba(0, 0, 0, 0.92) 81.52%,
+    rgba(0, 0, 0, 0.96) 84.15%,
+    rgba(0, 0, 0, 0.99) 86.77%,
+    #000 89.4%
+  );
 }
 
 .banner_height {
@@ -322,5 +359,64 @@ import Footer from '@/components/Footer.vue'
 .banner_btn {
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 1300px) {
+  .banner_height {
+    padding-bottom: 53%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .banner_height {
+    padding-bottom: 56.25%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .banner_container {
+    padding-top: 40%;
+    position: static;
+    transform: translateX(0);
+  }
+  .banner_height {
+    display: none;
+  }
+  .banner_bg {
+    bottom: auto;
+    height: fit-content;
+    padding-bottom: 56.25%;
+  }
+}
+
+@media (min-width: 576px) {
+  .banner_btn {
+    display: flex;
+  }
+  .banner_btn-sm {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner_container {
+    padding-top: 50%;
+  }
+  .banner_bg {
+    padding-bottom: 70%;
+    background-position: 50%;
+  }
+  .banner_btn {
+    display: none;
+  }
+  .banner_btn-sm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .button_sm {
+    width: 100%;
+    margin-top: 25px;
+  }
 }
 </style>
