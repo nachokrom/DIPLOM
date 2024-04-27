@@ -33,7 +33,7 @@ const slides = ref([
     }"
   >
     <SwiperSlide v-for="(slide, index) in slides" :key="index">
-      <router-link to="`/movie/${movie.id}`" class="router-link-inactive">
+      <router-link to="/movie/:id" class="router-link-inactive">
         <img
           :src="slide"
           :alt="`Poster ${index + 1}`"

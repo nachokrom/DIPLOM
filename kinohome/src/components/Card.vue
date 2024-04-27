@@ -11,7 +11,7 @@ const hoverCard = (value) => {
 <template>
   <div class="movie_card" @mouseover="hoverCard(true)" @mouseleave="hoverCard(false)">
     <!-- Постер -->
-    <router-link to="`/movie/${movie.id}`">
+    <router-link to="/movie/:id">
       <div class="poster_container relative" @mouseover="hover = true" @mouseleave="hover = false">
         <img
           class="transition-transform duration-300 w-full h-full object-cover"

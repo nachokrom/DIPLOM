@@ -1,58 +1,53 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axiosApiInstance from '@/services/api'
-
-import  Header  from '@/components/Header/ui.vue';
-import Loader from '@/components/Loader.vue';
-import Footer from '@/components/Footer.vue';
-
-const news = ref();
-const showLoader = ref(false);
-
-const getAllNews = async () => {
-  showLoader.value = true; 
-  try {
-    const response = await axiosApiInstance.get(`https://kinohome-af875-default-rtdb.europe-west1.firebasedatabase.app/news.json`);
-    news.value = response.data; 
-    showLoader.value = false; 
-  } catch (err) {
-    console.error(err.response); 
-    showLoader.value = false;
-  }
-};
-
-onMounted(() => {
-  getAllNews();
-})
-
-
+import Header from '@/components/Header/ui.vue'
+import Footer from '@/components/Footer.vue'
 </script>
 
 <template>
   <Header />
-  <main>
-    <div>
-      <h2 class="text-white">News</h2>
-      <Loader v-if="showLoader"/>
-      <!--<div class="flex flex-column gap-3" v-else>
-        
-        <div class="card_news bg-white w-3/5 h-52 border-spacing-4" v-for="(newItem, i) in news" :key="i" >
-          <h1 class="text-black text-2xl bottom-2"> {{ newItem.name }} </h1>
-          <p class="text-black text-xs"> {{ newItem.type }} </p>
-        </div>
-        
-      </div>-->
-    </div>
+  <main class="container px-2 max-w-7xl mx-auto mt-10 mb-10">
+    <h1 class="head_profile font-bold text-white text-4xl">Личный кабинет</h1>
   </main>
   <Footer />
 </template>
 
-<!-- https://kinohome-af875-default-rtdb.europe-west1.firebasedatabase.app/ -->
-
 <style scoped>
-
-.card_news {
-  margin: 15px;
+.head_profile {
+  max-width: 1264px;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
+@media (min-width: 1000px) and (max-width: 1400px) {
+  .head_profile {
+    font-size: 28px;
+    max-width: 1400px;
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .head_profile {
+    font-size: 24px;
+    max-width: 1000px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .head_profile {
+    font-size: 20px;
+    max-width: 650px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .head_profile {
+    font-size: 16px;
+    max-width: 450px;
+    margin-bottom: 5px;
+  }
+}
 </style>
