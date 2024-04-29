@@ -1,9 +1,25 @@
 <script setup>
+import { ref } from 'vue'
 import Header from '@/components/Header/ui.vue'
 import Footer from '@/components/Footer.vue'
 import Button from '@/components/Button.vue'
 import ButtonInfo from '@/components/ButtonInfo.vue'
 import ButtonIcon from '@/components/ButtonIcon.vue'
+import Tabs from '@/components/Tabs.vue'
+
+const showFullDescription = ref(false)
+const fullDescription =
+  'После событий первой части суперсемейка пользуется повышенным вниманием со стороны журналистов. Неожиданно оказалось, что обаятельная Миссис Исключительная гораздо лучше смотрится на экране телевизора, чем её муж. Мистеру Исключительному все чаще приходится сидеть дома и приглядывать за детьми, у каждого из которых есть свои причины быть недовольным собственными суперспособностями. Однако семейным проблемам предстоит отступить на второй план, когда окажется, что спокойствию Суперсемейки угрожает новый могущественный враг.'
+
+const tabs = [
+  { name: 'description', label: 'Описание' },
+  { name: 'images', label: 'Изображения' }
+]
+const selectedTab = ref('description')
+
+const changeTab = (tabName) => {
+  selectedTab.value = tabName
+}
 </script>
 
 <template>
@@ -75,6 +91,46 @@ import ButtonIcon from '@/components/ButtonIcon.vue'
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="description-section">
+      <div class="container mx-auto max-w-7xl px-2">
+        <Tabs :names="tabs" :selectedTab="selectedTab" @changeTab="changeTab">
+          <div v-if="selectedTab === 'description'">
+            <div class="container_desc">
+              <!-- Сокращенное описание -->
+              <p
+                v-if="!showFullDescription"
+                class="description line-clamp-3 m-0 text-base font-light text-left text-[hsla(0,0%,100%,.7)]"
+              >
+                {{ fullDescription }}
+              </p>
+
+              <!-- Полное описание -->
+              <p
+                v-show="showFullDescription"
+                class="description m-0 text-base font-light text-left text-[hsla(0,0%,100%,.7)]"
+              >
+                {{ fullDescription }}
+              </p>
+
+              <!-- Кнопка для показа/скрытия полного описания -->
+              <button
+                @click="showFullDescription = !showFullDescription"
+                class="btn_desc text-blue-600 hover:text-blue-700 transition duration-300 mt-2"
+              >
+                {{ showFullDescription ? 'Скрыть подробности' : 'Подробное описание' }}
+              </button>
+            </div>
+          </div>
+        </Tabs>
+      </div>
+    </section>
+    <section>
+      <div class="container mx-auto max-w-7xl px-2 pb-20">
+        <h1 class="title_actor">Актёры и создатели</h1>
+        <div>fsfsf</div>
       </div>
     </section>
   </main>
@@ -361,6 +417,24 @@ import ButtonIcon from '@/components/ButtonIcon.vue'
   align-items: center;
 }
 
+.container_desc {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 30px;
+  max-width: 800px;
+}
+
+.title_actor {
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  font-size: 23px;
+  line-height: 29px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
 @media (max-width: 1300px) {
   .banner_height {
     padding-bottom: 53%;
@@ -374,6 +448,9 @@ import ButtonIcon from '@/components/ButtonIcon.vue'
 }
 
 @media (max-width: 1000px) {
+  .movie_banner {
+    margin-bottom: 64px;
+  }
   .banner_container {
     padding-top: 40%;
     position: static;
@@ -399,6 +476,9 @@ import ButtonIcon from '@/components/ButtonIcon.vue'
 }
 
 @media (max-width: 576px) {
+  .movie_banner {
+    margin-bottom: 35px;
+  }
   .banner_container {
     padding-top: 50%;
   }
@@ -417,6 +497,23 @@ import ButtonIcon from '@/components/ButtonIcon.vue'
   .button_sm {
     width: 100%;
     margin-top: 25px;
+  }
+  .container_desc {
+    margin-bottom: 25px;
+  }
+  .description {
+    font-size: 12.5px;
+    line-height: 24px;
+  }
+  .title_actor {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+  .btn_desc {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 10px;
   }
 }
 </style>
