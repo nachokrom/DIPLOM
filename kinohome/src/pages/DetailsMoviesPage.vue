@@ -1,11 +1,15 @@
 <script setup>
 import { ref } from 'vue'
+import SliderCard from '@/components/SliderCard.vue'
+import { SwiperSlide } from 'swiper/vue'
+
 import Header from '@/components/Header/ui.vue'
 import Footer from '@/components/Footer.vue'
 import Button from '@/components/Button.vue'
 import ButtonInfo from '@/components/ButtonInfo.vue'
 import ButtonIcon from '@/components/ButtonIcon.vue'
 import Tabs from '@/components/Tabs.vue'
+import ActorCard from '@/components/ActorCard.vue'
 
 const showFullDescription = ref(false)
 const fullDescription =
@@ -128,9 +132,73 @@ const changeTab = (tabName) => {
       </div>
     </section>
     <section>
-      <div class="container mx-auto max-w-7xl px-2 pb-20">
-        <h1 class="title_actor">Актёры и создатели</h1>
-        <div>fsfsf</div>
+      <div class="container mx-auto max-w-7xl px-2 pb-10">
+        <h1 class="title_actor font-bold">Актёры и создатели</h1>
+        <div>
+          <SliderCard>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <ActorCard />
+            </SwiperSlide>
+          </SliderCard>
+        </div>
       </div>
     </section>
   </main>
@@ -422,7 +490,7 @@ const changeTab = (tabName) => {
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: 30px;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .title_actor {
@@ -431,7 +499,6 @@ const changeTab = (tabName) => {
   color: white;
   font-size: 23px;
   line-height: 29px;
-  font-weight: 500;
   margin-bottom: 30px;
 }
 
