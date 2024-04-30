@@ -1,7 +1,7 @@
 <script setup>
 import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
-import Select from '@/components/Select.vue'
+
 import Footer from '@/components/Footer.vue'
 </script>
 
@@ -10,7 +10,6 @@ import Footer from '@/components/Footer.vue'
   <main class="main">
     <div class="container px-2 max-w-7xl mx-auto mt-10 mb-10">
       <h1 class="head_films font-bold text-white text-4xl">Сериалы</h1>
-      <Select />
 
       <div class="movie_cards">
         <Card />
