@@ -33,16 +33,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .select_left,
 .select_right {
   display: flex;
-  gap: 1em; /* Отступ между селектами */
+  gap: 1em;
 }
 
 select {
-  /* Общие стили для селектов */
   padding: 10px;
   border-radius: 0.25em;
   background-color: #292929;

@@ -1,89 +1,137 @@
-<script setup>
-import { ref } from 'vue'
-
-const hover = ref(false)
-
-const hoverCard = (value) => {
-  hover.value = value
-}
-</script>
+<script setup></script>
 
 <template>
-  <div class="movie_card" @mouseover="hoverCard(true)" @mouseleave="hoverCard(false)">
-    <!-- Постер -->
-    <router-link to="/movie/:id">
-      <div class="poster_container relative" @mouseover="hover = true" @mouseleave="hover = false">
-        <img
-          class="transition-transform duration-300 w-full h-full object-cover"
-          src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a3ae9e25-5b10-42f3-96ae-5d707fc6a1bc/300x450"
-          alt="Название фильма"
-        />
-        <div v-show="hover" class="overlay_effect"></div>
+  <router-link to="movie/:id" class="poster_card">
+    <div class="image_wrapper">
+      <img
+        loading="lazy"
+        decoding="async"
+        data-nimg="fill"
+        class="poster_img"
+        style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent"
+        src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a3ae9e25-5b10-42f3-96ae-5d707fc6a1bc/300x450"
+        alt="Название фильма"
+      />
+    </div>
+    <div class="content_poster">
+      <span class="poster_rating">9.2</span>
+      <h3 class="poster_name">Чёрное зеркало</h3>
+      <div class="poster_info">
+        <span class="poster_year">2011</span>
+        <span class="poster_lenght">1 ч 52 мин</span>
       </div>
-    </router-link>
-
-    <!-- Оценка -->
-    <div
-      class="mark absolute top-0 left-2 bg-green-500 text-white flex items-center justify-center"
-    >
-      8.0
     </div>
-
-    <!-- Оверлей с информацией при наведении -->
-    <div class="bottom-0 w-full transition-opacity duration-300">
-      <p class="poster_category text-gray-600 px-1">Ужасы, Драма</p>
-      <p class="poster_name text-white px-1">Черное Зеркало</p>
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
-.movie_card {
-  width: 200px;
-  max-height: 350px;
-  height: auto;
+.poster_card {
   position: relative;
-  cursor: pointer;
-  border-radius: 20%;
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  color: #fff;
 }
 
-.overlay_effect {
+.image_wrapper {
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  padding-top: 150%;
+  background-color: #111214;
+}
+
+.image_wrapper::after {
+  content: '';
+  display: block;
   position: absolute;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  transition: opacity 0.3s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
 }
 
-.mark {
-  width: 30px;
-  height: 20px;
-  font-size: 14px;
-  border-radius: 10%;
-  margin: 8px;
-  padding: 12px;
+.poster_img {
+  display: block;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.content_poster {
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 20px;
+  justify-content: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  transition:
+    opacity 0.3s,
+    visibility 0.3s,
+    background-color 0.3s;
+  position: absolute;
+  border-radius: 16px;
+  top: 0;
+  left: 0;
+}
+
+.poster_rating {
+  position: absolute;
+  top: 23px;
+  left: 20px;
+  font-size: 15px;
+  line-height: 24px;
+  padding: 0 5px;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.poster_category {
-  font-size: 12px;
-  margin-top: 5px;
+  flex-shrink: 0;
+  font-weight: 400;
+  background-color: hsla(120, 100%, 50%, 0.76);
+  border-radius: 5px;
 }
 
 .poster_name {
-  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 19px;
 }
 
-@media (min-width: 1000px) and (max-width: 1400px) {
+.poster_info {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
 }
 
-@media (max-width: 1000px) {
+.poster_year,
+.poster_lenght {
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  color: hsla(0, 0%, 100%, 0.8);
 }
 
-@media (max-width: 650px) {
+.poster_year {
+  margin-right: 12px;
 }
 
-@media (max-width: 450px) {
+@media (min-width: 1025px) {
+  .poster_card {
+    transition: transform 0.3s;
+  }
+
+  .poster_card:hover .content_poster {
+    opacity: 1;
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.85);
+  }
 }
 </style>
