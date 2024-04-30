@@ -80,7 +80,7 @@ const logout = () => {
       </router-link>
     </div>
     <div v-else class="relative">
-      <div class="avatar_person px-1 cursor-pointer hover:bg-[#2563eb]">
+      <div class="avatar_person px-1 cursor-pointer">
         <img
           class="avatar-image rounded-full"
           src="./../../../assets/icons/user_icon.png"
