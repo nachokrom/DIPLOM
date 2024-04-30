@@ -105,51 +105,6 @@ import Footer from '@/components/Footer.vue'
     </div>
 
     <div class="xl:mb-14 lg:mb-10 md:mb-10">
-      <h1 class="head_section font-bold text-white text-4xl">Смотрим все семьей</h1>
-      <SliderCard>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-      </SliderCard>
-    </div>
-
-    <div class="xl:mb-14 lg:mb-10 md:mb-10">
       <h1 class="head_section font-bold text-white text-4xl">Фантастика</h1>
       <SliderCard>
         <SwiperSlide>
