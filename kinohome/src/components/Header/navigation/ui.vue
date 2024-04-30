@@ -30,7 +30,7 @@ onBeforeUnmount(() => {
             class="logo text-xl font-bold mr-8 hover:cursor-pointer hidden lg:block"
           >
             <svg width="200" height="50" xmlns="http://www.w3.org/2000/svg">
-              <text fill="#1d4ed8" font-family="Arial" font-size="30" x="10" y="35">Kinohome</text>
+              <text fill="#3b82f6" font-family="Arial" font-size="30" x="10" y="35">Kinohome</text>
             </svg>
           </router-link>
 

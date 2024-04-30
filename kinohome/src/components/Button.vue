@@ -16,7 +16,6 @@ defineProps({
   min-width: 52px;
   min-height: 52px;
   border: none;
-  /*padding: 12px 24px;*/
   padding: 14px;
   border-radius: 8px;
   cursor: pointer;
