@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import PageNotFound from '@/pages/PageNotFound.vue'
 import HomePage from '@/pages/HomePage.vue'
 import MoviesPage from '@/pages/MoviesPage.vue'
 import SerialsPage from '@/pages/SerialsPage.vue'
@@ -18,6 +19,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: '404',
+      component: PageNotFound
     },
     {
       path: '/movies',
