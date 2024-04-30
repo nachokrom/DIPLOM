@@ -6,7 +6,7 @@
         <div class="flex flex-col">
           <router-link to="/" class="logo text-xl font-bold mr-8 hover:cursor-pointer">
             <svg width="125" height="35" xmlns="http://www.w3.org/2000/svg">
-              <text fill="#1d4ed8" font-family="Arial" font-size="20" x="0" y="16">Kinohome</text>
+              <text fill="#3b82f6" font-family="Arial" font-size="20" x="0" y="16">Kinohome</text>
             </svg>
           </router-link>
           <p class="text-xs text-[#ffffffa3]">Всегда готовы ответить на ваши вопросы</p>
