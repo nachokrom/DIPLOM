@@ -73,43 +73,6 @@ defineProps({
           />
         </g>
       </svg>
-      <svg
-        v-else-if="icon === 'icon5'"
-        aria-hidden="true"
-        class="icon"
-        focusable="false"
-        id="svg1569"
-        viewBox="0 0 6.3499999 6.3500002"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:svg="http://www.w3.org/2000/svg"
-      >
-        <g id="layer1" transform="translate(0 -290.65)">
-          <path
-            id="path2489"
-            d="m1.0505789 290.64223a.52921961.52921961 0 0 0 -.52193028.53743v1.32189a.52942504.52942504 0 1 0 0 1.05885h1.05884928a.52942504.52942504 0 1 0 0-1.05885v-1.32189a.52921961.52921961 0 0 0 -.536919-.53743zm2.1171854 0a.52921961.52921961 0 0 0 -.521417.53743v2.64428a.52943.52943 0 0 0 0 1.05886h1.0583333a.52943.52943 0 0 0 0-1.05886v-2.64428a.52921961.52921961 0 0 0 -.5369163-.53743zm2.1151162 0a.52921961.52921961 0 0 0 -.5193479.53743v.52917a.52921961.52921961 0 1 0 1.0562643 0v-.52917a.52921961.52921961 0 0 0 -.5369164-.53743zm.5679229 2.12442a.52921961.52921961 0 0 0 -.031007.001h-1.0562638a.52921961.52921961 0 1 0 0 1.05626v2.64635a.52921961.52921961 0 1 0 1.0562643 0v-2.64635a.52921961.52921961 0 1 0 .031007-1.05729zm-4.8002245 1.31516a.52921961.52921961 0 0 0 -.52193028.53744v1.85105a.52942465.52942465 0 0 0 1.05884928 0v-1.85105a.52921961.52921961 0 0 0 -.536919-.53744zm2.1171854 1.3224a.52921961.52921961 0 0 0 -.521417.53692v.52917a.529297.529297 0 0 0 1.0583333 0v-.52917a.52921961.52921961 0 0 0 -.5369163-.53692z"
-            font-variant-ligatures="normal"
-            font-variant-position="normal"
-            font-variant-caps="normal"
-            font-variant-numeric="normal"
-            font-variant-alternates="normal"
-            font-feature-settings="normal"
-            text-indent="0"
-            text-align="start"
-            text-decoration-line="none"
-            text-decoration-style="solid"
-            text-decoration-color="rgb(0,0,0)"
-            text-transform="none"
-            text-orientation="mixed"
-            white-space="normal"
-            shape-padding="0"
-            isolation="auto"
-            mix-blend-mode="normal"
-            solid-color="rgb(0,0,0)"
-            solid-opacity="1"
-            vector-effect="none"
-          />
-        </g>
-      </svg>
     </div>
 
     <span class="icon-text">{{ buttonLabel }}</span>
@@ -143,7 +106,7 @@ defineProps({
   width: 22px;
   height: 22px;
   fill: white;
-  transition: fill var(--duration);
+  transition: fill 0.3s;
 }
 
 .icon-text {

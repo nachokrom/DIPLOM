@@ -5,7 +5,6 @@ import Filters from '@/components/Filters.vue'
 import Footer from '@/components/Footer.vue'
 
 const genres = [
-  { label: 'Все жанры', value: '' },
   { label: 'Семейные', value: 'семейный' },
   { label: 'Биографии', value: 'биография' },
   { label: 'Боевики', value: 'боевик' },
@@ -33,7 +32,6 @@ const genres = [
 ]
 
 const raiting = [
-  { label: 'Любой рейтинг', href: '#' },
   { label: 'Больше 9', href: '#' },
   { label: 'Больше 8', href: '#' },
   { label: 'Больше 7', href: '#' },
@@ -42,7 +40,6 @@ const raiting = [
 ]
 
 const years = [
-  { label: 'Все годы', href: '#' },
   { label: '2024', href: '#' },
   { label: '2022-2023', href: '#' },
   { label: '2020-2021', href: '#' },

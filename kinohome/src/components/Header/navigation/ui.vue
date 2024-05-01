@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
   content: '';
   display: none;
   position: absolute;
-  bottom: -16.5px;
+  bottom: -25px;
   left: -10px;
   right: -10px;
   height: 2px;
