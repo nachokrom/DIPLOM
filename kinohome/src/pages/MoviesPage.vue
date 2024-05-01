@@ -8,6 +8,14 @@ import Footer from '@/components/Footer.vue'
 
 const isModalOpen = ref(false)
 
+const openModal = () => {
+  isModalOpen.value = true
+}
+
+const closeModal = () => {
+  isModalOpen.value = false
+}
+
 const genres = [
   { label: 'Семейные', value: 'семейный' },
   { label: 'Биографии', value: 'биография' },
@@ -36,32 +44,65 @@ const genres = [
 ]
 
 const raiting = [
-  { label: 'Больше 9', href: '#' },
-  { label: 'Больше 8', href: '#' },
-  { label: 'Больше 7', href: '#' },
-  { label: 'Больше 6', href: '#' },
-  { label: 'Больше 5', href: '#' }
+  { label: 'Больше 9', value: 'больше 9' },
+  { label: 'Больше 8', value: 'больше 8' },
+  { label: 'Больше 7', value: 'больше 7' },
+  { label: 'Больше 6', value: 'больше 6' },
+  { label: 'Больше 5', value: 'больше 5' }
 ]
 
 const years = [
-  { label: '2024', href: '#' },
-  { label: '2022-2023', href: '#' },
-  { label: '2020-2021', href: '#' },
-  { label: '2014-2019', href: '#' },
-  { label: '2010-2014', href: '#' },
-  { label: '2000-2009', href: '#' },
-  { label: '1990-1999', href: '#' },
-  { label: '1980-1989', href: '#' },
-  { label: '1970-1979', href: '#' },
-  { label: '1960-1969', href: '#' },
-  { label: 'до 1959', href: '#' }
+  { label: '2024', value: '2024' },
+  { label: '2022-2023', value: '2022-2023' },
+  { label: '2020-2021', value: '2020-2021' },
+  { label: '2014-2019', value: '2014-2019' },
+  { label: '2010-2014', value: '2010-2014' },
+  { label: '2000-2009', value: '2000-2009' },
+  { label: '1990-1999', value: '1990-1999' },
+  { label: '1980-1989', value: '1980-1989' },
+  { label: '1970-1979', value: '1970-1979' },
+  { label: '1960-1969', value: '1960-1969' },
+  { label: 'до 1959', value: '1959' }
 ]
 
 const sort = [
-  { label: 'Рекомендуемые', href: '#' },
-  { label: 'По рейтингу', href: '#' },
-  { label: 'По дате выхода', href: '#' }
+  { label: 'Рекомендуемые', value: 'рекомендуемые' },
+  { label: 'По рейтингу', value: 'по рейтингу' },
+  { label: 'По дате выхода', value: 'по дате выхода' }
 ]
+
+const selectedGenres = ref(null)
+const selectedRating = ref(null)
+const selectedYear = ref(null)
+const selectedSort = ref(null)
+
+// functions to update each state
+function updateGenre(selected) {
+  selectedGenres.value = selected
+}
+
+function updateRating(selected) {
+  selectedRating.value = selected
+}
+
+function updateYear(selected) {
+  selectedYear.value = selected
+}
+
+function updateSort(selected) {
+  selectedSort.value = selected
+}
+function applySelection() {
+  const filterData = {
+    genres: selectedGenres.value,
+    rating: selectedRating.value,
+    years: selectedYear.value,
+    sort: selectedSort.value
+  }
+  // Вы можете сделать запрос к API, чтобы получить отфильтрованные данные
+  // или применить логику фильтрации на клиенте.
+  console.log(filterData)
+}
 </script>
 
 <template>
@@ -70,7 +111,7 @@ const sort = [
     <div class="container px-2 max-w-7xl mx-auto mt-10 mb-10">
       <div class="head_films">
         <h1 class="head_title font-bold text-white text-4xl">Фильмы</h1>
-        <button @click="isModalOpen = true">
+        <button @click="openModal">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="icons">
             <g id="Filters">
               <path
@@ -85,7 +126,54 @@ const sort = [
             </g>
           </svg>
         </button>
-        <FiltersMobile v-if="isModalOpen" @close="isModalOpen = false" />
+        <div
+          class="modal_filters container mx-auto max-w-7xl px-2"
+          :class="{ modal_active: isModalOpen }"
+          v-show="isModalOpen"
+          ref="modal"
+        >
+          <div class="filters_header flex justify-between items-center py-4">
+            <router-link to="/" class="logo text-xl font-bold mr-8 hover:cursor-pointer">
+              <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg">
+                <text fill="#3b82f6" font-family="Arial" font-size="30" x="10" y="35">
+                  Kinohome
+                </text>
+              </svg>
+            </router-link>
+
+            <button class="close" @click="closeModal">
+              <svg
+                class="icons_close"
+                id="Capa_1"
+                enable-background="new 0 0 512.001 512.001"
+                viewBox="0 0 512.001 512.001"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <path
+                    d="m512.001 84.853-84.853-84.853-171.147 171.147-171.148-171.147-84.853 84.853 171.148 171.147-171.148 171.148 84.853 84.853 171.148-171.147 171.147 171.147 84.853-84.853-171.148-171.148z"
+                  />
+                </g>
+              </svg>
+            </button>
+          </div>
+
+          <h1 class="head_filters font-bold text-white text-2xl py-6">Фильтры</h1>
+          <div class="filters_mobile">
+            <FiltersMobile title="Жанры" :options="genres" @updateGenre="updateGenre" />
+            <FiltersMobile title="Рейтинг" :options="raiting" @updateRating="updateRating" />
+            <FiltersMobile title="Годы выхода" :options="years" @updateYear="updateYear" />
+            <FiltersMobile title="Рекомендуемые" :options="sort" @updateSort="updateSort" />
+          </div>
+          <div class="w-full mt-4">
+            <button
+              class="apply-button w-full py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
+              @click="applySelection"
+            >
+              Применить изменения
+            </button>
+          </div>
+        </div>
       </div>
       <div class="select_section">
         <div class="select_section-left">
@@ -159,6 +247,57 @@ const sort = [
   fill: white;
   transition: fill 0.3s;
   display: none;
+}
+
+.modal_filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #171717;
+  z-index: 150;
+  opacity: 0;
+  /* Плавное исчезновение и уменьшение модального окна */
+  visibility: hidden;
+  transform: scale(1.1);
+
+  /* Определяем анимацию только для свойств opacity и transform */
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.modal_active {
+  opacity: 1;
+  /* Плавное появление и увеличение модального окна */
+  visibility: visible;
+  transform: scale(1);
+
+  /* Снова определяем анимацию для тех же свойств */
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.close {
+  padding-right: 15px;
+}
+
+.icons_close {
+  width: 22px;
+  height: 22px;
+  fill: white;
+  transition: fill 0.3s;
+}
+
+.filters_mobile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 @media (min-width: 1000px) and (max-width: 1400px) {
