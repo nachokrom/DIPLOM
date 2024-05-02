@@ -10,6 +10,14 @@ import ButtonInfo from '@/components/ButtonInfo.vue'
 import ButtonIcon from '@/components/ButtonIcon.vue'
 import Tabs from '@/components/Tabs.vue'
 import ActorCard from '@/components/ActorCard.vue'
+import Popup from '@/components/Popup.vue'
+import ButtonShare from '@/components/ButtonShare.vue'
+import CopyButton from '@/components/CopyButton.vue'
+
+const showOnlinePopup = ref(false)
+const showTrailerPopup = ref(false)
+const showStarsPopup = ref(false)
+const showSharePopup = ref(false)
 
 const showFullDescription = ref(false)
 const fullDescription =
@@ -79,19 +87,19 @@ const changeTab = (tabName) => {
           </div>
 
           <div class="banner_btn">
-            <Button text="Смотреть онлайн" />
-            <ButtonInfo text="Трейлер" />
+            <Button text="Смотреть онлайн" @click="showOnlinePopup = true" />
+            <ButtonInfo text="Трейлер" @click="showTrailerPopup = true" />
             <ButtonInfo iconName="icon1" />
-            <ButtonInfo iconName="icon2" />
-            <ButtonInfo iconName="icon3" />
+            <ButtonInfo iconName="icon2" @click="showStarsPopup = true" />
+            <ButtonInfo iconName="icon3" @click="showSharePopup = true" />
           </div>
           <div class="banner_btn-sm">
-            <Button text="Смотреть онлайн" />
+            <Button text="Смотреть онлайн" @click="showOnlinePopup = true" />
             <div class="button_sm flex items-center justify-center">
-              <ButtonIcon icon="icon4" buttonLabel="Трейлер" />
+              <ButtonIcon icon="icon4" buttonLabel="Трейлер" @click="showTrailerPopup = true" />
               <ButtonIcon icon="icon1" buttonLabel="Запомнить" />
-              <ButtonIcon icon="icon2" buttonLabel="Оценить" />
-              <ButtonIcon icon="icon3" buttonLabel="Поделится" />
+              <ButtonIcon icon="icon2" buttonLabel="Оценить" @click="showStarsPopup = true" />
+              <ButtonIcon icon="icon3" buttonLabel="Поделится" @click="showSharePopup = true" />
             </div>
           </div>
         </div>
@@ -203,6 +211,71 @@ const changeTab = (tabName) => {
     </section>
   </main>
   <Footer />
+  <Popup v-model:isVisible="showOnlinePopup">
+    <div
+      class="video-container"
+      :key="showOnlinePopup"
+      style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden"
+    >
+      <iframe
+        class="w-full h-full"
+        style="position: absolute; top: 0; left: 0"
+        src="https://www.youtube.com/embed/fT2WBr8Cy5U?si=x4kggijGRngCFhQS"
+        title="Video title"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </Popup>
+  <Popup v-model:isVisible="showTrailerPopup">
+    <div
+      class="video-container"
+      :key="showTrailerPopup"
+      style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden"
+    >
+      <iframe
+        class="w-full h-full"
+        style="position: absolute; top: 0; left: 0"
+        src="https://www.youtube.com/embed/fT2WBr8Cy5U?si=x4kggijGRngCFhQS"
+        title="Video title"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </Popup>
+  <Popup v-model:isVisible="showStarsPopup">
+    <h1 class="stars_title">Оцените по 10-ти бальной шкале</h1>
+    <div class="stars-container">
+      <div class="grades_popup">
+        <label class="label_stars"><input hidden type="radio" value="1" />1</label>
+        <label class="label_stars"><input hidden type="radio" value="2" />2</label>
+        <label class="label_stars"><input hidden type="radio" value="3" />3</label>
+        <label class="label_stars"><input hidden type="radio" value="4" />4</label>
+        <label class="label_stars"><input hidden type="radio" value="5" />5</label>
+        <label class="label_stars"><input hidden type="radio" value="6" />6</label>
+        <label class="label_stars"><input hidden type="radio" value="7" />7</label>
+        <label class="label_stars"><input hidden type="radio" value="8" />8</label>
+        <label class="label_stars"><input hidden type="radio" value="9" />9</label>
+        <label class="label_stars"><input hidden type="radio" value="10" />10</label>
+      </div>
+      <div class="marks_diapazon">
+        <span class="marks_caption">Очень плохо</span>
+        <span class="marks_caption">Отлично</span>
+      </div>
+    </div>
+    <Button text="Поставить оценку" />
+  </Popup>
+  <Popup v-model:isVisible="showSharePopup" :maxWidth="'500px'">
+    <h1 class="title_share">Поделится</h1>
+    <div class="btns_share">
+      <ButtonShare />
+    </div>
+    <div class="btn_share-copy">
+      <CopyButton />
+    </div>
+  </Popup>
 </template>
 
 <style scoped>
@@ -502,15 +575,112 @@ const changeTab = (tabName) => {
   margin-bottom: 30px;
 }
 
+.stars_title {
+  display: block;
+  text-align: center;
+  max-width: 380px;
+  margin: 0 auto 35px;
+  font-size: 32px;
+  line-height: 43px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.stars-container {
+  max-width: 90%;
+  margin: 0 auto 20px;
+}
+
+.grades_popup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.label_stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28.8px;
+  background-color: #2e2e2e;
+  color: #fff;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.marks_diapazon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.marks_caption {
+  font-size: 13px;
+  line-height: 22px;
+  color: hsla(0, 0%, 100%, 0.6);
+  letter-spacing: 0.05em;
+}
+
+.title_share {
+  width: 100%;
+  font-size: 22px;
+  line-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.btns_share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn_share-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 @media (max-width: 1300px) {
   .banner_height {
     padding-bottom: 53%;
   }
 }
 
+@media (min-width: 1025px) {
+  .label_stars:not(:last-child) {
+    margin-right: 12px;
+  }
+}
+
 @media (max-width: 1024px) {
   .banner_height {
     padding-bottom: 56.25%;
+  }
+  .grades_popup {
+    display: grid;
+    grid-gap: 25px;
+    gap: 25px;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+  .stars-container {
+    max-width: 100%;
+    margin-bottom: 40px;
   }
 }
 
@@ -581,6 +751,33 @@ const changeTab = (tabName) => {
     font-size: 14px;
     line-height: 18px;
     margin-top: 10px;
+  }
+  .stars_title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .stars-container {
+    margin-bottom: 32px;
+  }
+  .grades_popup {
+    gap: 12px;
+  }
+  .label_stars {
+    width: 53px;
+    height: 53px;
+    font-size: 16px;
+    line-height: 23px;
+  }
+  .marks_caption {
+    font-size: 10px;
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .label_stars {
+    width: 45px;
+    height: 45px;
   }
 }
 </style>
