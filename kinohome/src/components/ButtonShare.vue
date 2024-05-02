@@ -8,26 +8,29 @@ const props = defineProps({
     type: String,
     required: true
   },
-  title: String
+  title: {
+    type: String,
+    default: ''
+  }
 })
 
 const openShareWindow = (network) => {
   let shareUrl = ''
   switch (network) {
     case 'vk':
-      shareUrl = `https://vk.com/share.php?url=${encodeURIComponent(props.urlToShare)}&title=${encodeURIComponent(props.title)}`
+      shareUrl = `https://vk.com/share.php?url=${encodeURIComponent(props.urlToShare)}`
       break
     case 'telegram':
-      shareUrl = `https://t.me/share/url?url=${encodeURIComponent(props.urlToShare)}&text=${encodeURIComponent(props.title)}`
+      shareUrl = `https://t.me/share/url?url=${encodeURIComponent(props.urlToShare)}`
       break
     case 'whatsapp':
-      shareUrl = `https://wa.me/?text=${encodeURIComponent(props.title + ' ' + props.urlToShare)}`
+      shareUrl = `https://wa.me/?text=${encodeURIComponent(props.urlToShare)}`
       break
     case 'viber':
-      shareUrl = `viber://forward?text=${encodeURIComponent(props.title + ' ' + props.urlToShare)}`
+      shareUrl = `viber://forward?text=${encodeURIComponent(props.urlToShare)}`
       break
     case 'gmail':
-      shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(props.title)}&body=${encodeURIComponent(props.urlToShare)}`
+      shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(props.urlToShare)}`
       break
     default:
       shareUrl = props.urlToShare

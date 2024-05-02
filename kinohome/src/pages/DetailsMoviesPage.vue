@@ -32,6 +32,8 @@ const selectedTab = ref('description')
 const changeTab = (tabName) => {
   selectedTab.value = tabName
 }
+
+const currentUrl = ref(window.location.href)
 </script>
 
 <template>
@@ -270,7 +272,7 @@ const changeTab = (tabName) => {
   <Popup v-model:isVisible="showSharePopup" :maxWidth="'500px'">
     <h1 class="title_share">Поделится</h1>
     <div class="btns_share">
-      <ButtonShare />
+      <ButtonShare :url-to-share="currentUrl" />
     </div>
     <div class="btn_share-copy">
       <CopyButton />
