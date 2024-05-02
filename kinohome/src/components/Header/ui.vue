@@ -38,10 +38,6 @@ onUnmounted(() => {
         <!-- Блок поиска и управления -->
         <div class="flex items-center">
           <SearchBar />
-          <!-- Значок смены темы сайта -->
-          <div class="mx-4 hover:cursor-pointer">
-            <img src="./../../assets/icons/sun-light-theme.svg" alt="" />
-          </div>
           <!-- Кнопка входа -->
           <UserMenu />
         </div>
