@@ -290,27 +290,16 @@ const currentUrl = ref(window.location.href)
   display: block;
   position: absolute;
   top: 0;
-  left: -1px;
+  left: -450px;
   width: 100%;
   height: 100%;
   background: linear-gradient(
     90deg,
-    #000 3.31%,
-    rgba(0, 0, 0, 0.99) 7.71%,
-    rgba(0, 0, 0, 0.96) 12.11%,
-    rgba(0, 0, 0, 0.91) 16.51%,
-    rgba(0, 0, 0, 0.85) 20.91%,
-    rgba(0, 0, 0, 0.76) 25.31%,
-    rgba(0, 0, 0, 0.67) 29.71%,
-    rgba(0, 0, 0, 0.55) 34.11%,
-    rgba(0, 0, 0, 0.44) 38.52%,
-    rgba(0, 0, 0, 0.33) 42.92%,
-    rgba(0, 0, 0, 0.23) 47.32%,
-    rgba(0, 0, 0, 0.15) 51.72%,
-    rgba(0, 0, 0, 0.08) 56.12%,
-    rgba(0, 0, 0, 0.03) 60.52%,
-    rgba(0, 0, 0, 0.01) 64.92%,
-    transparent 69.32%
+    #121212 0%,
+    rgba(18, 18, 18, 0.99) 20%,
+    rgba(18, 18, 18, 0.96) 30%,
+    rgba(18, 18, 18, 0.91) 40%,
+    rgba(18, 18, 18, 0) 100%
   );
 }
 
