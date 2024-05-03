@@ -14,7 +14,9 @@
             >Задать вопрос</a
           >
           <p class="text-[#ffffffa3]">Почта для связи:</p>
-          <a href="mailto:test@kinohome.com" class="block mt-1 max-w-max">test@kinohome.com</a>
+          <a href="mailto:test@kinohome.com" class="block mt-1 max-w-max text-[14px]"
+            >support_kinohome@kinohome.com</a
+          >
           <p class="mt-4 text-xs text-[#ffffffa3]">Kinohome.com © 2024</p>
         </div>
 

@@ -10,7 +10,6 @@ import FavoritePage from '@/pages/FavoritePage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
 import DetailsMoviesPage from '@/pages/DetailsMoviesPage.vue'
-import ActorDetail from '@/pages/ActorDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,11 +44,6 @@ const router = createRouter({
       path: '/cartoons',
       name: 'cartoons',
       component: MultPage
-    },
-    {
-      path: '/name/:id',
-      name: 'name',
-      component: ActorDetail
     },
     {
       path: '/profile',
