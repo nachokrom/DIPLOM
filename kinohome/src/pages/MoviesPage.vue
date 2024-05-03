@@ -171,7 +171,7 @@ function applySelection() {
             <FiltersMobile title="Жанры" :options="genres" @updateGenre="updateGenre" />
             <FiltersMobile title="Рейтинг" :options="raiting" @updateRating="updateRating" />
             <FiltersMobile title="Годы выхода" :options="years" @updateYear="updateYear" />
-            <FiltersMobile title="Рекомендуемые" :options="sort" @updateSort="updateSort" />
+            <FiltersMobile title="Сортировка" :options="sort" @updateSort="updateSort" />
           </div>
           <div class="w-full mt-4">
             <button
