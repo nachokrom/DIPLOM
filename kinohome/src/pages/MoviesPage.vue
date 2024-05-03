@@ -4,6 +4,7 @@ import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
 import Filters from '@/components/Filters.vue'
 import FiltersMobile from '@/components/FiltersMobile.vue'
+import Pagination from '@/components/Pagination.vue'
 import Footer from '@/components/Footer.vue'
 
 const isModalOpen = ref(false)
@@ -200,6 +201,8 @@ function applySelection() {
         <Card />
         <Card />
       </div>
+
+      <Pagination :total-pages="totalPages" category="movies" />
     </div>
   </main>
   <Footer />

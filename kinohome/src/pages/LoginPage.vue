@@ -24,7 +24,7 @@ const signin = async () => {
   <Header />
   <main class="main-back pt-32 pb-32">
     <div class="flex items-center justify-center">
-      <div class="w-96 shadow-2xl rounded-xl p-10 bg-[#222222]">
+      <div class="w-96 shadow-2xl rounded-[50px] p-10 bg-[#1c1c1f]">
         <h1 class="text-white text-2xl mb-8 text-center">Вход</h1>
         <Message v-if="authStore.error" severity="warn">{{ authStore.error }}</Message>
         <form class="text-center space-y-7">

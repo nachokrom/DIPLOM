@@ -26,7 +26,7 @@ function handleSelection(option) {
   <Menu as="div" class="relative inline-block text-left">
     <div>
       <MenuButton
-        class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-[#1c1c1f] px-3 py-2 text-sm font-semibold text-white shadow-sm"
+        class="menu_btns inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm"
       >
         {{ title }}
         <ChevronDownIcon class="-mr-1 h-5 w-5 text-white" aria-hidden="true" />
@@ -72,3 +72,14 @@ function handleSelection(option) {
     </transition>
   </Menu>
 </template>
+
+<style scoped>
+.menu_btns {
+  background-color: #1c1c1f;
+  transition: background-color 0.3s;
+}
+
+.menu_btns:hover {
+  background-color: hsla(220, 5%, 56%, 0.3);
+}
+</style>

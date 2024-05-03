@@ -25,7 +25,7 @@ const navigateToSearchPage = () => {}
 </script>
 
 <template>
-  <div class="relative mx-4">
+  <div class="block_search relative">
     <!-- Поле поиска -->
     <input
       v-model="searchQuery"
@@ -55,6 +55,10 @@ const navigateToSearchPage = () => {}
 </template>
 
 <style scoped>
+.block_search {
+  margin-right: 25px;
+}
+
 @media (max-width: 650px) {
   .input_search {
     width: 100%;

@@ -30,7 +30,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header :class="['header text-white bg-[#171717]', !headerVisible && 'hidden-header']">
+  <header :class="['header text-white bg-[#000000]', !headerVisible && 'hidden-header']">
     <div class="header_container container mx-auto max-w-7xl px-2">
       <div class="flex justify-between items-center py-4">
         <Navigation />

@@ -18,7 +18,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: HomePage,
+      meta: { breadcrumb: 'Главная' }
     },
     {
       path: '/:pathMatch(.*)*',
@@ -55,13 +56,22 @@ const router = createRouter({
       name: 'profile',
       component: ProfilePage,
       meta: {
-        auth: true
+        auth: true,
+        breadcrumb: 'Личный кабинет'
       }
     },
     {
-      path: '/favorite',
+      path: '/profile/favorite',
       name: 'favorite',
       component: FavoritePage,
+      children: [
+        {
+          path: '',
+          name: 'favorite',
+          component: FavoritePage,
+          meta: { breadcrumb: 'Избранное' }
+        }
+      ],
       meta: {
         auth: true
       }

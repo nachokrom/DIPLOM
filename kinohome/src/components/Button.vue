@@ -21,8 +21,8 @@ defineProps({
   cursor: pointer;
   transition: background-color 0.3s;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  /*margin-left: auto;
+  margin-right: auto;*/
   letter-spacing: 0.2px;
 }
 .custom-button:hover {

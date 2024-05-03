@@ -2,12 +2,16 @@
 import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
 import Footer from '@/components/Footer.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 </script>
 
 <template>
   <Header />
   <main class="main">
     <div class="container px-2 max-w-7xl mx-auto mt-10 mb-10">
+      <div class="breadcrumbs">
+        <Breadcrumbs />
+      </div>
       <h1 class="head_films font-bold text-white text-4xl">Избранное</h1>
       <div class="movie_cards">
         <Card />
