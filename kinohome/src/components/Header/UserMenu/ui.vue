@@ -8,7 +8,7 @@ const apiKey = import.meta.env.VITE_API_KEY_FIREBASE
 const authStore = useAuthStore()
 const token = computed(() => authStore.userInfo.token)
 
-const displayName = ref('Loading...')
+const displayName = ref('Загрузка')
 
 const getDisplayName = async () => {
   if (token.value) {
@@ -170,11 +170,16 @@ onMounted(() => {
 
 .icon_profile {
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   margin-right: 6px;
   opacity: 0.5;
   fill: #fff;
+}
+
+.title_profile {
+  font-size: 15px;
+  line-height: 22px;
 }
 
 .btn_profile {
@@ -185,6 +190,7 @@ onMounted(() => {
   font-size: 16px;
   line-height: 20px;
   transition: opacity 0.3s;
+  margin-right: 10px;
 }
 
 .btn_profile:hover {

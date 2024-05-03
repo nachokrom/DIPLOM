@@ -31,7 +31,7 @@ const signin = async () => {
           <div>
             <input
               v-model="email"
-              class="w-full px-4 py-2 bg-gray-600 text-white rounded"
+              class="w-full px-4 py-2 bg-white text-black rounded p-2 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
               type="email"
               placeholder="Email"
             />
@@ -39,12 +39,12 @@ const signin = async () => {
           <div>
             <input
               v-model="password"
-              class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded"
+              class="w-full px-4 py-2 mb-2 bg-white text-black rounded p-2 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
               type="password"
               placeholder="Пароль"
             />
             <p class="text-gray-600 text-left">
-              <a href="/reset-password" class="text-gray-600 hover:text-[#1976d2]"
+              <a href="/reset-password" class="text-[15px] text-gray-600 hover:text-[#1976d2]"
                 >Забыли пароль?</a
               >
             </p>

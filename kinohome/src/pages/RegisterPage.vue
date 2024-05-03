@@ -34,7 +34,7 @@ const signup = async () => {
           <div>
             <input
               v-model="displayName"
-              class="w-full px-4 py-2 bg-gray-600 text-white rounded"
+              class="w-full px-4 py-2 bg-white text-black rounded p-2 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
               type="text"
               placeholder="Имя"
             />
@@ -42,7 +42,7 @@ const signup = async () => {
           <div>
             <input
               v-model="email"
-              class="w-full px-4 py-2 bg-gray-600 text-white rounded"
+              class="w-full px-4 py-2 bg-white text-black rounded p-2 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
               type="email"
               placeholder="Email"
             />
@@ -50,7 +50,7 @@ const signup = async () => {
           <div>
             <input
               v-model="password"
-              class="w-full px-4 py-2 mb-2 bg-gray-600 text-white rounded"
+              class="w-full px-4 py-2 mb-2 bg-white text-black rounded p-2 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
               type="password"
               placeholder="Пароль"
             />
@@ -64,6 +64,10 @@ const signup = async () => {
             Зарегистрироваться
           </button>
         </form>
+        <p class="text-white text-xs mt-2 text-center">
+          Есть аккаунт?
+          <a href="/signin" class="text-gray-600 hover:text-[#1976d2]">Войти</a>.
+        </p>
         <p class="text-gray-600 text-xs mt-2 text-center">
           Нажимая «Зарегистрироваться», вы соглашаетесь с
           <a href="/privacy-policy" class="text-gray-600 underline hover:text-[#1976d2]"

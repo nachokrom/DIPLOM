@@ -35,10 +35,10 @@ const navigateToSearchPage = () => {}
       @keyup.enter="navigateToSearchPage"
       type="text"
       placeholder="Фильмы, сериалы..."
-      class="input_search xl:w-72 lg:w-64 bg-white text-black rounded p-2 px-5 focus:outline-none focus:ring focus:border-blue-300"
+      class="input_search xl:w-64 lg:w-60 bg-white text-black rounded p-2 px-5 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
     />
     <!-- Попап с результатами поиска -->
-    <div v-show="isFocused" class="absolute z-10 w-full bg-[#292929] mt-1 rounded shadow-2xl">
+    <div v-show="isFocused" class="absolute z-10 w-full bg-[#1d1d1d] mt-1 rounded shadow-2xl">
       <ul v-if="searchResults.length > 0" class="overflow-auto max-h-60">
         <li
           v-for="result in searchResults"
@@ -49,20 +49,20 @@ const navigateToSearchPage = () => {}
           <span class="font-medium">{{ result.title }}</span>
         </li>
       </ul>
-      <div v-else class="p-2 text-white">Ничего не найдено.</div>
+      <div v-else class="p-2 text-white text-[15px]">Ничего не найдено.</div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .block_search {
-  margin-right: 25px;
+  margin-right: 15px;
 }
 
 @media (max-width: 650px) {
   .input_search {
     width: 100%;
-    max-width: 235px;
+    max-width: 250px;
   }
 }
 

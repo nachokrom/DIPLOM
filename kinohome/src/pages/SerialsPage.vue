@@ -112,7 +112,7 @@ function applySelection() {
     <div class="container px-2 max-w-7xl mx-auto mt-10 mb-10">
       <div class="head_films">
         <h1 class="head_title font-bold text-white text-4xl">Сериалы</h1>
-        <button @click="openModal">
+        <button class="mr-[10px]" @click="openModal">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="icons">
             <g id="Filters">
               <path
@@ -134,9 +134,16 @@ function applySelection() {
           ref="modal"
         >
           <div class="filters_header flex justify-between items-center py-4">
-            <router-link to="/" class="logo text-xl font-bold mr-8 hover:cursor-pointer">
-              <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg">
-                <text fill="#3b82f6" font-family="Arial" font-size="30" x="10" y="35">
+            <router-link to="/" class="logo text-xl font-bold mr-1 hover:cursor-pointer">
+              <svg width="130" height="50" xmlns="http://www.w3.org/2000/svg">
+                <text
+                  class="logo_text"
+                  fill="#3b82f6"
+                  font-family="Arial"
+                  font-size="25"
+                  x="10"
+                  y="35"
+                >
                   Kinohome
                 </text>
               </svg>
@@ -219,6 +226,12 @@ function applySelection() {
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+}
+
+.logo_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .movie_cards {

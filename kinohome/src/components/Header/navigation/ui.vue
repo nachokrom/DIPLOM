@@ -1,40 +1,9 @@
-<script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import BurgerMenu from '@/components/Header/BurgerMenu/ui.vue'
-
-const windowWidth = ref(window.innerWidth)
-const isMobile = computed(() => windowWidth.value < 1150)
-
-const updateWindowWidth = () => {
-  windowWidth.value = window.innerWidth
-}
-
-onMounted(() => {
-  window.addEventListener('resize', updateWindowWidth)
-  updateWindowWidth()
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateWindowWidth)
-})
-</script>
-
 <template>
   <header class="text-white">
     <div class="container mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center">
-        <!-- Логотип и навигация для десктопов-->
-        <div v-if="!isMobile" class="flex items-center">
-          <router-link
-            to="/"
-            class="logo text-xl font-bold mr-8 hover:cursor-pointer hidden lg:block"
-          >
-            <svg width="150" height="50" xmlns="http://www.w3.org/2000/svg">
-              <text fill="#3b82f6" font-family="Arial" font-size="30" x="10" y="35">Kinohome</text>
-            </svg>
-          </router-link>
-
-          <nav class="lg:block hidden">
+        <div class="flex items-center">
+          <nav class="nav_header">
             <router-link to="/" class="nav_item r-5" active-class="active">Главная</router-link>
             <router-link to="/movies" class="nav_item mr-5" active-class="active"
               >Фильмы</router-link
@@ -49,7 +18,6 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <BurgerMenu v-if="isMobile" />
   </header>
 </template>
 
@@ -59,7 +27,7 @@ onBeforeUnmount(() => {
   text-decoration: none;
   position: relative;
   margin-right: 30px;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 22px;
   opacity: 0.6;
   transition: opacity 0.3s;
@@ -121,5 +89,10 @@ onBeforeUnmount(() => {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.logo {
+  max-width: 130px;
+  max-height: 50px;
 }
 </style>
