@@ -208,7 +208,7 @@ function applySelection() {
         <Card />
         <Card />
       </div>
-      <Pagination :total-pages="totalPages" category="serials" />
+      <Pagination :total-pages="400" category="serials" />
     </div>
   </main>
   <Footer />
