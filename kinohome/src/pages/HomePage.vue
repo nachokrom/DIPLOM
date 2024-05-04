@@ -1,11 +1,62 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { SwiperSlide } from 'swiper/vue'
-
 import Header from '@/components/Header/ui.vue'
 import CardSlider from '@/components/CardSlider.vue'
 import SliderBanner from '@/components/SliderBanner.vue'
 import SliderCard from '@/components/SliderCard.vue'
 import Footer from '@/components/Footer.vue'
+
+import {
+  getComedies,
+  getFantastica,
+  getNewFilmsAndSerials,
+  getFamily,
+  getPremierMovie
+} from '@/services/KinohomeServices'
+
+const newMovies = ref([])
+const comedies = ref([])
+const fantastica = ref([])
+const FamilyMovies = ref([])
+const premiers = ref([])
+
+onMounted(async () => {
+  try {
+    const comediesResponse = await getComedies()
+    comedies.value = comediesResponse.docs
+  } catch (error) {
+    console.error('Ошибка получения данных', error)
+  }
+
+  try {
+    const fantasticaResponse = await getFantastica()
+    fantastica.value = fantasticaResponse.docs
+  } catch (fantasticError) {
+    console.error('Ошибка получения данных', fantasticError)
+  }
+
+  try {
+    const newMoviesResponse = await getNewFilmsAndSerials()
+    newMovies.value = newMoviesResponse.docs
+  } catch (NewFilmsAndSerialsError) {
+    console.error('Ошибка получения данных', NewFilmsAndSerialsError)
+  }
+
+  try {
+    const FamilyMoviesResponse = await getFamily()
+    FamilyMovies.value = FamilyMoviesResponse.docs
+  } catch (FamilyMoviesError) {
+    console.error('Ошибка получения данных', FamilyMoviesError)
+  }
+
+  try {
+    const premierResponse = await getPremierMovie()
+    premiers.value = premierResponse.docs
+  } catch (premierError) {
+    console.error('Ошибка получения данных', premierError)
+  }
+})
 </script>
 
 <template>
@@ -13,187 +64,50 @@ import Footer from '@/components/Footer.vue'
   <div>
     <SliderBanner />
   </div>
+
   <div class="xl:mt-14 lg:mt-9 md:mt-6">
     <div class="xl:mb-14 lg:mb-10 md:mb-10">
-      <h1 class="head_section font-bold text-white text-4xl">Рекомендуем</h1>
+      <h1 class="head_section font-bold text-white text-4xl">Новинки 2024</h1>
       <SliderCard>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
+        <SwiperSlide v-for="newMovie in newMovies" :key="newMovie.id">
+          <CardSlider :movie="newMovie" />
         </SwiperSlide>
       </SliderCard>
     </div>
-
     <div class="xl:mb-14 lg:mb-10 md:mb-10">
-      <h1 class="head_section font-bold text-white text-4xl">Новинки</h1>
+      <h1 class="head_section font-bold text-white text-4xl">Стоит посмотреть</h1>
       <SliderCard>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
+        <SwiperSlide v-for="premier in premiers" :key="premier.id">
+          <CardSlider :movie="premier" />
         </SwiperSlide>
       </SliderCard>
     </div>
-
+    <div class="xl:mb-14 lg:mb-10 md:mb-10">
+      <h1 class="head_section font-bold text-white text-4xl">Комедия</h1>
+      <SliderCard>
+        <SwiperSlide v-for="comedy in comedies" :key="comedy.id">
+          <CardSlider :movie="comedy" />
+        </SwiperSlide>
+      </SliderCard>
+    </div>
     <div class="xl:mb-14 lg:mb-10 md:mb-10">
       <h1 class="head_section font-bold text-white text-4xl">Фантастика</h1>
       <SliderCard>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
+        <SwiperSlide v-for="fantastic in fantastica" :key="fantastic.id">
+          <CardSlider :movie="fantastic" />
         </SwiperSlide>
       </SliderCard>
     </div>
-
     <div class="xl:mb-14 lg:mb-10 md:mb-10">
-      <h1 class="head_section font-bold text-white text-4xl">Аниме</h1>
+      <h1 class="head_section font-bold text-white text-4xl">Смотрим всей семьёй</h1>
       <SliderCard>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CardSlider />
+        <SwiperSlide v-for="family in FamilyMovies" :key="family.id">
+          <CardSlider :movie="family" />
         </SwiperSlide>
       </SliderCard>
     </div>
   </div>
+
   <Footer />
 </template>
 

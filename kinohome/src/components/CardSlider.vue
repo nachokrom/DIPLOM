@@ -1,7 +1,17 @@
-<script setup></script>
+<script setup>
+//import { defineProps } from 'vue'
+
+// Определяем только movie как prop
+defineProps({
+  movie: {
+    type: Object,
+    required: true
+  }
+})
+</script>
 
 <template>
-  <router-link to="movie/:id" class="poster_card">
+  <router-link :to="`/movie/${movie.id}`" class="poster_card">
     <div class="image_wrapper">
       <img
         loading="lazy"
@@ -9,16 +19,16 @@
         data-nimg="fill"
         class="poster_img"
         style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent"
-        src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a3ae9e25-5b10-42f3-96ae-5d707fc6a1bc/300x450"
-        alt="Название фильма"
+        :src="movie.poster.url"
+        :alt="movie.name"
       />
     </div>
     <div class="content_poster">
-      <span class="poster_rating">9.2</span>
-      <h3 class="poster_name">Чёрное зеркало</h3>
+      <span class="poster_rating">{{ movie.rating.kp.toFixed(1) }}</span>
+      <h3 class="poster_name">{{ movie.name }}</h3>
       <div class="poster_info">
-        <span class="poster_year">2011</span>
-        <span class="poster_lenght">1 ч 52 мин</span>
+        <span class="poster_year">{{ movie.year }}</span>
+        <span class="poster_lenght" v-if="movie.movieLength">{{ movie.movieLength }} мин</span>
       </div>
     </div>
   </router-link>
