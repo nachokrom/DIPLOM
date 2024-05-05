@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { getFilms } from '@/services/KinohomeServices'
 import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
 import Filters from '@/components/Filters.vue'
@@ -18,8 +19,9 @@ const closeModal = () => {
 }
 
 const genres = [
-  { label: 'Семейные', value: 'семейный' },
-  { label: 'Биографии', value: 'биография' },
+  { label: 'Все', value: '' },
+  { label: 'Аниме', value: 'аниме' },
+  { label: 'Биография', value: 'биография' },
   { label: 'Боевики', value: 'боевик' },
   { label: 'Вестерны', value: 'вестерн' },
   { label: 'Военные', value: 'военный' },
@@ -67,7 +69,6 @@ const years = [
 ]
 
 const sort = [
-  { label: 'Рекомендуемые', value: 'рекомендуемые' },
   { label: 'По рейтингу', value: 'по рейтингу' },
   { label: 'По дате выхода', value: 'по дате выхода' }
 ]
@@ -77,7 +78,6 @@ const selectedRating = ref(null)
 const selectedYear = ref(null)
 const selectedSort = ref(null)
 
-// functions to update each state
 function updateGenre(selected) {
   selectedGenres.value = selected
 }
@@ -93,17 +93,28 @@ function updateYear(selected) {
 function updateSort(selected) {
   selectedSort.value = selected
 }
-function applySelection() {
-  const filterData = {
-    genres: selectedGenres.value,
-    rating: selectedRating.value,
-    years: selectedYear.value,
-    sort: selectedSort.value
-  }
-  // Вы можете сделать запрос к API, чтобы получить отфильтрованные данные
-  // или применить логику фильтрации на клиенте.
-  console.log(filterData)
+
+const currentPage = ref(1)
+const movies = ref([])
+const totalItems = ref(0)
+
+function pageChanged(newPage) {
+  currentPage.value = newPage
+  loadMovies()
 }
+
+const loadMovies = () => {
+  getFilms(currentPage.value)
+    .then((data) => {
+      movies.value = data.docs
+      totalItems.value = data.total
+    })
+    .catch((error) => {
+      console.error('Ошибка при получении фильмов:', error)
+    })
+}
+
+onMounted(loadMovies)
 </script>
 
 <template>
@@ -195,21 +206,10 @@ function applySelection() {
       </div>
 
       <div class="movie_cards">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Card v-for="movie in movies" :key="movie.id" :mediaItem="movie" />
       </div>
 
-      <Pagination :total-pages="400" category="movies" />
+      <Pagination :totalItems="totalItems" :itemsPerPage="60" @page-changed="pageChanged" />
     </div>
   </main>
   <Footer />

@@ -125,7 +125,7 @@ function capitalizeFirstLetter(string) {
 .poster_info {
   display: flex;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 5px;
 }
 
 .poster_year {

@@ -1,24 +1,45 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue'
+
+defineProps({
+  mediaItem: {
+    type: Object,
+    required: true
+  }
+})
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+</script>
 
 <template>
-  <router-link to="movie/:id" class="poster_card">
+  <router-link :to="`/movie/${mediaItem.id}`" class="poster_card">
     <div class="image_wrapper">
       <img
+        v-if="mediaItem && mediaItem.poster && mediaItem.poster.url"
         loading="lazy"
         decoding="async"
         data-nimg="fill"
         class="poster_img"
         style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent"
-        src="https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a3ae9e25-5b10-42f3-96ae-5d707fc6a1bc/300x450"
-        alt="Название фильма"
+        :src="mediaItem.poster.url"
+        :alt="mediaItem.name"
       />
     </div>
     <div class="content_poster">
-      <span class="poster_rating">9.2</span>
-      <h3 class="poster_name">Чёрное зеркало</h3>
+      <span class="poster_rating">{{ mediaItem.rating.kp.toFixed(1) }}</span>
+      <h3 class="poster_name">{{ mediaItem.name }}</h3>
+      <span class="poster_year">{{ mediaItem.year }}</span>
       <div class="poster_info">
-        <span class="poster_year">2011</span>
-        <span class="poster_lenght">1 ч 52 мин</span>
+        <div class="poster_info">
+          <span class="poster_genre" v-if="mediaItem.genres && mediaItem.genres.length > 0">{{
+            capitalizeFirstLetter(mediaItem.genres[0].name)
+          }}</span>
+          <span class="poster_lenght" v-if="mediaItem.movieLength"
+            >{{ mediaItem.movieLength }} мин</span
+          >
+        </div>
       </div>
     </div>
   </router-link>
@@ -108,7 +129,11 @@
 .poster_info {
   display: flex;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 5px;
+}
+
+.poster_year {
+  margin-top: 5px;
 }
 
 .poster_year,
@@ -117,6 +142,14 @@
   font-size: 14px;
   line-height: 18px;
   color: hsla(0, 0%, 100%, 0.8);
+}
+
+.poster_genre {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  color: hsla(0, 0%, 100%, 0.8);
+  margin-right: 5px;
 }
 
 .poster_year {

@@ -1,20 +1,12 @@
 import axios from 'axios'
 import { BASE_URL, API_KEY } from '@/constants'
 
-//const getCurrentYear = () => new Date().getFullYear()
-
 const fetchSettings = {
   headers: {
     Accept: 'application/json',
     'X-API-KEY': API_KEY
   }
 }
-
-/*export function getFilmById() {
-  return fetch(`${BASE_URL}/movie/5275429&token=${API_KEY}`, fetchSettings).then((response) =>
-    response.json()
-  )
-}*/
 
 export function getFilmById(id) {
   return fetch(`${BASE_URL}/movie/${id}?token=${API_KEY}`, fetchSettings)
@@ -108,9 +100,9 @@ export function getPremierMovie() {
     .get(`${BASE_URL}/movie`, {
       params: {
         page: '1',
-        status: 'completed',
-        'rating.kp': '7-10',
+        'rating.kp': '8-10',
         notNullFields: 'poster.url',
+        lists: 'top250',
         limit: '15'
       },
       headers: {
@@ -123,13 +115,61 @@ export function getPremierMovie() {
 
 export function getPopularMovie() {
   return fetch(
-    `${BASE_URL}/movie?page=1&limit=8&selectFields=id&selectFields=name&selectFields=shortDescription&selectFields=year&selectFields=rating&selectFields=ageRating&selectFields=genres&selectFields=movieLength&selectFields=poster&notNullFields=ageRating&notNullFields=shortDescription&notNullFields=poster.url&notNullFields=genres.name&year=2024&rating.kp=7.5-10&token=${API_KEY}`,
+    `${BASE_URL}/movie?page=1&limit=8&selectFields=id&selectFields=name&selectFields=shortDescription&selectFields=year&selectFields=rating&selectFields=ageRating&selectFields=genres&selectFields=movieLength&selectFields=poster&notNullFields=ageRating&notNullFields=shortDescription&notNullFields=poster.url&notNullFields=genres.name&year=2024&rating.kp=7-10&typeNumber=1&&token=${API_KEY}`,
     fetchSettings
   ).then((response) => response.json())
 }
 
-/*export function getFilms(filters, page) {
-  return fetch(
-    `${BASE_URL}`
-  )
-}*/
+export function getFilms(page) {
+  return axios
+    .get(`${BASE_URL}/movie`, {
+      params: {
+        page: page,
+        limit: '60',
+        typeNumber: '1',
+        notNullFields: 'poster.url',
+        'rating.kp': '1-10'
+      },
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': API_KEY
+      }
+    })
+    .then((response) => response.data)
+}
+
+export function getSerials(page) {
+  return axios
+    .get(`${BASE_URL}/movie`, {
+      params: {
+        page: page,
+        limit: '60',
+        typeNumber: '2',
+        notNullFields: 'poster.url',
+        'rating.kp': '1-10'
+      },
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': API_KEY
+      }
+    })
+    .then((response) => response.data)
+}
+
+export function getCartoons(page) {
+  return axios
+    .get(`${BASE_URL}/movie`, {
+      params: {
+        page: page,
+        limit: '60',
+        typeNumber: '3',
+        notNullFields: 'poster.url',
+        'rating.kp': '1-10'
+      },
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': API_KEY
+      }
+    })
+    .then((response) => response.data)
+}

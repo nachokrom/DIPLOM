@@ -1,68 +1,56 @@
 <script setup>
-import { reactive, onMounted, watch, computed } from 'vue'
+import { reactive, computed, defineEmits, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-// Импортируем функцию, которая будет запрашивать данные
-// import { getMovies } from '@/api';
-
 const props = defineProps({
-  totalPages: Number,
-  category: String
+  totalItems: Number,
+  itemsPerPage: Number
 })
 
 const route = useRoute()
 const router = useRouter()
+const emit = defineEmits(['page-changed'])
 
-// Реактивное состояние для хранения информации о страницах и фильмах
 const state = reactive({
   currentPage: 1,
-  totalPages: 400, // Предположим, что у нас есть всего 10 страниу
   movies: []
-})
-
-// Функция для получения данных и установки текущей страницы с фильмами
-const fetchMovies = async (page) => {
-  // const response = await getMovies(page);
-  // state.movies = response.movies;
-  // state.totalPages = response.totalPages;
-  console.log('Fetching movies for page', page) // Заглушка для запроса к API
-}
-
-onMounted(() => {
-  state.currentPage = Number(route.query.page) || 1
-  fetchMovies(state.currentPage)
 })
 
 watch(
   () => route.query.page,
   (newPage) => {
-    state.currentPage = Number(newPage) || 1
-    fetchMovies(state.currentPage)
-  }
+    state.currentPage = newPage ? parseInt(newPage, 10) : 1
+  },
+  { immediate: true }
 )
 
-const goToPage = (page) => {
-  const query = { ...route.query, page: page.toString() }
-  router.push({ path: `/${props.category}`, query })
-}
+const totalPages = computed(() => {
+  return Math.ceil(props.totalItems / props.itemsPerPage)
+})
 
-// Вычисляемые свойства для отображения ограниченного числа страниц
+watch(
+  () => props.totalItems,
+  () => {
+    // Если есть необходимость объявить какую-то логику, которая должна выполниться при изменении props.totalItems
+  },
+  { immediate: true }
+)
+
 const visiblePages = computed(() => {
   const pages = []
   const currentPage = state.currentPage
-  const totalPages = state.totalPages
-  const pagesToShow = 2 // Количество отображаемых страниц вокруг текущей страницы
+  const pagesToShow = 2
 
   let startPage = currentPage - pagesToShow
   let endPage = currentPage + pagesToShow
 
   if (startPage < 1) {
     startPage = 1
-    endPage = Math.min(startPage + pagesToShow * 2, totalPages)
+    endPage = Math.min(startPage + pagesToShow * 2, totalPages.value)
   }
 
-  if (endPage > totalPages) {
-    endPage = totalPages
+  if (endPage > totalPages.value) {
+    endPage = totalPages.value
     startPage = Math.max(endPage - pagesToShow * 2, 1)
   }
 
@@ -72,6 +60,12 @@ const visiblePages = computed(() => {
 
   return pages
 })
+
+const goToPage = (page) => {
+  const query = { ...route.query, page: page.toString() }
+  emit('page-changed', page)
+  router.push({ query })
+}
 </script>
 
 <template>
@@ -100,7 +94,7 @@ const visiblePages = computed(() => {
 
     <button
       class="btn_pagination-edges"
-      v-if="state.currentPage < state.totalPages"
+      v-if="state.currentPage < totalPages.value"
       @click="goToPage(state.currentPage + 1)"
     >
       След.
@@ -108,8 +102,8 @@ const visiblePages = computed(() => {
 
     <button
       class="btn_pagination-edges"
-      v-if="state.currentPage !== state.totalPages"
-      @click="goToPage(state.totalPages)"
+      v-if="state.currentPage !== totalPages.value"
+      @click="goToPage(totalPages.value)"
     >
       Конец
     </button>

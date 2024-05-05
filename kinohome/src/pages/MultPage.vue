@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { getCartoons } from '@/services/KinohomeServices'
 import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
 import Filters from '@/components/Filters.vue'
@@ -77,7 +78,6 @@ const selectedRating = ref(null)
 const selectedYear = ref(null)
 const selectedSort = ref(null)
 
-// functions to update each state
 function updateGenre(selected) {
   selectedGenres.value = selected
 }
@@ -93,7 +93,7 @@ function updateYear(selected) {
 function updateSort(selected) {
   selectedSort.value = selected
 }
-function applySelection() {
+/*function applySelection() {
   const filterData = {
     genres: selectedGenres.value,
     rating: selectedRating.value,
@@ -103,7 +103,30 @@ function applySelection() {
   // Вы можете сделать запрос к API, чтобы получить отфильтрованные данные
   // или применить логику фильтрации на клиенте.
   console.log(filterData)
+}*/
+
+const currentPage = ref(1)
+const cartoons = ref([])
+const totalItems = ref(0)
+
+function pageChanged(newPage) {
+  currentPage.value = newPage
+  loadMovies()
 }
+
+const loadMovies = () => {
+  getCartoons(currentPage.value)
+    .then((data) => {
+      cartoons.value = data.docs
+      totalItems.value = data.total
+      console.log(data.docs)
+    })
+    .catch((error) => {
+      console.error('Ошибка при получении фильмов:', error)
+    })
+}
+
+onMounted(loadMovies)
 </script>
 
 <template>
@@ -195,20 +218,10 @@ function applySelection() {
       </div>
 
       <div class="movie_cards">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Card v-for="cartoon in cartoons" :key="cartoon.id" :mediaItem="cartoon" />
       </div>
-      <Pagination :total-pages="400" category="cartoons" />
+
+      <Pagination :totalItems="totalItems" :itemsPerPage="60" @page-changed="pageChanged" />
     </div>
   </main>
   <Footer />
