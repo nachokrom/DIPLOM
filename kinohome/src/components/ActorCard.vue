@@ -1,19 +1,29 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue'
+
+defineProps({
+  person: {
+    type: Object,
+    required: true
+  }
+})
+</script>
 
 <template>
-  <a class="actor_card flex flex-col outline-none" href="/name/:id">
+  <a class="actor_card flex flex-col outline-none" :href="`/name/${person.id}`">
     <div class="actor_card-image">
       <img
+        v-if="person && person.photo"
         class="img-actor"
-        src="./../assets/img/actor.jpg"
-        alt="Постер актера или режиссера"
+        :src="person.photo"
+        :alt="person.name"
         loading="lazy"
         decoding="async"
         data-nimg="fill"
       />
     </div>
-    <span class="card_name">Мика Эбби</span>
-    <span class="card_profession">Актёр</span>
+    <span class="card_name">{{ person.name }}</span>
+    <span class="card_profession">{{ person.profession }}</span>
   </a>
 </template>
 

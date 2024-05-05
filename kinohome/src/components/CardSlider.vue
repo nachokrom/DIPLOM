@@ -1,19 +1,23 @@
 <script setup>
-//import { defineProps } from 'vue'
+import { defineProps } from 'vue'
 
-// Определяем только movie как prop
 defineProps({
   movie: {
     type: Object,
     required: true
   }
 })
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
 </script>
 
 <template>
   <router-link :to="`/movie/${movie.id}`" class="poster_card">
     <div class="image_wrapper">
       <img
+        v-if="movie && movie.poster && movie.poster.url"
         loading="lazy"
         decoding="async"
         data-nimg="fill"
@@ -26,8 +30,11 @@ defineProps({
     <div class="content_poster">
       <span class="poster_rating">{{ movie.rating.kp.toFixed(1) }}</span>
       <h3 class="poster_name">{{ movie.name }}</h3>
+      <span class="poster_year">{{ movie.year }}</span>
       <div class="poster_info">
-        <span class="poster_year">{{ movie.year }}</span>
+        <span class="poster_genre" v-if="movie.genres && movie.genres.length > 0">{{
+          capitalizeFirstLetter(movie.genres[0].name)
+        }}</span>
         <span class="poster_lenght" v-if="movie.movieLength">{{ movie.movieLength }} мин</span>
       </div>
     </div>
@@ -121,16 +128,31 @@ defineProps({
   margin-top: 12px;
 }
 
-.poster_year,
+.poster_year {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  color: hsla(0, 0%, 100%, 0.8);
+  margin-top: 5px;
+}
+
 .poster_lenght {
   display: block;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 14px;
   color: hsla(0, 0%, 100%, 0.8);
 }
 
+.poster_genre {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  color: hsla(0, 0%, 100%, 0.8);
+  margin-right: 5px;
+}
+
 .poster_year {
-  margin-right: 12px;
+  margin-right: 5px;
 }
 
 @media (min-width: 1025px) {

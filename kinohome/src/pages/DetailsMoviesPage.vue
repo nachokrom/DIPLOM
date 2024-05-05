@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import SliderCard from '@/components/SliderCard.vue'
 import { SwiperSlide } from 'swiper/vue'
 
@@ -14,14 +15,14 @@ import Popup from '@/components/Popup.vue'
 import ButtonShare from '@/components/ButtonShare.vue'
 import CopyButton from '@/components/CopyButton.vue'
 
+import { getFilmById } from '@/services/KinohomeServices'
+
 const showOnlinePopup = ref(false)
 const showTrailerPopup = ref(false)
 const showStarsPopup = ref(false)
 const showSharePopup = ref(false)
 
 const showFullDescription = ref(false)
-const fullDescription =
-  'После событий первой части суперсемейка пользуется повышенным вниманием со стороны журналистов. Неожиданно оказалось, что обаятельная Миссис Исключительная гораздо лучше смотрится на экране телевизора, чем её муж. Мистеру Исключительному все чаще приходится сидеть дома и приглядывать за детьми, у каждого из которых есть свои причины быть недовольным собственными суперспособностями. Однако семейным проблемам предстоит отступить на второй план, когда окажется, что спокойствию Суперсемейки угрожает новый могущественный враг.'
 
 const tabs = [
   { name: 'description', label: 'Описание' },
@@ -34,6 +35,52 @@ const changeTab = (tabName) => {
 }
 
 const currentUrl = ref(window.location.href)
+
+const movieDetail = ref(null)
+
+const routeDetail = useRoute()
+
+const backgroundStyle = computed(() => {
+  if (movieDetail.value?.backdrop?.url) {
+    return {
+      backgroundImage: `url('${movieDetail.value.backdrop.url}')`
+    }
+  }
+  return {}
+})
+
+const directors = computed(() => {
+  if (movieDetail.value && movieDetail.value.persons) {
+    return movieDetail.value.persons.filter((person) => person.profession === 'режиссеры')
+  }
+  return []
+})
+
+const hasDirectors = computed(() => directors.value.length > 0)
+
+const firstThreeActors = computed(() => {
+  if (movieDetail.value && movieDetail.value.persons) {
+    return movieDetail.value.persons.filter((person) => person.profession === 'актеры').slice(0, 3)
+  }
+  return []
+})
+
+const filteredPersons = computed(() => {
+  if (movieDetail.value && movieDetail.value.persons) {
+    return movieDetail.value.persons.filter((person) => person.name)
+  }
+  return []
+})
+
+onMounted(async () => {
+  const movieId = routeDetail.params.id
+  try {
+    const data = await getFilmById(movieId)
+    movieDetail.value = data
+  } catch (error) {
+    console.error('There was an error fetching the movie details:', error)
+  }
+})
 </script>
 
 <template>
@@ -41,48 +88,49 @@ const currentUrl = ref(window.location.href)
   <main>
     <section class="movie_banner">
       <div class="banner_height"></div>
-      <div class="banner_bg"></div>
+      <div class="banner_bg" :style="backgroundStyle" v-if="movieDetail?.backdrop?.url"></div>
       <div class="container mx-auto max-w-7xl px-2 banner_container">
         <div class="banner_content">
           <div class="banner_title">
-            <h1 class="movie_title">Суперсемейка 2 Смотреть онлайн</h1>
+            <h1 class="movie_title">{{ movieDetail?.name }} Смотреть онлайн</h1>
           </div>
 
           <div class="banner_category">
-            <span class="category_raiting">7.2</span>
-            <span class="category_item">2020</span>
-            <span class="category_item">Комедия</span>
-            <span class="category_item">6+</span>
-            <span class="category_item">США</span>
-            <span class="category_item">1 ч 50 мин</span>
+            <span class="category_raiting">{{ movieDetail?.rating.kp.toFixed(1) }}</span>
+            <span class="category_item">{{ movieDetail?.year }}</span>
+            <span
+              class="category_item"
+              v-for="(genre, index) in movieDetail?.genres"
+              :key="index"
+              >{{ genre.name.charAt(0).toUpperCase() + genre.name.slice(1) }}</span
+            >
+            <span class="category_item" v-if="movieDetail?.ageRating"
+              >{{ movieDetail?.ageRating }}+</span
+            >
+            <span class="category_item">{{ movieDetail?.countries[0].name }}</span>
+            <span class="category_item" v-if="movieDetail?.movieLength"
+              >{{ movieDetail?.movieLength }} мин</span
+            >
           </div>
 
           <p class="banner_description">
-            После событий первой части суперсемейка пользуется повышенным вниманием со стороны
-            журналистов. Мистеру Исключительному все чаще приходится сидеть дома и приглядывать за
-            детьми.
+            {{ movieDetail?.shortDescription }}
           </p>
 
           <div class="banner_casting">
-            <div class="author">
+            <div class="author" v-if="hasDirectors">
               <span class="label_author">Режиссёр:</span>
               <ul class="list_author">
-                <li class="author_item">
-                  <a href="/actor/:id" class="item_link-author">Брэд Бёрд</a>
+                <li class="author_item" v-for="director in directors" :key="director.id">
+                  <a :href="`/name/${director.id}`" class="item_link-author">{{ director.name }}</a>
                 </li>
               </ul>
             </div>
-            <div class="actors">
+            <div class="actors" v-if="firstThreeActors.length">
               <span class="label_actors">Актеры:</span>
               <ul class="list_actors">
-                <li class="actors_item">
-                  <a href="/actor/:id" class="item_link-actors">Крэйг Т.Нельсон</a>
-                </li>
-                <li class="actors_item">
-                  <a href="/actor/:id" class="item_link-actors">Холли Хантер</a>
-                </li>
-                <li class="actors_item">
-                  <a href="/actor/:id" class="item_link-actors">Сара Вауэлл</a>
+                <li class="actors_item" v-for="actor in firstThreeActors" :key="actor.id">
+                  <a :href="`/name/${actor.id}`" class="item_link-actors">{{ actor.name }}</a>
                 </li>
               </ul>
             </div>
@@ -118,7 +166,7 @@ const currentUrl = ref(window.location.href)
                 v-if="!showFullDescription"
                 class="description line-clamp-3 m-0 text-base font-light text-left text-[hsla(0,0%,100%,.7)]"
               >
-                {{ fullDescription }}
+                {{ movieDetail?.description }}
               </p>
 
               <!-- Полное описание -->
@@ -126,7 +174,7 @@ const currentUrl = ref(window.location.href)
                 v-show="showFullDescription"
                 class="description m-0 text-base font-light text-left text-[hsla(0,0%,100%,.7)]"
               >
-                {{ fullDescription }}
+                {{ movieDetail?.description }}
               </p>
 
               <!-- Кнопка для показа/скрытия полного описания -->
@@ -146,66 +194,8 @@ const currentUrl = ref(window.location.href)
         <h1 class="title_actor font-bold">Актёры и создатели</h1>
         <div>
           <SliderCard>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ActorCard />
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <ActorCard />
+            <SwiperSlide v-for="person in filteredPersons" :key="person.id">
+              <ActorCard :person="person" />
             </SwiperSlide>
           </SliderCard>
         </div>
@@ -340,7 +330,6 @@ const currentUrl = ref(window.location.href)
 }
 
 .banner_bg {
-  background-image: url('./../assets/img/supersemeika.jpg');
   position: absolute;
   top: 0;
   left: 0;
@@ -348,7 +337,7 @@ const currentUrl = ref(window.location.href)
   bottom: 0;
   z-index: -1;
   background-repeat: no-repeat;
-  background-position: top 30% right;
+  background-position: top 30% left;
   background-size: cover;
 }
 
@@ -509,7 +498,7 @@ const currentUrl = ref(window.location.href)
 }
 
 .actors_item:not(:last-child) {
-  margin-right: 7px;
+  margin-right: 10px;
 }
 
 .actors_item:not(:last-child)::after {

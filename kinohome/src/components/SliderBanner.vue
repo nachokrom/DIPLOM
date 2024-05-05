@@ -1,27 +1,35 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { getPopularMovie } from './../services/KinohomeServices'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-const slides = ref([
-  new URL('./../assets/img/dr-strange.jpg', import.meta.url).href,
-  new URL('./../assets/img/eternals.jpg', import.meta.url).href,
-  new URL('./../assets/img/justice-league.jpg', import.meta.url).href,
-  new URL('./../assets/img/thor-ragnarok.jpg', import.meta.url).href
-])
+const bannerCards = ref([])
+
+onMounted(async () => {
+  try {
+    const BannerResponse = await getPopularMovie()
+    bannerCards.value = BannerResponse.docs
+  } catch (error) {
+    console.error('Ошибка получения данных', error)
+  }
+})
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
 </script>
 
 <template>
   <Swiper
     :modules="[Navigation, Autoplay]"
-    slidesPerView="auto"
+    slidesPerView="1.5"
     :centeredSlides="true"
-    spaceBetween="30"
+    spaceBetween="10"
     :loop="true"
-    :loopedSlides="slides.length"
     class="mySwiper relative overflow-hidden"
     :autoplay="{
       delay: 10000,
@@ -32,33 +40,45 @@ const slides = ref([
       prevEl: '.swiper-button-prev'
     }"
   >
-    <SwiperSlide v-for="(slide, index) in slides" :key="index">
-      <router-link to="/movie/:id" class="router-link-inactive">
+    <SwiperSlide v-for="bannerCard in bannerCards" :key="bannerCard.id">
+      <router-link :to="`/movie/${bannerCard.id}`" class="router-link-inactive">
         <img
-          :src="slide"
-          :alt="`Poster ${index + 1}`"
-          class="slide-image object-cover rounded-lg shadow-md w-full h-auto"
+          v-if="bannerCard && bannerCard.poster && bannerCard.poster.url"
+          :src="bannerCard.poster.url"
+          :alt="bannerCard.name"
+          class="slide-image rounded-lg shadow-md w-full h-full"
         />
       </router-link>
       <div>
         <div class="absolute xl:left-20 lg:left-10 md:left-6 bottom-10">
           <h2
-            class="text-white text-shadow xl:text-4xl lg:text-2xl md:text-base xs:text-base font-bold xl:mb-3 lg:mb-2 md:mb-1 outlined-text"
+            class="text-white text-shadow xl:text-4xl lg:text-2xl md:text-[12px] font-bold xl:mb-3 lg:mb-2 md:mb-1 outlined-text"
           >
-            Название фильма
+            {{ bannerCard.name }}
           </h2>
           <div
-            class="flex items-center justify-start text-white text-shadow xl:text-xl lg:text-base md:text-xs xl:mb-3 lg:mb-2 md:mb-2"
+            class="flex items-center justify-start text-white text-shadow xl:text-xl lg:text-base md:text-[10px] xl:mb-3 lg:mb-2 md:mb-2"
           >
-            <p class="text-green-500 text-shadow font-semibold mb-0 xl:mr-4 lg:mr-3 md:mr-2">8.5</p>
-            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">2022</span>
-            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">Фантастика</span>
-            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">16+</span>
-            <span class="outlined-text font-semibold">168 мин</span>
+            <p class="text-green-500 text-shadow font-semibold mb-0 xl:mr-4 lg:mr-3 md:mr-2">
+              {{ bannerCard.rating.kp.toFixed(1) }}
+            </p>
+            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold">{{
+              bannerCard.year
+            }}</span>
+            <span
+              class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold"
+              v-if="bannerCard.genres && bannerCard.genres.length > 0"
+              >{{ capitalizeFirstLetter(bannerCard.genres[0].name) }}</span
+            >
+            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold"
+              >{{ bannerCard.ageRating }}+</span
+            >
+            <span class="outlined-text font-semibold" v-if="bannerCard.movieLength"
+              >{{ bannerCard.movieLength }} мин</span
+            >
           </div>
-          <p class="text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-xs">
-            Бен Фостер, Дженна Ортега и Томми Ли Джонс в драме о конфликте двух братьев и бостонских
-            гангстеров
+          <p class="text-white text-shadow outlined-text xl:text-xl lg:text-sm md:text-[10px]">
+            {{ bannerCard.shortDescription }}
           </p>
         </div>
       </div>
@@ -173,7 +193,17 @@ const slides = ref([
     1px 1px 0 #979797;
 }
 
-/* Medium screens, from 1000px to 1400px */
+.banner_bg-slider {
+  display: block;
+  width: 100%;
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: #111214;
+  color: #fff;
+}
+
 @media (min-width: 1000px) and (max-width: 1400px) {
   .mySwiper {
     width: 100%;
@@ -281,6 +311,9 @@ const slides = ref([
     width: 45px;
     height: 40px;
   }
+  .banner_bg-slider {
+    padding-top: 58%;
+  }
 }
 
 @media (max-width: 450px) {
@@ -314,6 +347,9 @@ const slides = ref([
 
   .btn_bookmark {
     visibility: hidden;
+  }
+  .banner_bg-slider {
+    padding-top: 58%;
   }
 }
 </style>
