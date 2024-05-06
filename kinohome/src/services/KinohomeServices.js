@@ -31,7 +31,7 @@ export function getComedies() {
         'genres.name': 'комедия',
         year: '2023 - 2024',
         'rating.kp': '7-10',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         limit: '15'
       },
       headers: {
@@ -49,7 +49,7 @@ export function getFantastica() {
         'genres.name': 'фантастика',
         year: '2023 - 2024',
         'rating.kp': '7-10',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         limit: '15'
       },
       headers: {
@@ -65,9 +65,9 @@ export function getNewFilmsAndSerials() {
     .get(`${BASE_URL}/movie`, {
       params: {
         year: '2024',
-        'rating.kp': '7-10',
+        'rating.kp': '1-10',
         limit: '15',
-        notNullFields: 'poster.url'
+        notNullFields: 'videos.trailers.url'
       },
       headers: {
         Accept: 'application/json',
@@ -84,7 +84,7 @@ export function getFamily() {
         'genres.name': 'семейный',
         year: '2023 - 2024',
         'rating.kp': '7-10',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         limit: '15'
       },
       headers: {
@@ -101,7 +101,7 @@ export function getPremierMovie() {
       params: {
         page: '1',
         'rating.kp': '8-10',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         lists: 'top250',
         limit: '15'
       },
@@ -127,7 +127,7 @@ export function getFilms(page) {
         page: page,
         limit: '60',
         typeNumber: '1',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         'rating.kp': '1-10'
       },
       headers: {
@@ -145,7 +145,7 @@ export function getSerials(page) {
         page: page,
         limit: '60',
         typeNumber: '2',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         'rating.kp': '1-10'
       },
       headers: {
@@ -163,7 +163,7 @@ export function getCartoons(page) {
         page: page,
         limit: '60',
         typeNumber: '3',
-        notNullFields: 'poster.url',
+        notNullFields: 'videos.trailers.url',
         'rating.kp': '1-10'
       },
       headers: {
