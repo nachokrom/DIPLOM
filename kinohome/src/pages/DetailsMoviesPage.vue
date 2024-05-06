@@ -212,8 +212,8 @@ onMounted(async () => {
       <iframe
         class="w-full h-full"
         style="position: absolute; top: 0; left: 0"
-        src="https://www.youtube.com/embed/fT2WBr8Cy5U?si=x4kggijGRngCFhQS"
-        title="Video title"
+        :src="movieDetail?.videos.trailers[0].url"
+        :alt="movieDetail?.name"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
@@ -229,8 +229,8 @@ onMounted(async () => {
       <iframe
         class="w-full h-full"
         style="position: absolute; top: 0; left: 0"
-        src="https://www.youtube.com/embed/fT2WBr8Cy5U?si=x4kggijGRngCFhQS"
-        title="Video title"
+        :src="movieDetail?.videos.trailers[0].url"
+        :alt="movieDetail?.videos.trailers[0].name"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen

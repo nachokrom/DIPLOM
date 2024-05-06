@@ -274,11 +274,8 @@ onMounted(loadMovies)
   background: #171717;
   z-index: 150;
   opacity: 0;
-  /* Плавное исчезновение и уменьшение модального окна */
   visibility: hidden;
   transform: scale(1.1);
-
-  /* Определяем анимацию только для свойств opacity и transform */
   transition:
     opacity 0.5s,
     transform 0.5s;
@@ -287,11 +284,8 @@ onMounted(loadMovies)
 
 .modal_active {
   opacity: 1;
-  /* Плавное появление и увеличение модального окна */
   visibility: visible;
   transform: scale(1);
-
-  /* Снова определяем анимацию для тех же свойств */
   transition:
     opacity 0.5s,
     transform 0.5s;

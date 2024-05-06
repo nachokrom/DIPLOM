@@ -103,7 +103,7 @@
 
 .footer_columns {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 240px)); /* максимальная ширина колонки 240px */
+  grid-template-columns: repeat(4, minmax(0, 240px));
   justify-content: center;
   gap: 95px;
   width: 100%;
