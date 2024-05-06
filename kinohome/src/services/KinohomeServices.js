@@ -115,7 +115,7 @@ export function getPremierMovie() {
 
 export function getPopularMovie() {
   return fetch(
-    `${BASE_URL}/movie?page=1&limit=8&selectFields=id&selectFields=name&selectFields=shortDescription&selectFields=year&selectFields=rating&selectFields=ageRating&selectFields=genres&selectFields=movieLength&selectFields=poster&notNullFields=ageRating&notNullFields=shortDescription&notNullFields=poster.url&notNullFields=genres.name&year=2024&rating.kp=7-10&typeNumber=1&&token=${API_KEY}`,
+    `${BASE_URL}/movie?page=1&limit=8&selectFields=id&selectFields=name&selectFields=shortDescription&selectFields=year&selectFields=rating&selectFields=ageRating&selectFields=genres&selectFields=movieLength&selectFields=poster&notNullFields=ageRating&notNullFields=shortDescription&notNullFields=poster.url&notNullFields=genres.name&notNullFields=videos.trailers.url&year=2023-2024&rating.kp=7-10&typeNumber=1&&token=${API_KEY}`,
     fetchSettings
   ).then((response) => response.json())
 }

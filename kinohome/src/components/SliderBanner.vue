@@ -28,11 +28,11 @@ function capitalizeFirstLetter(string) {
     :modules="[Navigation, Autoplay]"
     slidesPerView="1.5"
     :centeredSlides="true"
-    spaceBetween="10"
+    spaceBetween="20"
     :loop="true"
     class="mySwiper relative overflow-hidden"
     :autoplay="{
-      delay: 10000,
+      delay: 50000,
       disableOnInteraction: false
     }"
     :navigation="{
