@@ -5,7 +5,8 @@ import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
 import Filters from '@/components/Filters.vue'
 import FiltersMobile from '@/components/FiltersMobile.vue'
-import Pagination from '@/components/Pagination.vue'
+import Button from '@/components/Button.vue'
+import Loader from '@/components/Loader.vue'
 import Footer from '@/components/Footer.vue'
 
 const isModalOpen = ref(false)
@@ -105,25 +106,29 @@ function updateSort(selected) {
   console.log(filterData)
 }*/
 
-const currentPage = ref(1)
 const cartoons = ref([])
-const totalItems = ref(0)
+const currentPage = ref(1)
+const isLoading = ref(false)
 
-function pageChanged(newPage) {
-  currentPage.value = newPage
-  loadMovies()
+const loadMovies = async () => {
+  isLoading.value = true
+  try {
+    const data = await getCartoons(currentPage.value)
+    if (currentPage.value === 1) {
+      cartoons.value = data.docs
+    } else {
+      cartoons.value.push(...data.docs)
+    }
+  } catch (error) {
+    console.error('Ошибка при получении фильмов:', error)
+  } finally {
+    isLoading.value = false
+  }
 }
 
-const loadMovies = () => {
-  getCartoons(currentPage.value)
-    .then((data) => {
-      cartoons.value = data.docs
-      totalItems.value = data.total
-      console.log(data.docs)
-    })
-    .catch((error) => {
-      console.error('Ошибка при получении фильмов:', error)
-    })
+const loadMoreMovies = () => {
+  currentPage.value++
+  loadMovies()
 }
 
 onMounted(loadMovies)
@@ -221,7 +226,10 @@ onMounted(loadMovies)
         <Card v-for="cartoon in cartoons" :key="cartoon.id" :mediaItem="cartoon" />
       </div>
 
-      <Pagination :totalItems="totalItems" :itemsPerPage="60" @page-changed="pageChanged" />
+      <div class="btn_more">
+        <Button v-if="!isLoading" @click="loadMoreMovies" text="Показать больше" />
+        <Loader v-if="isLoading" />
+      </div>
     </div>
   </main>
   <Footer />
@@ -253,6 +261,13 @@ onMounted(loadMovies)
   gap: 20px;
   grid-template-columns: repeat(6, 1fr);
   margin-bottom: 55px;
+}
+
+.btn_more {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .select_section {

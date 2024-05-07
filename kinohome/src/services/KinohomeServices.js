@@ -24,6 +24,22 @@ export function getFilmById(id) {
     .catch((error) => console.error('Fetching error:', error))
 }
 
+export function MovieSearch(query) {
+  return axios
+    .get(`${BASE_URL}/movie/search`, {
+      params: {
+        query,
+        page: '1',
+        limit: '10'
+      },
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': API_KEY
+      }
+    })
+    .then((response) => response.data)
+}
+
 export function getComedies() {
   return axios
     .get(`${BASE_URL}/movie`, {
@@ -120,12 +136,29 @@ export function getPopularMovie() {
   ).then((response) => response.json())
 }
 
+/*export function getFilms() {
+  return axios
+    .get(`${BASE_URL}/movie`, {
+      params: {
+        limit: '60',
+        typeNumber: '1',
+        notNullFields: 'videos.trailers.url',
+        'rating.kp': '1-10'
+      },
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': API_KEY
+      }
+    })
+    .then((response) => response.data)
+}*/
+
 export function getFilms(page) {
   return axios
     .get(`${BASE_URL}/movie`, {
       params: {
         page: page,
-        limit: '60',
+        limit: 60,
         typeNumber: '1',
         notNullFields: 'videos.trailers.url',
         'rating.kp': '1-10'
@@ -143,7 +176,7 @@ export function getSerials(page) {
     .get(`${BASE_URL}/movie`, {
       params: {
         page: page,
-        limit: '60',
+        limit: 60,
         typeNumber: '2',
         notNullFields: 'videos.trailers.url',
         'rating.kp': '1-10'
@@ -161,7 +194,7 @@ export function getCartoons(page) {
     .get(`${BASE_URL}/movie`, {
       params: {
         page: page,
-        limit: '60',
+        limit: 60,
         typeNumber: '3',
         notNullFields: 'videos.trailers.url',
         'rating.kp': '1-10'

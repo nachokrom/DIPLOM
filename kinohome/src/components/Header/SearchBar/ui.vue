@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import { MovieSearch } from '@/services/KinohomeServices'
 
 const searchQuery = ref('')
 const isFocused = ref(false)
-
 const searchResults = ref([])
 
 const fetchResults = async () => {
@@ -11,10 +11,15 @@ const fetchResults = async () => {
 
   if (searchQuery.value) {
     try {
-      searchResults.value = [
-        { id: 1, title: 'Фильм 1', poster: 'https://placehold.it/10x15' },
-        { id: 2, title: 'Фильм 2', poster: 'https://placehold.it/10x15' }
-      ]
+      const data = await MovieSearch(searchQuery.value)
+      if (data && data.results) {
+        searchResults.value = data.results.map((movie) => ({
+          id: movie.id,
+          title: movie.name,
+          poster: movie.poster.url
+        }))
+        console.log(data)
+      }
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error)
     }
@@ -45,7 +50,7 @@ const navigateToSearchPage = () => {}
           :key="result.id"
           class="p-2 hover:bg-blue-700 text-white cursor-pointer flex items-center"
         >
-          <img :src="result.poster" alt="" class="w-10 h-15 mr-4" />
+          <img :src="result.poster" :alt="result.title" class="w-10 h-15 mr-4" />
           <span class="font-medium">{{ result.title }}</span>
         </li>
       </ul>
