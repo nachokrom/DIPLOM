@@ -20,6 +20,7 @@ const closeModal = () => {
 }
 
 const genres = [
+  { label: 'Все', value: '' },
   { label: 'Семейные', value: 'семейный' },
   { label: 'Биографии', value: 'биография' },
   { label: 'Боевики', value: 'боевик' },

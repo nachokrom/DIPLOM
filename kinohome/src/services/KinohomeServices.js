@@ -136,23 +136,6 @@ export function getPopularMovie() {
   ).then((response) => response.json())
 }
 
-/*export function getFilms() {
-  return axios
-    .get(`${BASE_URL}/movie`, {
-      params: {
-        limit: '60',
-        typeNumber: '1',
-        notNullFields: 'videos.trailers.url',
-        'rating.kp': '1-10'
-      },
-      headers: {
-        Accept: 'application/json',
-        'X-API-KEY': API_KEY
-      }
-    })
-    .then((response) => response.data)
-}*/
-
 export function getFilms(page) {
   return axios
     .get(`${BASE_URL}/movie`, {

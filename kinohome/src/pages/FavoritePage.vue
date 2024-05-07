@@ -1,6 +1,6 @@
 <script setup>
 import Header from '@/components/Header/ui.vue'
-import Card from '@/components/Card.vue'
+//import Card from '@/components/Card.vue'
 import Footer from '@/components/Footer.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 </script>
@@ -13,20 +13,7 @@ import Breadcrumbs from '@/components/Breadcrumbs.vue'
         <Breadcrumbs />
       </div>
       <h1 class="head_films font-bold text-white text-4xl">Избранное</h1>
-      <div class="movie_cards">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
+      <div class="movie_cards"></div>
     </div>
   </main>
   <Footer />
