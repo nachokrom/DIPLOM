@@ -28,7 +28,7 @@ function capitalizeFirstLetter(string) {
     :modules="[Navigation, Autoplay]"
     slidesPerView="1.5"
     :centeredSlides="true"
-    spaceBetween="20"
+    spaceBetween="10"
     :loop="true"
     class="mySwiper relative overflow-hidden"
     :autoplay="{
@@ -46,7 +46,7 @@ function capitalizeFirstLetter(string) {
           v-if="bannerCard && bannerCard.poster && bannerCard.poster.url"
           :src="bannerCard.poster.url"
           :alt="bannerCard.name"
-          class="slide-image rounded-lg shadow-md w-full h-full"
+          class="slide-image rounded-lg shadow-md"
         />
       </router-link>
       <div>
@@ -91,22 +91,21 @@ function capitalizeFirstLetter(string) {
 <style scoped>
 .mySwiper {
   width: 100%;
-  height: 640px;
+  height: 700px;
   margin-top: 5px;
   overflow: hidden;
 }
 
 .slide-image {
   width: 100%;
-  max-width: 1250px;
-  height: 640px;
+  height: 700px;
   object-fit: cover;
   border-radius: 40px;
   border: 1px solid #5a5959;
 }
 
 .mySwiper .swiper-slide {
-  width: 1250px;
+  width: 1450px;
 }
 
 .mySwiper .swiper-button-prev,
