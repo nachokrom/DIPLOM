@@ -10,7 +10,6 @@ import FavoritePage from '@/pages/FavoritePage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import RegisterPage from '@/pages/RegisterPage.vue'
 import DetailsMoviesPage from '@/pages/DetailsMoviesPage.vue'
-//import ActorDetail from '@/pages/ActorDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +18,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage,
-      meta: { breadcrumb: 'Главная' }
+      meta: {
+        breadcrumb: 'Главная',
+        title:
+          'Онлайн-кинотеатр Kinohome - фильмы, сериалы и мультфильмы смотреть онлайн в хорошем качесте'
+      }
     },
     {
       path: '/:pathMatch(.*)*',

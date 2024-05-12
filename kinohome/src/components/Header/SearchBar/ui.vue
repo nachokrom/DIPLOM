@@ -1,17 +1,17 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { MovieSearch } from '@/services/KinohomeServices'
+import debounce from 'lodash/debounce'
 
 const searchQuery = ref('')
 const isFocused = ref(false)
 const searchResults = ref([])
 
-const fetchResults = async () => {
-  searchResults.value = []
-
-  if (searchQuery.value) {
+// Добавляем дебаунсинг
+const debouncedFetchResults = debounce(async (query) => {
+  if (query) {
     try {
-      const data = await MovieSearch(searchQuery.value)
+      const data = await MovieSearch(query)
       if (data && data.results) {
         searchResults.value = data.results.map((movie) => ({
           id: movie.id,
@@ -23,10 +23,30 @@ const fetchResults = async () => {
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error)
     }
+  } else {
+    // Очищаем результаты, если запрос пуст
+    searchResults.value = []
   }
+}, 500)
+
+watch(searchQuery, (newValue) => {
+  debouncedFetchResults(newValue)
+})
+
+// Определи функцию для навигации
+/*const navigateToSearchPage = (movieId) => {
+  // Навигация по выбранному ID фильма (это пример, нужно будет адаптировать)
+  // router.push({ name: 'MoviePage', params: { movieId } })
 }
 
-const navigateToSearchPage = () => {}
+// очищаем результаты с задержкой, чтобы пользователь мог выбрать результат
+const onBlur = () => {
+  setTimeout(() => {
+    if (!isFocused.value) {
+      searchResults.value = []
+    }
+  }, 300)
+}*/
 </script>
 
 <template>
@@ -49,6 +69,7 @@ const navigateToSearchPage = () => {}
           v-for="result in searchResults"
           :key="result.id"
           class="p-2 hover:bg-blue-700 text-white cursor-pointer flex items-center"
+          @click="navigateToSearchPage(result.id)"
         >
           <img :src="result.poster" :alt="result.title" class="w-10 h-15 mr-4" />
           <span class="font-medium">{{ result.title }}</span>
