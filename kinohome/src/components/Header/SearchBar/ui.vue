@@ -24,7 +24,6 @@ const debouncedFetchResults = debounce(async (query) => {
       console.error('Ошибка при загрузке данных:', error)
     }
   } else {
-    // Очищаем результаты, если запрос пуст
     searchResults.value = []
   }
 }, 500)
@@ -32,21 +31,6 @@ const debouncedFetchResults = debounce(async (query) => {
 watch(searchQuery, (newValue) => {
   debouncedFetchResults(newValue)
 })
-
-// Определи функцию для навигации
-/*const navigateToSearchPage = (movieId) => {
-  // Навигация по выбранному ID фильма (это пример, нужно будет адаптировать)
-  // router.push({ name: 'MoviePage', params: { movieId } })
-}
-
-// очищаем результаты с задержкой, чтобы пользователь мог выбрать результат
-const onBlur = () => {
-  setTimeout(() => {
-    if (!isFocused.value) {
-      searchResults.value = []
-    }
-  }, 300)
-}*/
 </script>
 
 <template>

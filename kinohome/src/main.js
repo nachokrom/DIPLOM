@@ -8,10 +8,12 @@ import PrimeVue from 'primevue/config'
 
 import App from './App.vue'
 import router from './router'
+import { createHead } from '@vueuse/head'
 import { initializeApp } from 'firebase/app'
 import '@/services/api'
 
 const app = createApp(App)
+const head = createHead()
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY_FIREBASE,
@@ -27,5 +29,6 @@ initializeApp(firebaseConfig)
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue)
+app.use(head)
 
 app.mount('#app')

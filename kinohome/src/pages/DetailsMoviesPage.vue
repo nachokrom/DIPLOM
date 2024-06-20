@@ -92,7 +92,7 @@ onMounted(async () => {
       <div class="container mx-auto max-w-7xl px-2 banner_container">
         <div class="banner_content">
           <div class="banner_title">
-            <h1 class="movie_title">{{ movieDetail?.name }} Смотреть онлайн</h1>
+            <h1 class="movie_title">{{ movieDetail?.name }}</h1>
           </div>
 
           <div class="banner_category">

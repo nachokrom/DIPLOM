@@ -1,6 +1,6 @@
 <script setup>
 const copyToClipboard = () => {
-  const urlToCopy = window.location.href // получаем URL текущей страницы
+  const urlToCopy = window.location.href
 
   const el = document.createElement('textarea')
   el.value = urlToCopy
@@ -8,8 +8,6 @@ const copyToClipboard = () => {
   el.select()
   document.execCommand('copy')
   document.body.removeChild(el)
-
-  // Вы можете заменить alert() на другой способ уведомления, если это необходимо
   alert('Ссылка скопирована в буфер обмена.')
 }
 </script>
