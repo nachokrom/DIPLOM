@@ -62,7 +62,7 @@ watch(searchQuery, getResult)
       v-show="isFocused && searchQuery.length"
       class="absolute z-10 w-full bg-[#1d1d1d] mt-1 rounded shadow-2xl"
     >
-      <ul v-if="searchResults.length > 0" class="overflow-auto max-h-60">
+      <ul v-if="searchResults.length > 0" class="overflow-auto max-h-100">
         <li
           v-for="result in searchResults"
           :key="result.id"
