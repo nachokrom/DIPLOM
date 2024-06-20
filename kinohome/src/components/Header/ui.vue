@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, onBeforeUnmount, computed } from 'vue'
 import Navigation from '@/components/Header/Navigation/ui.vue'
-import SearchBar from '@/components/Header/SearchBar/ui.vue'
 import UserMenu from '@/components/Header/UserMenu/ui.vue'
 import BurgerMenu from '@/components/Header/BurgerMenu/ui.vue'
 import SearchInput from './Searchinput.vue'
