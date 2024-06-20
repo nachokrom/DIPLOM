@@ -2,12 +2,13 @@
 import { ref, watch } from 'vue'
 import { MovieSearch } from '@/services/KinohomeServices'
 import debounce from 'lodash/debounce'
+import { useRouter } from 'vue-router'
 
 const searchQuery = ref('')
 const isFocused = ref(false)
 const searchResults = ref([])
+const router = useRouter()
 
-// Добавляем дебаунсинг
 const debouncedFetchResults = debounce(async (query) => {
   if (query) {
     try {
@@ -28,6 +29,15 @@ const debouncedFetchResults = debounce(async (query) => {
   }
 }, 500)
 
+const navigateToSearchPage = (movieId) => {
+  if (movieId) {
+    router.push(`/movie/${movieId}`)
+  } else {
+    console.log('Navigate to general search page with query: ' + searchQuery.value)
+  }
+}
+
+// Следим за изменениями поискового запроса
 watch(searchQuery, (newValue) => {
   debouncedFetchResults(newValue)
 })
@@ -35,10 +45,9 @@ watch(searchQuery, (newValue) => {
 
 <template>
   <div class="block_search relative">
-    <!-- Поле поиска -->
     <input
       v-model="searchQuery"
-      @input="fetchResults"
+      @input="debouncedFetchResults(searchQuery)"
       @focus="isFocused = true"
       @blur="isFocused = false"
       @keyup.enter="navigateToSearchPage"
@@ -46,8 +55,10 @@ watch(searchQuery, (newValue) => {
       placeholder="Фильмы, сериалы..."
       class="input_search xl:w-64 lg:w-60 bg-white text-black rounded p-2 px-5 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
     />
-    <!-- Попап с результатами поиска -->
-    <div v-show="isFocused" class="absolute z-10 w-full bg-[#1d1d1d] mt-1 rounded shadow-2xl">
+    <div
+      v-show="isFocused && searchQuery.length"
+      class="absolute z-10 w-full bg-[#1d1d1d] mt-1 rounded shadow-2xl"
+    >
       <ul v-if="searchResults.length > 0" class="overflow-auto max-h-60">
         <li
           v-for="result in searchResults"

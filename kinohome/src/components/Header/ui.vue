@@ -4,6 +4,7 @@ import Navigation from '@/components/Header/Navigation/ui.vue'
 import SearchBar from '@/components/Header/SearchBar/ui.vue'
 import UserMenu from '@/components/Header/UserMenu/ui.vue'
 import BurgerMenu from '@/components/Header/BurgerMenu/ui.vue'
+import SearchInput from './Searchinput.vue'
 
 const scrollPosition = ref(0)
 const lastScrollPosition = ref(0)
@@ -70,7 +71,7 @@ onUnmounted(() => {
         </div>
         <!-- Блок поиска и управления -->
         <div class="flex items-center">
-          <SearchBar />
+          <SearchInput />
           <BurgerMenu v-if="isMobile" />
           <!-- Кнопка входа -->
           <UserMenu v-if="!isMobile" />
