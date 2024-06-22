@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { BASE_URL, API_KEY } from '@/constants'
+import Loader from '@/components/Loader.vue'
 
 const searchQuery = ref('')
 const searchResults = ref([])
@@ -57,19 +58,22 @@ watch(searchQuery, getResult)
       placeholder="Фильмы, сериалы..."
       class="input_search xl:w-64 lg:w-60 bg-white text-black rounded p-2 px-5 focus:outline-none focus:ring focus:border-blue-300 text-[15px]"
     />
-    <div v-if="isLoading">Идет загрузка...</div>
+
     <div
-      v-show="isFocused && searchQuery.length"
+      v-show="searchQuery.length"
       class="absolute z-10 w-full bg-[#1d1d1d] mt-1 rounded shadow-2xl"
     >
-      <ul v-if="searchResults.length > 0" class="overflow-auto max-h-100">
+      <ul v-if="searchResults.length > 0" class="overflow-auto max-h-100 custom-scrollbar">
         <li
           v-for="result in searchResults"
           :key="result.id"
           class="p-2 hover:bg-blue-700 text-white cursor-pointer flex items-center"
         >
-          <img :src="result.poster.url" :alt="result.name" class="w-10 h-15 mr-4" />
-          <span class="font-medium">{{ result.name }}</span>
+          <Loader v-if="isLoading" />
+          <a :href="`/movie/${result.id}`" class="result_link">
+            <img :src="result.poster.url" :alt="result.name" class="w-10 h-15 mr-4" />
+            <span class="font-medium">{{ result.name }}</span>
+          </a>
         </li>
       </ul>
     </div>
@@ -79,6 +83,12 @@ watch(searchQuery, getResult)
 <style scoped>
 .block_search {
   margin-right: 15px;
+}
+
+.result_link {
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 @media (max-width: 650px) {
@@ -93,5 +103,14 @@ watch(searchQuery, getResult)
     width: 100%;
     max-width: 200px;
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
