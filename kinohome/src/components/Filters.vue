@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, defineEmits } from 'vue'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 
@@ -13,12 +13,15 @@ const { options, title: initialTitle } = defineProps({
   }
 })
 
+const emit = defineEmits(['updateSelectedOption'])
+
 const selectedOption = ref(options[0])
 const title = ref(initialTitle || selectedOption.value.label)
 
 function handleSelection(option) {
   selectedOption.value = option
   title.value = option.label
+  emit('updateSelectedOption', option)
 }
 </script>
 
@@ -52,14 +55,13 @@ function handleSelection(option) {
       >
         <div class="py-1">
           <template v-for="(option, index) in options" :key="index">
-            <MenuItem @click="handleSelection(option)">
+            <MenuItem as="div" @click="handleSelection(option)">
               <template #default="{ active }">
                 <a
-                  :href="option.href || '#'"
                   :class="[
                     option === selectedOption.value ? 'bg-[#3d3d43]' : '',
                     active ? 'bg-[#3d3d43] text-white' : 'text-white',
-                    'flex items-center px-4 py-2 text-sm h-[50px]'
+                    'flex items-center px-4 py-2 text-sm h-[50px] cursor-pointer'
                   ]"
                 >
                   {{ option.label }}

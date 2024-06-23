@@ -1,11 +1,11 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { getFilms } from '@/services/KinohomeServices'
 import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
 import Filters from '@/components/Filters.vue'
 import FiltersMobile from '@/components/FiltersMobile.vue'
-//import Pagination from '@/components/Pagination.vue'
 import Button from '@/components/Button.vue'
 import Loader from '@/components/Loader.vue'
 import Footer from '@/components/Footer.vue'
@@ -21,7 +21,6 @@ const closeModal = () => {
 }
 
 const genres = [
-  { label: 'Все', value: '' },
   { label: 'Аниме', value: 'аниме' },
   { label: 'Биография', value: 'биография' },
   { label: 'Боевики', value: 'боевик' },
@@ -40,6 +39,7 @@ const genres = [
   { label: 'Мюзиклы', value: 'мюзикл' },
   { label: 'Новости', value: 'новости' },
   { label: 'Приключения', value: 'приключения' },
+  { label: 'Семейные', value: 'семейный' },
   { label: 'Спортивные', value: 'спорт' },
   { label: 'Триллеры', value: 'триллер' },
   { label: 'Ужасы', value: 'ужасы' },
@@ -49,11 +49,11 @@ const genres = [
 ]
 
 const raiting = [
-  { label: 'Больше 9', value: 'больше 9' },
-  { label: 'Больше 8', value: 'больше 8' },
-  { label: 'Больше 7', value: 'больше 7' },
-  { label: 'Больше 6', value: 'больше 6' },
-  { label: 'Больше 5', value: 'больше 5' }
+  { label: 'Больше 9', value: '9-10' },
+  { label: 'Больше 8', value: '8-10' },
+  { label: 'Больше 7', value: '7-10' },
+  { label: 'Больше 6', value: '6-10' },
+  { label: 'Больше 5', value: '5-10' }
 ]
 
 const years = [
@@ -79,9 +79,14 @@ const selectedGenres = ref(null)
 const selectedRating = ref(null)
 const selectedYear = ref(null)
 const selectedSort = ref(null)
+const router = useRouter()
 
 function updateGenre(selected) {
-  selectedGenres.value = selected
+  console.log(selected)
+  selectedGenres.value = selected.value
+  currentPage.value = 1
+  router.push({ query: { ...router.currentRoute.value.query, 'genres.name': selected.value } })
+  loadMovies()
 }
 
 function updateRating(selected) {
@@ -96,24 +101,6 @@ function updateSort(selected) {
   selectedSort.value = selected
 }
 
-/*function pageChanged(newPage) {
-  currentPage.value = newPage
-  loadMovies()
-}*/
-
-/*const loadMovies = () => {
-  getFilms(currentPage.value)
-    .then((data) => {
-      movies.value = data.docs
-      totalItems.value = data.total
-    })
-    .catch((error) => {
-      console.error('Ошибка при получении фильмов:', error)
-    })
-}
-
-onMounted(loadMovies)*/
-
 const movies = ref([])
 const currentPage = ref(1)
 const isLoading = ref(false)
@@ -121,7 +108,7 @@ const isLoading = ref(false)
 const loadMovies = async () => {
   isLoading.value = true
   try {
-    const data = await getFilms(currentPage.value)
+    const data = await getFilms(currentPage.value, selectedGenres.value)
     if (currentPage.value === 1) {
       movies.value = data.docs
     } else {
@@ -138,7 +125,19 @@ const loadMoreMovies = () => {
   loadMovies()
 }
 
-onMounted(loadMovies)
+onMounted(() => {
+  const route = useRoute()
+  selectedGenres.value = route.query['genres.name']
+  loadMovies()
+})
+
+watch(
+  () => useRouter().currentRoute.value.query['genres.name'],
+  (newGenre) => {
+    selectedGenres.value = newGenre
+    loadMovies()
+  }
+)
 </script>
 
 <template>
@@ -220,7 +219,7 @@ onMounted(loadMovies)
       </div>
       <div class="select_section">
         <div class="select_section-left">
-          <Filters title="Жанры" :options="genres"></Filters>
+          <Filters title="Жанры" :options="genres" @updateSelectedOption="updateGenre"></Filters>
           <Filters title="Рейтинг" :options="raiting"></Filters>
           <Filters title="Годы выхода" :options="years"></Filters>
         </div>
