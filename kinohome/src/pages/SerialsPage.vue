@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { getSerials } from '@/services/KinohomeServices'
 import Header from '@/components/Header/ui.vue'
 import Card from '@/components/Card.vue'
@@ -20,9 +21,7 @@ const closeModal = () => {
 }
 
 const genres = [
-  { label: 'Все', value: '' },
-  { label: 'Семейные', value: 'семейный' },
-  { label: 'Биографии', value: 'биография' },
+  { label: 'Биография', value: 'биография' },
   { label: 'Боевики', value: 'боевик' },
   { label: 'Вестерны', value: 'вестерн' },
   { label: 'Военные', value: 'военный' },
@@ -39,6 +38,7 @@ const genres = [
   { label: 'Мюзиклы', value: 'мюзикл' },
   { label: 'Новости', value: 'новости' },
   { label: 'Приключения', value: 'приключения' },
+  { label: 'Семейные', value: 'семейный' },
   { label: 'Спортивные', value: 'спорт' },
   { label: 'Триллеры', value: 'триллер' },
   { label: 'Ужасы', value: 'ужасы' },
@@ -47,12 +47,12 @@ const genres = [
   { label: 'Фэнтези', value: 'фэнтези' }
 ]
 
-const raiting = [
-  { label: 'Больше 9', value: 'больше 9' },
-  { label: 'Больше 8', value: 'больше 8' },
-  { label: 'Больше 7', value: 'больше 7' },
-  { label: 'Больше 6', value: 'больше 6' },
-  { label: 'Больше 5', value: 'больше 5' }
+const ratings = [
+  { label: 'Больше 9', value: '9-10' },
+  { label: 'Больше 8', value: '8-10' },
+  { label: 'Больше 7', value: '7-10' },
+  { label: 'Больше 6', value: '6-10' },
+  { label: 'Больше 5', value: '5-10' }
 ]
 
 const years = [
@@ -65,48 +65,50 @@ const years = [
   { label: '1990-1999', value: '1990-1999' },
   { label: '1980-1989', value: '1980-1989' },
   { label: '1970-1979', value: '1970-1979' },
-  { label: '1960-1969', value: '1960-1969' },
-  { label: 'до 1959', value: '1959' }
+  { label: '1960-1969', value: '1960-1969' }
 ]
 
 const sort = [
-  { label: 'Рекомендуемые', value: 'рекомендуемые' },
-  { label: 'По рейтингу', value: 'по рейтингу' },
-  { label: 'По дате выхода', value: 'по дате выхода' }
+  { label: 'По рейтингу', value: 'rating.kp' },
+  { label: 'По дате выхода', value: 'year' }
 ]
 
 const selectedGenres = ref(null)
 const selectedRating = ref(null)
 const selectedYear = ref(null)
 const selectedSort = ref(null)
+const router = useRouter()
 
-// functions to update each state
-function updateGenre(selected) {
-  selectedGenres.value = selected
+async function updateGenre(selected) {
+  console.log(selected)
+  selectedGenres.value = selected.value
+  currentPage.value = 1
+  await router.push({
+    query: { ...router.currentRoute.value.query, 'genres.name': selected.value }
+  })
+  loadMovies()
 }
 
-function updateRating(selected) {
+async function updateRating(selected) {
   selectedRating.value = selected
+  currentPage.value = 1
+  await router.push({ query: { ...router.currentRoute.value.query, 'rating.kp': selected.value } })
+  loadMovies()
 }
 
-function updateYear(selected) {
+async function updateYear(selected) {
   selectedYear.value = selected
+  currentPage.value = 1
+  await router.push({ query: { ...router.currentRoute.value.query, year: selected.value } })
+  loadMovies()
 }
 
-function updateSort(selected) {
-  selectedSort.value = selected
+async function updateSort(selected) {
+  selectedSort.value = { sortField: selected.value, sortType: '-1' }
+  currentPage.value = 1
+  await router.push({ query: { ...router.currentRoute.value.query, sort: selected.value } })
+  loadMovies()
 }
-/*function applySelection() {
-  const filterData = {
-    genres: selectedGenres.value,
-    rating: selectedRating.value,
-    years: selectedYear.value,
-    sort: selectedSort.value
-  }
-  // Вы можете сделать запрос к API, чтобы получить отфильтрованные данные
-  // или применить логику фильтрации на клиенте.
-  console.log(filterData)
-}*/
 
 const serials = ref([])
 const currentPage = ref(1)
@@ -115,7 +117,13 @@ const isLoading = ref(false)
 const loadMovies = async () => {
   isLoading.value = true
   try {
-    const data = await getSerials(currentPage.value)
+    const data = await getSerials(
+      currentPage.value,
+      selectedGenres.value,
+      selectedRating.value,
+      selectedYear.value,
+      selectedSort.value
+    )
     if (currentPage.value === 1) {
       serials.value = data.docs
     } else {
@@ -132,7 +140,57 @@ const loadMoreMovies = () => {
   loadMovies()
 }
 
-onMounted(loadMovies)
+onMounted(() => {
+  const route = useRoute()
+  selectedGenres.value = route.query['genres.name']
+  selectedRating.value = route.query['rating.kp']
+  selectedYear.value = route.query['year']
+
+  const initialSortValue = route.query['sort']
+  if (initialSortValue) {
+    selectedSort.value = { sortField: initialSortValue, sortType: '-1' }
+  }
+
+  loadMovies()
+  console.log('Route changed!', route.query)
+})
+
+watch(
+  () => [
+    router.currentRoute.value.query['genres.name'],
+    router.currentRoute.value.query['rating.kp'],
+    router.currentRoute.value.query['year'],
+    router.currentRoute.value.query['sort']
+  ],
+  ([newGenre, newRating, newYear, newSort]) => {
+    let isChanged = false
+
+    if (selectedGenres.value !== newGenre) {
+      selectedGenres.value = newGenre
+      isChanged = true
+    }
+
+    if (selectedRating.value !== newRating) {
+      selectedRating.value = newRating
+      isChanged = true
+    }
+
+    if (selectedYear.value !== newYear) {
+      selectedYear.value = newYear
+      isChanged = true
+    }
+
+    if (newSort && (selectedSort.value === null || selectedSort.value.sortField !== newSort)) {
+      selectedSort.value = { sortField: newSort, sortType: '-1' }
+      isChanged = true
+    }
+
+    if (isChanged) {
+      loadMovies()
+      console.log('Route changed!', router.currentRoute.value.query)
+    }
+  }
+)
 </script>
 
 <template>
@@ -197,10 +255,10 @@ onMounted(loadMovies)
 
           <h1 class="head_filters font-bold text-white text-2xl py-6">Фильтры</h1>
           <div class="filters_mobile">
-            <FiltersMobile title="Жанры" :options="genres" @updateGenre="updateGenre" />
-            <FiltersMobile title="Рейтинг" :options="raiting" @updateRating="updateRating" />
-            <FiltersMobile title="Годы выхода" :options="years" @updateYear="updateYear" />
-            <FiltersMobile title="Сортировка" :options="sort" @updateSort="updateSort" />
+            <FiltersMobile title="Жанры" :options="genres" />
+            <FiltersMobile title="Рейтинг" :options="ratings" />
+            <FiltersMobile title="Годы выхода" :options="years" />
+            <FiltersMobile title="Сортировка" :options="sort" />
           </div>
           <div class="w-full mt-4">
             <button
@@ -214,12 +272,24 @@ onMounted(loadMovies)
       </div>
       <div class="select_section">
         <div class="select_section-left">
-          <Filters title="Жанры" :options="genres"></Filters>
-          <Filters title="Рейтинг" :options="raiting"></Filters>
-          <Filters title="Годы выхода" :options="years"></Filters>
+          <Filters title="Жанры" :options="genres" @updateSelectedOption="updateGenre"></Filters>
+          <Filters
+            title="Рейтинг"
+            :options="ratings"
+            @updateSelectedOption="updateRating"
+          ></Filters>
+          <Filters
+            title="Годы выхода"
+            :options="years"
+            @updateSelectedOption="updateYear"
+          ></Filters>
         </div>
         <div class="select_section-right">
-          <Filters title="Рекомендуемые" :options="sort"></Filters>
+          <Filters
+            title="Рекомендуемые"
+            :options="sort"
+            @updateSelectedOption="updateSort"
+          ></Filters>
         </div>
       </div>
 

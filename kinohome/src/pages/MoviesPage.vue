@@ -21,7 +21,6 @@ const closeModal = () => {
 }
 
 const genres = [
-  { label: 'Аниме', value: 'аниме' },
   { label: 'Биография', value: 'биография' },
   { label: 'Боевики', value: 'боевик' },
   { label: 'Вестерны', value: 'вестерн' },
@@ -48,7 +47,7 @@ const genres = [
   { label: 'Фэнтези', value: 'фэнтези' }
 ]
 
-const raiting = [
+const ratings = [
   { label: 'Больше 9', value: '9-10' },
   { label: 'Больше 8', value: '8-10' },
   { label: 'Больше 7', value: '7-10' },
@@ -66,13 +65,12 @@ const years = [
   { label: '1990-1999', value: '1990-1999' },
   { label: '1980-1989', value: '1980-1989' },
   { label: '1970-1979', value: '1970-1979' },
-  { label: '1960-1969', value: '1960-1969' },
-  { label: 'до 1959', value: '1959' }
+  { label: '1960-1969', value: '1960-1969' }
 ]
 
 const sort = [
-  { label: 'По рейтингу', value: 'по рейтингу' },
-  { label: 'По дате выхода', value: 'по дате выхода' }
+  { label: 'По рейтингу', value: 'rating.kp' },
+  { label: 'По дате выхода', value: 'year' }
 ]
 
 const selectedGenres = ref(null)
@@ -81,24 +79,35 @@ const selectedYear = ref(null)
 const selectedSort = ref(null)
 const router = useRouter()
 
-function updateGenre(selected) {
+async function updateGenre(selected) {
   console.log(selected)
   selectedGenres.value = selected.value
   currentPage.value = 1
-  router.push({ query: { ...router.currentRoute.value.query, 'genres.name': selected.value } })
+  await router.push({
+    query: { ...router.currentRoute.value.query, 'genres.name': selected.value }
+  })
   loadMovies()
 }
 
-function updateRating(selected) {
+async function updateRating(selected) {
   selectedRating.value = selected
+  currentPage.value = 1
+  await router.push({ query: { ...router.currentRoute.value.query, 'rating.kp': selected.value } })
+  loadMovies()
 }
 
-function updateYear(selected) {
+async function updateYear(selected) {
   selectedYear.value = selected
+  currentPage.value = 1
+  await router.push({ query: { ...router.currentRoute.value.query, year: selected.value } })
+  loadMovies()
 }
 
-function updateSort(selected) {
-  selectedSort.value = selected
+async function updateSort(selected) {
+  selectedSort.value = { sortField: selected.value, sortType: '-1' }
+  currentPage.value = 1
+  await router.push({ query: { ...router.currentRoute.value.query, sort: selected.value } })
+  loadMovies()
 }
 
 const movies = ref([])
@@ -108,7 +117,13 @@ const isLoading = ref(false)
 const loadMovies = async () => {
   isLoading.value = true
   try {
-    const data = await getFilms(currentPage.value, selectedGenres.value)
+    const data = await getFilms(
+      currentPage.value,
+      selectedGenres.value,
+      selectedRating.value,
+      selectedYear.value,
+      selectedSort.value
+    )
     if (currentPage.value === 1) {
       movies.value = data.docs
     } else {
@@ -128,14 +143,52 @@ const loadMoreMovies = () => {
 onMounted(() => {
   const route = useRoute()
   selectedGenres.value = route.query['genres.name']
+  selectedRating.value = route.query['rating.kp']
+  selectedYear.value = route.query['year']
+
+  const initialSortValue = route.query['sort']
+  if (initialSortValue) {
+    selectedSort.value = { sortField: initialSortValue, sortType: '-1' }
+  }
+
   loadMovies()
+  console.log('Route changed!', route.query)
 })
 
 watch(
-  () => useRouter().currentRoute.value.query['genres.name'],
-  (newGenre) => {
-    selectedGenres.value = newGenre
-    loadMovies()
+  () => [
+    router.currentRoute.value.query['genres.name'],
+    router.currentRoute.value.query['rating.kp'],
+    router.currentRoute.value.query['year'],
+    router.currentRoute.value.query['sort']
+  ],
+  ([newGenre, newRating, newYear, newSort]) => {
+    let isChanged = false
+
+    if (selectedGenres.value !== newGenre) {
+      selectedGenres.value = newGenre
+      isChanged = true
+    }
+
+    if (selectedRating.value !== newRating) {
+      selectedRating.value = newRating
+      isChanged = true
+    }
+
+    if (selectedYear.value !== newYear) {
+      selectedYear.value = newYear
+      isChanged = true
+    }
+
+    if (newSort && (selectedSort.value === null || selectedSort.value.sortField !== newSort)) {
+      selectedSort.value = { sortField: newSort, sortType: '-1' }
+      isChanged = true
+    }
+
+    if (isChanged) {
+      loadMovies()
+      console.log('Route changed!', router.currentRoute.value.query)
+    }
   }
 )
 </script>
@@ -202,10 +255,10 @@ watch(
 
           <h1 class="head_filters font-bold text-white text-2xl py-6">Фильтры</h1>
           <div class="filters_mobile">
-            <FiltersMobile title="Жанры" :options="genres" @updateGenre="updateGenre" />
-            <FiltersMobile title="Рейтинг" :options="raiting" @updateRating="updateRating" />
-            <FiltersMobile title="Годы выхода" :options="years" @updateYear="updateYear" />
-            <FiltersMobile title="Сортировка" :options="sort" @updateSort="updateSort" />
+            <FiltersMobile title="Жанры" :options="genres" />
+            <FiltersMobile title="Рейтинг" :options="ratings" />
+            <FiltersMobile title="Годы выхода" :options="years" />
+            <FiltersMobile title="Сортировка" :options="sort" />
           </div>
           <div class="w-full mt-4">
             <button
@@ -220,11 +273,23 @@ watch(
       <div class="select_section">
         <div class="select_section-left">
           <Filters title="Жанры" :options="genres" @updateSelectedOption="updateGenre"></Filters>
-          <Filters title="Рейтинг" :options="raiting"></Filters>
-          <Filters title="Годы выхода" :options="years"></Filters>
+          <Filters
+            title="Рейтинг"
+            :options="ratings"
+            @updateSelectedOption="updateRating"
+          ></Filters>
+          <Filters
+            title="Годы выхода"
+            :options="years"
+            @updateSelectedOption="updateYear"
+          ></Filters>
         </div>
         <div class="select_section-right">
-          <Filters title="Рекомендуемые" :options="sort"></Filters>
+          <Filters
+            title="Рекомендуемые"
+            :options="sort"
+            @updateSelectedOption="updateSort"
+          ></Filters>
         </div>
       </div>
 

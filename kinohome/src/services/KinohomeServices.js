@@ -136,32 +136,22 @@ export function getPopularMovie() {
   ).then((response) => response.json())
 }
 
-/*export function getFilms(page) {
-  return axios
-    .get(`${BASE_URL}/movie`, {
-      params: {
-        page: page,
-        limit: 60,
-        typeNumber: '1',
-        notNullFields: 'videos.trailers.url',
-        'rating.kp': '1-10'
-      },
-      headers: {
-        Accept: 'application/json',
-        'X-API-KEY': API_KEY
-      }
-    })
-    .then((response) => response.data)
-}*/
-
-export function getFilms(page, genre) {
+export function getFilms(page, genre, rating, year, sort) {
   const params = {
     page: page,
     limit: 60,
-    typeNumber: '1',
+    type: 'movie',
     notNullFields: 'videos.trailers.url',
     'rating.kp': '1-10',
-    ...(genre ? { 'genres.name': genre } : {})
+    ...(genre ? { 'genres.name': genre } : {}),
+    ...(rating ? { 'rating.kp': rating } : {}),
+    ...(year ? { year: year } : {}),
+    ...(sort && sort.sortField
+      ? {
+          sortField: sort.sortField,
+          sortType: sort.sortType || '-1'
+        }
+      : {})
   }
 
   return axios
@@ -175,16 +165,27 @@ export function getFilms(page, genre) {
     .then((response) => response.data)
 }
 
-export function getSerials(page) {
+export function getSerials(page, genre, rating, year, sort) {
+  const params = {
+    page: page,
+    limit: 60,
+    type: 'tv-series',
+    notNullFields: 'videos.trailers.url',
+    'rating.kp': '1-10',
+    ...(genre ? { 'genres.name': genre } : {}),
+    ...(rating ? { 'rating.kp': rating } : {}),
+    ...(year ? { year: year } : {}),
+    ...(sort && sort.sortField
+      ? {
+          sortField: sort.sortField,
+          sortType: sort.sortType || '-1'
+        }
+      : {})
+  }
+
   return axios
     .get(`${BASE_URL}/movie`, {
-      params: {
-        page: page,
-        limit: 60,
-        typeNumber: '2',
-        notNullFields: 'videos.trailers.url',
-        'rating.kp': '1-10'
-      },
+      params: params,
       headers: {
         Accept: 'application/json',
         'X-API-KEY': API_KEY
@@ -193,7 +194,36 @@ export function getSerials(page) {
     .then((response) => response.data)
 }
 
-export function getCartoons(page) {
+export function getCartoons(page, genre, rating, year, sort) {
+  const params = {
+    page: page,
+    limit: 60,
+    typeNumber: '3',
+    notNullFields: 'videos.trailers.url',
+    'rating.kp': '1-10',
+    ...(genre ? { 'genres.name': genre } : {}),
+    ...(rating ? { 'rating.kp': rating } : {}),
+    ...(year ? { year: year } : {}),
+    ...(sort && sort.sortField
+      ? {
+          sortField: sort.sortField,
+          sortType: sort.sortType || '-1'
+        }
+      : {})
+  }
+
+  return axios
+    .get(`${BASE_URL}/movie`, {
+      params: params,
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': API_KEY
+      }
+    })
+    .then((response) => response.data)
+}
+
+/*export function getCartoons(page) {
   return axios
     .get(`${BASE_URL}/movie`, {
       params: {
@@ -209,4 +239,4 @@ export function getCartoons(page) {
       }
     })
     .then((response) => response.data)
-}
+}*/
