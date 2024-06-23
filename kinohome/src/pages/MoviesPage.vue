@@ -198,24 +198,29 @@ watch(
   <main class="main">
     <div class="container px-2 max-w-7xl mx-auto mt-10 mb-10">
       <div class="head_films">
-        <h1 class="head_title font-bold text-white text-4xl">Фильмы</h1>
-        <button class="mr-[10px]" @click="openModal">
-          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="icons">
-            <g id="Filters">
-              <path
-                d="m4 7h16.18a3 3 0 0 0 5.64 0h2.18a1 1 0 0 0 0-2h-2.18a3 3 0 0 0 -5.64 0h-16.18a1 1 0 0 0 0 2zm19-2a1 1 0 1 1 -1 1 1 1 0 0 1 1-1z"
-              />
-              <path
-                d="m28 15h-16.18a3 3 0 0 0 -5.64 0h-2.18a1 1 0 0 0 0 2h2.18a3 3 0 0 0 5.64 0h16.18a1 1 0 0 0 0-2zm-19 2a1 1 0 1 1 1-1 1 1 0 0 1 -1 1z"
-              />
-              <path
-                d="m28 25h-7.18a3 3 0 0 0 -5.64 0h-11.18a1 1 0 0 0 0 2h11.18a3 3 0 0 0 5.64 0h7.18a1 1 0 0 0 0-2zm-10 2a1 1 0 1 1 1-1 1 1 0 0 1 -1 1z"
-              />
-            </g>
-          </svg>
-        </button>
+        <div>
+          <h1 class="head_title font-bold text-white text-4xl">Фильмы</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="/movies" class="custom_button-b font-bold">Сбросить</a>
+          <button class="mr-[10px]" @click="openModal">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="icons">
+              <g id="Filters">
+                <path
+                  d="m4 7h16.18a3 3 0 0 0 5.64 0h2.18a1 1 0 0 0 0-2h-2.18a3 3 0 0 0 -5.64 0h-16.18a1 1 0 0 0 0 2zm19-2a1 1 0 1 1 -1 1 1 1 0 0 1 1-1z"
+                />
+                <path
+                  d="m28 15h-16.18a3 3 0 0 0 -5.64 0h-2.18a1 1 0 0 0 0 2h2.18a3 3 0 0 0 5.64 0h16.18a1 1 0 0 0 0-2zm-19 2a1 1 0 1 1 1-1 1 1 0 0 1 -1 1z"
+                />
+                <path
+                  d="m28 25h-7.18a3 3 0 0 0 -5.64 0h-11.18a1 1 0 0 0 0 2h11.18a3 3 0 0 0 5.64 0h7.18a1 1 0 0 0 0-2zm-10 2a1 1 0 1 1 1-1 1 1 0 0 1 -1 1z"
+                />
+              </g>
+            </svg>
+          </button>
+        </div>
         <div
-          class="modal_filters container mx-auto max-w-7xl px-2"
+          class="modal_filters"
           :class="{ modal_active: isModalOpen }"
           v-show="isModalOpen"
           ref="modal"
@@ -255,18 +260,18 @@ watch(
 
           <h1 class="head_filters font-bold text-white text-2xl py-6">Фильтры</h1>
           <div class="filters_mobile">
-            <FiltersMobile title="Жанры" :options="genres" />
-            <FiltersMobile title="Рейтинг" :options="ratings" />
-            <FiltersMobile title="Годы выхода" :options="years" />
-            <FiltersMobile title="Сортировка" :options="sort" />
-          </div>
-          <div class="w-full mt-4">
-            <button
-              class="apply-button w-full py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600"
-              @click="applySelection"
-            >
-              Применить изменения
-            </button>
+            <FiltersMobile title="Жанры" :options="genres" @updateSelectedOption="updateGenre" />
+            <FiltersMobile
+              title="Рейтинг"
+              :options="ratings"
+              @updateSelectedOption="updateRating"
+            />
+            <FiltersMobile
+              title="Годы выхода"
+              :options="years"
+              @updateSelectedOption="updateYear"
+            />
+            <FiltersMobile title="Сортировка" :options="sort" @updateSelectedOption="updateSort" />
           </div>
         </div>
       </div>
@@ -283,6 +288,7 @@ watch(
             :options="years"
             @updateSelectedOption="updateYear"
           ></Filters>
+          <a href="/movies" class="custom_button-a font-bold">Сбросить</a>
         </div>
         <div class="select_section-right">
           <Filters
@@ -362,10 +368,16 @@ watch(
   display: none;
 }
 
+.head_filters {
+  padding-left: 12px;
+}
+
 .modal_filters {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background: #171717;
@@ -407,6 +419,52 @@ watch(
   align-items: flex-start;
 }
 
+.btn_reset {
+  max-height: 36px;
+}
+
+.custom_button-a {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-size: 14px;
+  min-width: 52px;
+  max-height: 36px;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.2px;
+}
+
+.custom_button-b {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-size: 14px;
+  min-width: 52px;
+  max-height: 36px;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.2px;
+}
+
+.custom-button-a:hover {
+  background-color: #2563eb;
+}
+
+.custom-button-b:hover {
+  background-color: #2563eb;
+}
+
 @media (min-width: 1000px) and (max-width: 1400px) {
   .head_title {
     font-size: 28px;
@@ -439,11 +497,19 @@ watch(
   .icons {
     display: block;
   }
+  .custom_button-b {
+    display: flex;
+  }
 }
 
 @media (max-width: 650px) {
+  .movie_cards {
+    margin-bottom: 25px;
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+  }
   .head_title {
-    font-size: 20px;
+    font-size: 22px;
     max-width: 650px;
     margin-bottom: 10px;
   }
@@ -451,9 +517,15 @@ watch(
 
 @media (max-width: 450px) {
   .head_title {
-    font-size: 16px;
     max-width: 450px;
     margin-bottom: 5px;
+  }
+  .modal_filters {
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 2px;
+    transform: none;
   }
 }
 </style>

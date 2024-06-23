@@ -13,7 +13,7 @@ const { options, title } = defineProps({
   }
 })
 
-const emit = defineEmits(['updateGenre', 'updateRaiting', 'updateYear', 'updateSort'])
+const emit = defineEmits(['updateSelectedOption'])
 
 const selectedOption = ref(options.length > 0 ? options[0] : null)
 const isMenuOpen = ref(false)
@@ -23,10 +23,7 @@ function handleSelection(option) {
   selectedOption.value = option
   subtitle.value = option.label
 
-  emit('updateGenre', selectedOption.value)
-  emit('updateRaiting', selectedOption.value)
-  emit('updateYear', selectedOption.value)
-  emit('updateSort', selectedOption.value)
+  emit('updateSelectedOption', option)
 }
 </script>
 
