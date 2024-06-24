@@ -24,6 +24,19 @@ const showTrailerPopup = ref(false)
 const showStarsPopup = ref(false)
 const showSharePopup = ref(false)
 
+const selectedStar = ref(null)
+const hoveredStar = ref(null)
+
+function saveRating() {
+  if (selectedStar.value !== null) {
+    localStorage.setItem('movieRating', selectedStar.value)
+    showStarsPopup.value = false
+    console.log('Оценка сохранена и попап закрыт:', selectedStar.value)
+  } else {
+    console.log('Оценка не выбрана')
+  }
+}
+
 const showFullDescription = ref(false)
 
 const tabs = [
@@ -267,23 +280,26 @@ const handleFavoriteClick = async () => {
     <h1 class="stars_title">Оцените по 10-ти бальной шкале</h1>
     <div class="stars-container">
       <div class="grades_popup">
-        <label class="label_stars"><input hidden type="radio" value="1" />1</label>
-        <label class="label_stars"><input hidden type="radio" value="2" />2</label>
-        <label class="label_stars"><input hidden type="radio" value="3" />3</label>
-        <label class="label_stars"><input hidden type="radio" value="4" />4</label>
-        <label class="label_stars"><input hidden type="radio" value="5" />5</label>
-        <label class="label_stars"><input hidden type="radio" value="6" />6</label>
-        <label class="label_stars"><input hidden type="radio" value="7" />7</label>
-        <label class="label_stars"><input hidden type="radio" value="8" />8</label>
-        <label class="label_stars"><input hidden type="radio" value="9" />9</label>
-        <label class="label_stars"><input hidden type="radio" value="10" />10</label>
+        <label
+          class="label_stars"
+          v-for="star in 10"
+          :key="star"
+          :class="{ highlight: hoveredStar >= star || selectedStar >= star }"
+          @mouseover="hoveredStar = star"
+          @mouseleave="hoveredStar = selectedStar"
+          @click="selectedStar = star"
+        >
+          <input hidden type="radio" :value="star" v-model="selectedStar" />{{ star }}
+        </label>
       </div>
       <div class="marks_diapazon">
         <span class="marks_caption">Очень плохо</span>
         <span class="marks_caption">Отлично</span>
       </div>
     </div>
-    <Button text="Поставить оценку" />
+    <div class="flex justify-center">
+      <Button text="Поставить оценку" @click="saveRating" />
+    </div>
   </Popup>
   <Popup v-model:isVisible="showSharePopup" :maxWidth="'500px'">
     <h1 class="title_share">Поделится</h1>
@@ -620,6 +636,11 @@ const handleFavoriteClick = async () => {
   transition:
     background-color 0.3s,
     color 0.3s;
+}
+
+.label_stars.highlight {
+  background-color: #3b82f6;
+  color: white;
 }
 
 .marks_diapazon {
