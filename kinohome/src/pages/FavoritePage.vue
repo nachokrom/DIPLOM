@@ -1,6 +1,5 @@
 <script setup>
 import Header from '@/components/Header/ui.vue'
-//import Card from '@/components/Card.vue'
 import Footer from '@/components/Footer.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 </script>

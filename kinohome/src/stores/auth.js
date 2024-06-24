@@ -2,8 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axiosApiInstance from '@/services/api'
 
-
-const apiKey = import.meta.env.VITE_API_KEY_FIREBASE;
+const apiKey = import.meta.env.VITE_API_KEY_FIREBASE
 
 export const useAuthStore = defineStore('auth', () => {
   const userInfo = ref({
@@ -13,51 +12,73 @@ export const useAuthStore = defineStore('auth', () => {
     userId: '',
     refreshToken: ''
   })
-  const error = ref('');
+  const error = ref('')
   const loader = ref(false)
 
+  // Инициализация Firebase Auth и слежение за состоянием аутентификации
+  /*onMounted(() => {
+    const auth = getAuth()
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Пользователь авторизован
+        userInfo.value.userId = user.uid
+        userInfo.value.token = await user.getIdToken(true)
+      } else {
+        // Пользователь не авторизован
+        userInfo.value.userId = ''
+        userInfo.value.token = ''
+      }
+    })
+  })*/
+
   const auth = async (payload, type) => {
-    const stringUrl = type === 'signup' ? 'signUp' : 'signInWithPassword';
-    error.value = '';
-    loader.value = true;
+    const stringUrl = type === 'signup' ? 'signUp' : 'signInWithPassword'
+    error.value = ''
+    loader.value = true
     try {
-      let response = await axiosApiInstance.post(`https://identitytoolkit.googleapis.com/v1/accounts:${stringUrl}?key=${apiKey}`, {
-        ...payload,
-        returnSecureToken: true
-      });
+      let response = await axiosApiInstance.post(
+        `https://identitytoolkit.googleapis.com/v1/accounts:${stringUrl}?key=${apiKey}`,
+        {
+          ...payload,
+          returnSecureToken: true
+        }
+      )
       userInfo.value = {
         token: response.data.idToken,
         email: response.data.email,
         displayName: response.data.displayName,
         userId: response.data,
-        refreshToken: response.data.refreshToken,
+        refreshToken: response.data.refreshToken
       }
-      localStorage.setItem('userTokens', JSON.stringify({
-        displayName: response.data.displayName,
-        token: userInfo.value.token,
-        refreshToken: userInfo.value.refreshToken
-      }))
-    } catch(err) {
-      switch (err.response.data.error.message) {
+      localStorage.setItem(
+        'userTokens',
+        JSON.stringify({
+          displayName: response.data.displayName,
+          token: userInfo.value.token,
+          refreshToken: userInfo.value.refreshToken
+        })
+      )
+    } catch (err) {
+      switch (err) {
         case 'EMAIL_EXISTS':
           error.value = 'Email exists'
-          break;
+          break
         case 'OPERATION_NOT_ALLOWED':
           error.value = 'Operation not allowed'
-          break;
+          break
         case 'EMAIL_NOT_FOUND':
           error.value = 'Email not found'
-          break;
+          break
         case 'INVALID_PASSWORD':
           error.value = 'Invalid password'
-          break;
+          break
         default:
-          error.value = 'Error'
-          break;
+          error.value = 'Вы ввели неверные данные'
+          break
       }
-      throw error.value;
+      throw error.value
     } finally {
-      loader.value = false;
+      loader.value = false
     }
   }
 

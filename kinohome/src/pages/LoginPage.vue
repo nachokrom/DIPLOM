@@ -4,7 +4,6 @@ import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
 import Header from '@/components/Header/ui.vue'
-import Message from 'primevue/message'
 import Loader from '@/components/Loader.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -18,15 +17,45 @@ const signin = async () => {
   await authStore.auth({ email: email.value, password: password.value }, 'signin')
   router.push('/profile')
 }
+
+const dismissError = () => {
+  authStore.error = null
+}
 </script>
 
 <template>
   <Header />
   <main class="main-back pt-32 pb-32">
     <div class="flex items-center justify-center">
-      <div class="w-96 shadow-2xl rounded-[50px] p-10 bg-[#1c1c1f]">
-        <h1 class="text-white text-2xl mb-8 text-center">Вход</h1>
-        <Message v-if="authStore.error" severity="warn">{{ authStore.error }}</Message>
+      <div class="w-96 shadow-2xl rounded-[50px] p-8 bg-[#1c1c1f]">
+        <h1 class="text-white text-2xl mb-[15px] text-center">Вход</h1>
+        <Transition name="fade" mode="out-in">
+          <div
+            v-if="authStore.error"
+            class="relative bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-2 mb-[10px]"
+            role="alert"
+          >
+            <p class="text-[14px]">{{ authStore.error }}</p>
+            <button @click="dismissError" class="absolute top-1.5 right-2">
+              <!-- Иконка крестика -->
+              <svg
+                class="h-6 w-6 text-orange-500"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </Transition>
         <form class="text-center space-y-7">
           <div>
             <input
@@ -43,11 +72,11 @@ const signin = async () => {
               type="password"
               placeholder="Пароль"
             />
-            <p class="text-gray-600 text-left">
+            <!--<p class="text-gray-600 text-left">
               <a href="/reset-password" class="text-[15px] text-gray-600 hover:text-[#1976d2]"
                 >Забыли пароль?</a
               >
-            </p>
+            </p>-->
           </div>
           <Loader v-if="authStore.loader" />
           <button
@@ -77,5 +106,18 @@ const signin = async () => {
 
 .message_error {
   margin-bottom: 10px;
+}
+
+.msg_error {
+  margin-bottom: 10px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

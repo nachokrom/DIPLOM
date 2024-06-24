@@ -1,8 +1,10 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import SliderCard from '@/components/SliderCard.vue'
 import { SwiperSlide } from 'swiper/vue'
+import { addToFavorites, removeFromFavorites, checkIsFavorite } from '@/services/favoriteService'
+import { useAuthStore } from '@/stores/auth.js'
 
 import Header from '@/components/Header/ui.vue'
 import Footer from '@/components/Footer.vue'
@@ -72,15 +74,39 @@ const filteredPersons = computed(() => {
   return []
 })
 
+const router = useRouter()
+const authStore = useAuthStore()
+const token = computed(() => authStore.userInfo.token)
+const userInfo = authStore.userInfo
+const isFavorite = ref(false)
+
 onMounted(async () => {
   const movieId = routeDetail.params.id
   try {
     const data = await getFilmById(movieId)
     movieDetail.value = data
+    if (userInfo.userId) {
+      isFavorite.value = await checkIsFavorite(movieId)
+    }
   } catch (error) {
     console.error('There was an error fetching the movie details:', error)
   }
 })
+
+const handleFavoriteClick = async () => {
+  if (!token.value) {
+    router.push('/signin')
+    return
+  }
+
+  if (isFavorite.value) {
+    await removeFromFavorites(movieDetail.value.id)
+    isFavorite.value = false
+  } else {
+    await addToFavorites(movieDetail.value.id)
+    isFavorite.value = true
+  }
+}
 </script>
 
 <template>
@@ -139,7 +165,7 @@ onMounted(async () => {
           <div class="banner_btn">
             <Button text="Смотреть онлайн" @click="showOnlinePopup = true" />
             <ButtonInfo text="Трейлер" @click="showTrailerPopup = true" />
-            <ButtonInfo iconName="icon1" />
+            <ButtonInfo iconName="icon1" @click="handleFavoriteClick" />
             <ButtonInfo iconName="icon2" @click="showStarsPopup = true" />
             <ButtonInfo iconName="icon3" @click="showSharePopup = true" />
           </div>
@@ -147,7 +173,7 @@ onMounted(async () => {
             <Button text="Смотреть онлайн" @click="showOnlinePopup = true" />
             <div class="button_sm flex items-center justify-center">
               <ButtonIcon icon="icon4" buttonLabel="Трейлер" @click="showTrailerPopup = true" />
-              <ButtonIcon icon="icon1" buttonLabel="Запомнить" />
+              <ButtonIcon icon="icon1" buttonLabel="Избранное" @click="handleFavoriteClick" />
               <ButtonIcon icon="icon2" buttonLabel="Оценить" @click="showStarsPopup = true" />
               <ButtonIcon icon="icon3" buttonLabel="Поделится" @click="showSharePopup = true" />
             </div>
