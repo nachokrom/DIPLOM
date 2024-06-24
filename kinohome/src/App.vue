@@ -34,5 +34,3 @@ useHead({
 <template>
   <RouterView />
 </template>
-
-<style scoped></style>
