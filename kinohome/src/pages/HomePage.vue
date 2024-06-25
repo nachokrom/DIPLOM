@@ -18,7 +18,7 @@ import {
 const newMovies = ref([])
 const comedies = ref([])
 const fantastica = ref([])
-const FamilyMovies = ref([])
+const familyMovies = ref([])
 const premiers = ref([])
 
 onMounted(async () => {
@@ -44,10 +44,10 @@ onMounted(async () => {
   }
 
   try {
-    const FamilyMoviesResponse = await getFamily()
-    FamilyMovies.value = FamilyMoviesResponse.docs
-  } catch (FamilyMoviesError) {
-    console.error('Ошибка получения данных', FamilyMoviesError)
+    const familyMoviesResponse = await getFamily()
+    familyMovies.value = familyMoviesResponse.docs
+  } catch (familyMoviesError) {
+    console.error('Ошибка получения данных', familyMoviesError)
   }
 
   try {
@@ -101,7 +101,7 @@ onMounted(async () => {
     <div class="xl:mb-14 lg:mb-10 md:mb-10">
       <h1 class="head_section font-bold text-white text-4xl">Смотрим всей семьёй</h1>
       <SliderCard>
-        <SwiperSlide v-for="family in FamilyMovies" :key="family.id">
+        <SwiperSlide v-for="family in familyMovies" :key="family.id">
           <CardSlider :movie="family" />
         </SwiperSlide>
       </SliderCard>

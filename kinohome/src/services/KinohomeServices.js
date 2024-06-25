@@ -98,8 +98,8 @@ export function getFamily() {
     .get(`${BASE_URL}/movie`, {
       params: {
         'genres.name': 'семейный',
-        year: '2023 - 2024',
-        'rating.kp': '7-10',
+        year: '2020 - 2024',
+        'rating.kp': '5-10',
         notNullFields: 'videos.trailers.url',
         limit: '15'
       },
