@@ -41,12 +41,15 @@ function capitalizeFirstLetter(string) {
     }"
   >
     <SwiperSlide v-for="bannerCard in bannerCards" :key="bannerCard.id">
-      <router-link :to="`/movie/${bannerCard.id}`" class="router-link-inactive">
+      <router-link
+        :to="`/movie/${bannerCard.id}`"
+        class="router-link-inactive rounded-lg shadow-md"
+      >
         <img
-          v-if="bannerCard && bannerCard.poster && bannerCard.poster.url"
-          :src="bannerCard.poster.url"
+          v-if="bannerCard && bannerCard.backdrop && bannerCard.backdrop.url"
+          :src="bannerCard.backdrop.url"
           :alt="bannerCard.name"
-          class="slide-image rounded-lg shadow-md"
+          class="slide-image"
         />
       </router-link>
       <div>
@@ -70,7 +73,9 @@ function capitalizeFirstLetter(string) {
               v-if="bannerCard.genres && bannerCard.genres.length > 0"
               >{{ capitalizeFirstLetter(bannerCard.genres[0].name) }}</span
             >
-            <span class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold"
+            <span
+              class="xl:mr-4 lg:mr-3 md:mr-2 outlined-text font-semibold"
+              v-if="bannerCard.ageRating"
               >{{ bannerCard.ageRating }}+</span
             >
             <span class="outlined-text font-semibold" v-if="bannerCard.movieLength"
